@@ -1,8 +1,21 @@
 <?php
+
 class Manager
 {
-    protected function dbConnect()
+    
+    public function dbConnect()
     {
-        $pdo = new PDO("mysql:host=localhost;dbname=maelenphp;charset=utf8", 'maelenphp', 'hkzkwx02'); 
+        try{
+            $postselect = "SELECT * FROM post";
+            $db = new PDO('mysql:host=localhost;dbname=maelenphp', 'maelenphp', 'hkzkwx02');
+            $dpost = $db->query($postselect);
+            if($dpost === false){
+             die("Error");
+            }
+            
+           }catch (PDOException $e){
+             echo $e->getMessage();
+           }
     }
+    
 }

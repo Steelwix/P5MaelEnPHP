@@ -22,6 +22,7 @@
                 ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
                 fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
                 mollit anim id est laborum."</p></br>
+ 
         </div>
         <div class="col-lg-4 ">
             <img src="public/images/portrait.jpg" class="mx-auto d-table img-fluid" width="215" alt="Site logo">
@@ -32,7 +33,7 @@
         </div>
     </section>
     <?php require('view/footer.php'); ?>
-
+<a href="postfeed.php">post</a>
 </body>
 
 </html>
