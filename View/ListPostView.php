@@ -1,7 +1,7 @@
 <?php $title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
-<h1>Mon super blog !</h1>
+<h1>Maël En PHP</h1>
 <p>Derniers billets du blog :</p>
 
 
@@ -13,12 +13,13 @@ while ($data = $posts->fetch())
         <h3>
             <?= htmlspecialchars($data['title']) ?>
             <em>le <?= $data['creation_date_fr'] ?></em>
+            <em>Post numéro <?= $data['idPost'] ?></em>
         </h3>
         
         <p>
             <?= nl2br(htmlspecialchars($data['hat'])) ?>
             <br />
-            <em><a href="index.php?action=post&amp;id=<?= $data['idPost'] ?>">Commentaires</a></em>
+            <em><a href="index.php?action=post&amp;idPost=<?= $data['idPost'] ?>">Commentaires</a></em>
         </p>
     </div>
 <?php
