@@ -1,8 +1,11 @@
 <?php
 
+
 namespace OpenClassrooms\Blog\Model;
 
-require_once("model/Manager.php");
+use Manager;
+
+require_once("model/manager.php");
 
 class CommentManager extends Manager
 {
