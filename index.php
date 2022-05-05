@@ -15,20 +15,20 @@ try {
                 post();
             }
             else {
-                throw new Exception('Aucun identifiant de billet envoyé');
+                throw new Exception('Aucun identifiant de billet envoyé error AD5');
             }
         }
         elseif ($_GET['action'] == 'addComment') {
-            if (isset($_GET['id']) && $_GET['id'] > 0) {
-                if (!empty($_POST['author']) && !empty($_POST['comment'])) {
-                    addComment($_GET['id'], $_POST['author'], $_POST['comment']);
+            if (isset($_GET['idComment']) && $_GET['idComment'] > 0) {
+                if (!empty($_POST['firstName']) && !empty($_POST['comment'])) {
+                    addComment($_GET['idComment'], $_POST['firstName'], $_POST['comment']);
                 }
                 else {
                     throw new Exception('Tous les champs ne sont pas remplis !');
                 }
             }
             else {
-                throw new Exception('Aucun identifiant de billet envoyé');
+                throw new Exception('Aucun identifiant de billet envoyé BE26D');
             }
         }
     }

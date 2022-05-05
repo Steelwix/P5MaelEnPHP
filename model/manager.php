@@ -3,7 +3,7 @@
 class Manager
 {
     
-    public function dbConnect()
+    protected function dbConnect()
     {
         try{
             $postselect = "SELECT * FROM post";
