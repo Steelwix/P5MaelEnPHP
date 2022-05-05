@@ -1,17 +1,20 @@
-h1, h3
+h1,h2, h3
 {
     text-align:center;
+    font-family: Myriad Pro;
+    color:aqua;
 }
 h3
 {
-    background-color:black;
-    color:rgb(0, 255, 157);
+    background-color:rgb(15, 0, 36);
+    color:rgb(112, 255, 248);
     font-size:0.9em;
     margin-bottom:0px;
 }
 .news p
 {
-    background-color:#00ff40;
+    background-color:#616161;
+    color:white;
     margin-top:0px;
 }
 .news
@@ -23,5 +26,14 @@ h3
 a
 {
     text-decoration: none;
-    color: blue;
+    color: rgb(255, 136, 245);
+}
+p
+{
+    color:rgb(255, 255, 255);
+    font-family: Myriad Pro;
+}
+body 
+{
+    background-color:rgb(28, 8, 46);
 }

@@ -5,17 +5,16 @@ class Manager
     
     protected function dbConnect()
     {
-        try{
-            $postselect = "SELECT * FROM post";
-            $db = new PDO('mysql:host=localhost;dbname=maelenphp', 'maelenphp', 'hkzkwx02');
-            $dpost = $db->query($postselect);
-            if($dpost === false){
-             die("Error");
+
+
+            try {
+              $db = new PDO('mysql:host=localhost;dbname=maelenphp', 'maelenphp', 'hkzkwx02');
+            return $db; }
+            catch(PDOException $e) {
+              echo 'La base de donnée est indisponible';
             }
-            
-           }catch (PDOException $e){
-             echo $e->getMessage();
-           }
+             
+
     }
     
 }

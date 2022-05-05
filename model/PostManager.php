@@ -1,10 +1,10 @@
 <?php
 
 namespace OpenClassrooms\Blog\Model;
-
 use Manager;
-
 require_once("model/Manager.php");
+
+
 
 class PostManager extends Manager
 {
