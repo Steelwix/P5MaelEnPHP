@@ -29,17 +29,17 @@ if ($_SESSION['current_user']){
 $_SESSION['current_user'] = null;
 unset($_SESSION['current_user']);*/
 
-    $post = $postManager->getPost($_GET['id']);
-    $comments = $commentManager->getComments($_GET['id']);
+    $post = $postManager->getPost($_GET['idPost']);
+    $comments = $commentManager->getComments($_GET['comment']); /*undefined index*/
 
     require('View/postView.php');
 }
 
-function addComment($postId, $author, $comment)
+function addComment($postId, $firstName, $comment)
 {
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
 
-    $affectedLines = $commentManager->postComment($postId, $author, $comment);
+    $affectedLines = $commentManager->postComment($postId, $firstName, $comment);
 
     if ($affectedLines === false) {
         throw new Exception('Impossible d\'ajouter le commentaire !');

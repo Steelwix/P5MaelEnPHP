@@ -9,17 +9,16 @@ class CommentManager extends Manager
     public function getComments($postId)
     {
         $db = $this->dbConnect();
-        $comments = $db->prepare('SELECT * FROM comment WHERE post_id = ? ORDER BY comDate DESC');
+        $comments = $db->query('SELECT * FROM comment ORDER BY comDate DESC');
         $comments->execute(array($postId));
-
         return $comments;
     }
 
-    public function postComment($postId, $author, $comment)
+    public function postComment($postId, $comment, $firstName)
     {
         $db = $this->dbConnect();
-        $comments = $db->prepare('INSERT INTO comment(idComment, firstName, content, comDate) VALUES(?, ?, ?, NOW())');
-        $affectedLines = $comments->execute(array($postId, $author, $comment));
+        $comments = $db->query('INSERT INTO comment(idUser, comment, comDate) VALUES(NULL, ?, NOW)');
+        $affectedLines = $comments->execute(array($postId, $comment, $firstName));
 
         return $affectedLines;
     }
