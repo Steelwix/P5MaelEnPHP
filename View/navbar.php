@@ -13,13 +13,13 @@
                         <div class="collapse navbar-collapse align-itemps-center justify-content-center" id="navbarSupportedContent">
                             <ul class="navbar-nav mx-auto align-middle">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../index.php">Accueil</a>
+                                    <a class="nav-link" href="index.php">Accueil</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../view/postfeed.php">Voir les posts</a>
+                                    <a class="nav-link" href="view/ListPostView.php">Voir les posts</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../view/logpage.php">Se connecter</a>
+                                    <a class="nav-link" href="view/login.php">Se connecter</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="">Contact</a>

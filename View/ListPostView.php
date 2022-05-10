@@ -2,10 +2,12 @@
 
 <?php ob_start(); ?>
 <h1>Maël En PHP</h1>
-<p>Derniers billets du blog :</p>
+
+<p>Derniers articles du blog :</p>
 
 
 <?php
+
 while ($data = $posts->fetch())
 {
 ?>
@@ -19,7 +21,7 @@ while ($data = $posts->fetch())
         <p>
             <?= nl2br(htmlspecialchars($data['hat'])) ?>
             <br />
-            <em><a href="index.php?action=post&amp;idPost=<?= $data['idPost'] ?>">Commentaires</a></em>
+            <em><a href="index.php?action=post&amp;idPost=<?= $data['idPost'] ?>">Lire ce post et voir les commentaires</a></em>
         </p>
     </div>
 <?php
