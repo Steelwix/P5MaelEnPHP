@@ -9,21 +9,15 @@ require_once("model/Manager.php");
 class PostManager extends Manager
 {
     public function getPosts()
-    {
-        $db = $this->dbConnect();
-        $req = $db->query('SELECT idPost, title, hat, content, idUser, DATE_FORMAT(updateDate, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM post ORDER BY updateDate DESC LIMIT 0, 5');
+    {   
+        $req = $this->db->query('SELECT idPost, title, hat, content, DATE_FORMAT(updateDate, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM post', \PDO::FETCH_ASSOC);
         return $req;
-        if ($req === false) {
-            var_dump($db->errorInfo());
-            die('Erreur SQL Post');
-        }
     }
 
-    public function getPost($postId)
+    public function getPost($idPost)
     {
-        $db = $this->dbConnect();
-        $req = $db->prepare('SELECT idPost, title, hat, content, idUser, DATE_FORMAT(updateDate, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM post WHERE idPost = ?');
-        $req->execute(array($postId));
+        $req = $this->db->prepare('SELECT idPost, title, hat, content, DATE_FORMAT(updateDate, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM post WHERE idPost = ?');
+        $req->execute(array($idPost));
         $post = $req->fetch();
 
         return $post;

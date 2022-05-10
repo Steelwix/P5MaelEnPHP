@@ -11,7 +11,7 @@
     </h3>
     
     <p>
-        <?= nl2br(htmlspecialchars($post['content'])) /* content ne marche pas, hat a la place en attendant */?> 
+        <?= nl2br(htmlspecialchars($post['content']))?> 
     </p>
 </div>
 
@@ -19,8 +19,8 @@
 
 <form action="index.php?action=addComment&amp;id=<?= $post['idPost'] ?>" method="post">
     <div>
-        <label for="firstName">Auteur</label><br />
-        <input type="text" id="firstName" name="firstName" />
+        <label for="username">Auteur</label><br />
+        <input type="text" id="username" name="username" />
     </div>
     <div>
         <label for="comment">Commentaire</label><br />
@@ -35,7 +35,7 @@
 while ($comment = $comments->fetch())
 {
 ?>
-    <p><strong><?= htmlspecialchars($comment['firstName']) ?></strong> le <?= $comment['comment_date_fr'] ?></p>
+    <p><strong><?= htmlspecialchars($comment['username']) ?></strong>
     <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
 <?php
 }

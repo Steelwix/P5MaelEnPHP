@@ -10,22 +10,20 @@ class UserManager extends Manager
 {
     public function getUsers()
     {
-        $db = $this->dbConnect();
-        $req = $db->query('SELECT * FROM users');
+        $req = $this->db->query('SELECT * FROM users');
         return $req;
         if ($req === false) {
-            var_dump($db->errorInfo());
+            var_dump($this->db->errorInfo());
             die('Erreur SQL User');
         }
     }
 
-    public function getUser($postId)
+    public function getUser($userID)
     {
-        $db = $this->dbConnect();
-        $req = $db->prepare('SELECT * FROM users WHERE id = ?');
-        $req->execute(array($postId));
-        $post = $req->fetch();
+        $req = $this->db->prepare('SELECT * FROM users WHERE id = ?');
+        $req->execute(array($userID));
+        $user = $req->fetch();
 
-        return $post;
+        return $user;
     }
 }

@@ -15,7 +15,7 @@ while ($data = $posts->fetch())
         <h3>
             <?= htmlspecialchars($data['title']) ?>
             <em>le <?= $data['creation_date_fr'] ?></em>
-            <em>Post numéro <?= $data['idPost'] ?></em>
+            <em>Post numéro MODEL ET CONTROLLER MAJ, VIEW MIN, VIRER MYSQLI ET PK WAMP MERDE php -S localhost:8080  <?= $data['idPost'] ?></em>
         </h3>
         
         <p>

@@ -2,14 +2,13 @@
 
 class Manager
 {
-    
-    protected function dbConnect()
+    protected $db;
+    public function __construct()
     {
 
 
             try {
-              $db = new PDO('mysql:host=localhost;dbname=maelenphp', 'maelenphp', 'hkzkwx02');
-            return $db; }
+              $this->db = new PDO('mysql:host=localhost;dbname=maelenphp', 'maelenphp', 'hkzkwx02'); }
             catch(PDOException $e) {
               echo 'La base de donnée est indisponible';
             }

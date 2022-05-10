@@ -9,19 +9,18 @@ require_once("model/manager.php");
 
 class CommentManager extends Manager
 {
-    public function getComments($postId)
+    public function getComments($idPost)
     {
-        $db = $this->dbConnect();
-        $comments = $db->query('SELECT * FROM comment ORDER BY comDate DESC');
-        $comments->execute(array($postId));
+        $req = $this->db->prepare('SELECT comment.idComment, comment.comment, comment.comDate, comment.idPost, users.username FROM comment INNER JOIN users ON comment.id = users.id WHERE idPost = ?');
+        $req->execute(array($idPost));
+        $comments = $req;
         return $comments;
     }
 
-    public function postComment($postId, $comment, $firstName)
+    public function postComment($idPost, $comment, $username)
     {
-        $db = $this->dbConnect();
-        $comments = $db->query('INSERT INTO comment(idUser, comment, comDate) VALUES(NULL, ?, NOW)');
-        $affectedLines = $comments->execute(array($postId, $comment, $firstName));
+        $comments = $this->db->query('INSERT INTO comment(idComment, comment, comDate, id, idPost) VALUES(NULL, ?, NOW, NULL, NULL)');
+        $affectedLines = $comments->execute(array($idPost, $comment, $username));
 
         return $affectedLines;
     }

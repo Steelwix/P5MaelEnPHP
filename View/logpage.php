@@ -1,21 +1,16 @@
 <?php
 
 
-
-
-
-/* 
-
-if (isset($_POST['email']) && isset($_POST['password'])) {
+if (isset($_POST['username']) && isset($_POST['password'])) {
     foreach ($users as $user) {
         if (
-            $user['email'] === $_POST['email'] && 
+            $user['username'] === $_POST['username'] && 
             $user['password'] === $_POST['password']
             ){
-                $loggedUser = ['email'=> $user['email']];
+                $loggedUser = ['username'=> $user['username']];
             } else {
                 $errorMessage = sprintf('Les informations envoyées ne permettent pas de vous identifier :(%s%s)',
-                $_POST['email'],
+                $_POST['username'],
                 $_POST['password']);
             }
     }
@@ -30,9 +25,9 @@ if(!isset($loggedUser)): ?>
             </div>
         <?php endif; ?>
         <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" aria-describedby="email-help" placeholder="you@exemple.com">
-            <div id="email-help" class="form-text">L'email utilisé lors de la création de compte.</div>
+            <label for="username" class="form-label">username</label>
+            <input type="username" class="form-control" id="username" name="username" aria-describedby="username-help" placeholder="you@exemple.com">
+            <div id="username-help" class="form-text">L'username utilisé lors de la création de compte.</div>
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Mot de passe</label>
@@ -45,6 +40,6 @@ if(!isset($loggedUser)): ?>
     -->
     <?php else: ?>
         <div class="alert alert-success" role="alert">
-            Bonjour <?php echo $loggedUser['email']; ?> et bienvenue sur le site !
+            Bonjour <?php echo $loggedUser['username']; ?> et bienvenue sur le site !
         </div>
-    <?php endif; */
+    <?php endif; 

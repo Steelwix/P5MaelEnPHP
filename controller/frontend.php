@@ -24,23 +24,23 @@ function post()
 
 
     $post = $postManager->getPost($_GET['idPost']);
-    $comments = $commentManager->getComments($_GET['comment']); /*undefined index*/
+    $comments = $commentManager->getComments($_GET['idPost']); /*undefined index*/
 
     require('View/postView.php');
 }
 
 
-function addComment($postId, $firstName, $comment)
+function addComment($idPost, $username, $comment)
 {
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
 
-    $affectedLines = $commentManager->postComment($postId, $firstName, $comment);
+    $affectedLines = $commentManager->postComment($idPost, $username, $comment);
 
     if ($affectedLines === false) {
         throw new Exception('Impossible d\'ajouter le commentaire !');
     }
     else {
-        header('Location: index.php?action=post&id=' . $postId);
+        header('Location: index.php?action=post&id=' . $idPost);
     }
 }
 /*$_SESSION['current_user'] = getUser($username, $password);
