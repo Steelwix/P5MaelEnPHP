@@ -12,18 +12,19 @@ class UserManager extends Manager
     {
         $req = $this->db->query('SELECT * FROM users');
         return $req;
-        if ($req === false) {
-            var_dump($this->db->errorInfo());
-            die('Erreur SQL User');
-        }
+
     }
 
-    public function getUser($userID)
+    public function getUser($username)
     {
-        $req = $this->db->prepare('SELECT * FROM users WHERE id = ?');
-        $req->execute(array($userID));
-        $user = $req->fetch();
 
+        $req = $this->db->prepare("SELECT username FROM users WHERE username ='$username' ");
+        $user = $req->fetch();
         return $user;
+    }
+    public function createUser()
+    {
+        $req = $this->db->query("INSERT INTO users (username, password)
+        VALUES ('".$_POST["username"]."','".$_POST["password"]."')");
     }
 }

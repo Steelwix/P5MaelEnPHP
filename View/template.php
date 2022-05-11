@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,13 +10,14 @@
         
     <body>
     <?php require('View/navbar.php');
-    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    echo '<p>Bonjour ', $_SESSION["username"]; ?>
-    <a href="View/logout.php">Se déconnecter </a>
+    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){    
+    echo '<p>Bonjour ', ($_SESSION['username']);
+     ?>
+    <a href="index.php?action=logout&amp;">Se déconnecter </a>
  <?php }
 else {
         echo '<p>Vous êtes hors ligne</p>'; ?>
-        <a href="View/login.php">Se connecter </a> 
+        <em><a href="index.php?action=login&amp;">Se connecter</a></em> 
         <?php
     }?> 
         <?= $content ?>

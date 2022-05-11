@@ -1,5 +1,4 @@
 <?php
-
 // Chargement des classes
 require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
@@ -12,7 +11,6 @@ function listPosts()
     $posts = $postManager->getPosts();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
-    
     require('View/ListPostView.php');
     
 }
@@ -42,6 +40,25 @@ function addComment($idPost, $username, $comment)
     else {
         header('Location: index.php?action=post&id=' . $idPost);
     }
+}
+function loginSystem()
+{
+    $userManager = new \OpenClassrooms\Blog\Model\UserManager();
+    $users = $userManager->getUsers();
+    $loggedUser = new \OpenClassrooms\Blog\Model\UserManager();
+    require('View/login.php');
+    $currentUser = $userManager->getUser($username);
+}
+function registerSystem()
+{
+    $userManager = new \OpenClassrooms\Blog\Model\UserManager();
+    $users = $userManager->getUsers();
+    $loggedUser = new \OpenClassrooms\Blog\Model\UserManager();
+    require('View/register.php');
+}
+function logOutSystem()
+{
+    require('View/logout.php');
 }
 /*$_SESSION['current_user'] = getUser($username, $password);
 if ($_SESSION['current_user']['is_admin']){

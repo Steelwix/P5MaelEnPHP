@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 require('controller/frontend.php');
 
@@ -6,6 +6,15 @@ try {
     if (isset($_GET['action'])) {
         if ($_GET['action'] == 'listPosts') {
             listPosts();
+        }
+        if ($_GET['action'] == 'login'){
+            loginSystem();
+        }
+        if ($_GET['action'] == 'register'){
+            registerSystem();
+        }
+        if ($_GET['action'] == 'logout'){
+            logOutSystem();
         }
         // localhost/?page=connect
         /*if ($_GET['page'] == 'connect') {
