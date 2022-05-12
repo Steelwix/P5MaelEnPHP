@@ -22,9 +22,10 @@ class UserManager extends Manager
         $user = $req->fetch();
         return $user;
     }
-    public function createUser()
+    public function createUser($username, $email, $password)
     {
-        $req = $this->db->query("INSERT INTO users (username, password)
-        VALUES ('".$_POST["username"]."','".$_POST["password"]."')");
+
+        $newUser = $this->db->query("INSERT INTO users(id, created_at, isAdmin, username, email, password) VALUES(NULL, NULL, 0, '".$username."', '".$email."', '".$password."')");
+        return $newUser;
     }
 }

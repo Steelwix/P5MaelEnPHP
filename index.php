@@ -11,7 +11,15 @@ try {
             loginSystem();
         }
         if ($_GET['action'] == 'register'){
-            registerSystem();
+            registerSystem();}
+            elseif($_GET['action'] == 'signin'){
+            if(isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])){
+               createUser($_POST['username'], $_POST['email'], $_POST['password']); 
+            }
+            else {
+                throw new Exception('Tous les champs ne sont pas remplis !');
+            }
+            
         }
         if ($_GET['action'] == 'logout'){
             logOutSystem();

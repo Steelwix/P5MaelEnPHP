@@ -19,7 +19,7 @@ class CommentManager extends Manager
 
     public function postComment($comment, $id, $idPost)
     {
-        $newComment = $this->db->query("INSERT INTO comment(idComment, comDate, comment, id, idPost) VALUES(NULL, NULL, '".$comment."', '".$id."', '".$idPost."')");
+        $newComment = $this->db->query("INSERT INTO comment(idComment, comDate, comment, id, idPost) VALUES (NULL, NULL, '".$comment."', '".$id."', '".$idPost."')");
 
         return $newComment;
     }

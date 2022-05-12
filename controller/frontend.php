@@ -49,10 +49,23 @@ function loginSystem()
 }
 function registerSystem()
 {
+    require('View/register.php');
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
-    require('View/register.php');
 }
+function createUser($username, $email, $password)
+{
+    $userManager = new \OpenClassrooms\Blog\Model\UserManager();
+    $newUser = $userManager->createUser($username, $email, $password);
+    if($newUser === false) {
+        throw new Exception('Impossible d\'ajouter l\'utilisateur ! error Z1 ');
+    }
+    else {
+        echo "Votre compte est enregistré";
+    }
+    
+}
+
 function logOutSystem()
 {
     require('View/logout.php');
