@@ -24,10 +24,7 @@ try {
         if ($_GET['action'] == 'logout'){
             logOutSystem();
         }
-        // localhost/?page=connect
-        /*if ($_GET['page'] == 'connect') {
-            connect();
-        }*/
+
         elseif ($_GET['action'] == 'post') {
             if (isset($_GET['idPost'])) {
                 post();
@@ -50,7 +47,10 @@ try {
                 throw new Exception('Aucun identifiant de billet envoyé BE26D');
             }
         }
+        if($_GET['action'] == 'admincell')
+        {adminSystem();}
     }
+
     else {
         listPosts();
     }

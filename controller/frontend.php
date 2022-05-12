@@ -70,6 +70,10 @@ function logOutSystem()
 {
     require('View/logout.php');
 }
+function adminSystem()
+{
+    
+}
 /*$_SESSION['current_user'] = getUser($username, $password);
 if ($_SESSION['current_user']['is_admin']){
     // je suis admin

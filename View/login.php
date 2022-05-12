@@ -28,6 +28,7 @@ while($donnees = $users->fetch())
         $_SESSION['username'] = $donnees['username'];
         $_SESSION['id'] = $donnees['id'];
         $_SESSION["loggedin"] = true;
+        $_SESSION['isAdmin'] = $donnees['isAdmin'];
         header("location: View/welcome.php");
     } else { 
         $errorMessage = sprintf('Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',
