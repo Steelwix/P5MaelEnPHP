@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 
 <?php $title = htmlspecialchars($post['title']); ?>
 
@@ -17,16 +16,11 @@
     </p>
 </div>
 
-<h2>Commentaires clique</h2>
-
-<form action="index.php?action=addComment&amp;id=<?= $post['idPost'] ?>" method="post">
+<h2>Commentaires</h2>
+<form action="index.php?action=addComment&amp;idPost=<?= $_GET['idPost'] ?>" method="post">
     <div>
-        <label for="username">Auteur</label><br />
-        <input type="text" id="username" name="username" />
-    </div>
-    <div>
-        <label for="comment">Commentaire</label><br />
-        <textarea id="comment" name="comment"></textarea>
+        <label for="comment">Ton commentaire :</label><br />
+        <textarea type ="text" id="comment" name="comment"></textarea>
     </div>
     <div>
         <input type="submit" />

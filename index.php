@@ -21,17 +21,18 @@ try {
             connect();
         }*/
         elseif ($_GET['action'] == 'post') {
-            if (isset($_GET['idPost']) && $_GET['idPost'] > 0) {
+            if (isset($_GET['idPost'])) {
                 post();
+
             }
-            else {
-                throw new Exception('Aucun identifiant de billet envoyé error AD5');
+            elseif (isset($idPost)) {
+                post();
             }
         }
         elseif ($_GET['action'] == 'addComment') {
-            if (isset($_GET['idComment']) && $_GET['idComment'] > 0) {
-                if (!empty($_POST['username']) && !empty($_POST['comment'])) {
-                    addComment($_GET['idComment'], $_POST['username'], $_POST['comment']);
+            if (isset($_POST['comment']) && $_SESSION['username']) {
+                if (!empty($_POST['comment'])) {
+                    addComment($_POST['comment'], $_SESSION['id'], $_GET['idPost']);
                 }
                 else {
                     throw new Exception('Tous les champs ne sont pas remplis !');

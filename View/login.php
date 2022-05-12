@@ -26,6 +26,7 @@ while($donnees = $users->fetch())
     if($_POST['username'] == $donnees['username'] AND $_POST['password']== $donnees['password'])
     { echo "connexion validée";
         $_SESSION['username'] = $donnees['username'];
+        $_SESSION['id'] = $donnees['id'];
         $_SESSION["loggedin"] = true;
         header("location: View/welcome.php");
     } else { 

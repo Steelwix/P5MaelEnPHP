@@ -28,32 +28,29 @@ function post()
 }
 
 
-function addComment($idPost, $username, $comment)
+function addComment($comment, $id, $idPost)
 {
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
+    $newComment = $commentManager->postComment($comment, $id, $idPost);
 
-    $affectedLines = $commentManager->postComment($idPost, $username, $comment);
+    if ($newComment === false) {
+        throw new Exception('Impossible d\'ajouter le commentaire ! error HK3 ');
 
-    if ($affectedLines === false) {
-        throw new Exception('Impossible d\'ajouter le commentaire !');
     }
     else {
-        header('Location: index.php?action=post&id=' . $idPost);
+        header("Location: index.php?action=post&idPost=" .$idPost);
     }
 }
 function loginSystem()
 {
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
-    $loggedUser = new \OpenClassrooms\Blog\Model\UserManager();
     require('View/login.php');
-    $currentUser = $userManager->getUser($username);
 }
 function registerSystem()
 {
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
-    $loggedUser = new \OpenClassrooms\Blog\Model\UserManager();
     require('View/register.php');
 }
 function logOutSystem()

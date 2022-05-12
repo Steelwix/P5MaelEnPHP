@@ -17,11 +17,10 @@ class CommentManager extends Manager
         return $comments;
     }
 
-    public function postComment($idPost, $comment, $username)
+    public function postComment($comment, $id, $idPost)
     {
-        $comments = $this->db->query('INSERT INTO comment(idComment, comment, comDate, id, idPost) VALUES(NULL, ?, NOW, NULL, NULL)');
-        $affectedLines = $comments->execute(array($idPost, $comment, $username));
+        $newComment = $this->db->query("INSERT INTO comment(idComment, comDate, comment, id, idPost) VALUES(NULL, NULL, '".$comment."', '".$id."', '".$idPost."')");
 
-        return $affectedLines;
+        return $newComment;
     }
 }
