@@ -31,7 +31,8 @@ function post()
 function addComment($comment, $id, $idPost)
 {
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
-    $newComment = $commentManager->postComment($comment, $id, $idPost);
+    $datetime = (new DateTime('now'))->format('Y-m-d H:i:s');
+    $newComment = $commentManager->postComment($datetime, $comment, $id, $idPost);
 
     if ($newComment === false) {
         throw new Exception('Impossible d\'ajouter le commentaire ! error HK3 ');
@@ -72,7 +73,7 @@ function logOutSystem()
 }
 function adminSystem()
 {
-    
+
 }
 /*$_SESSION['current_user'] = getUser($username, $password);
 if ($_SESSION['current_user']['is_admin']){
