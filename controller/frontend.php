@@ -73,8 +73,14 @@ function logOutSystem()
 }
 function adminSystem()
 {
-
+    $userManager = new \OpenClassrooms\Blog\Model\UserManager();
+    $users = $userManager->getUsers();
+    $postManager = new \OpenClassrooms\Blog\Model\PostManager();
+    $posts = $postManager->getPosts();
+    require('View/admincell.php');
+    
 }
+
 /*$_SESSION['current_user'] = getUser($username, $password);
 if ($_SESSION['current_user']['is_admin']){
     // je suis admin

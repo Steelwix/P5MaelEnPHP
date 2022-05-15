@@ -48,7 +48,9 @@ try {
             }
         }
         if($_GET['action'] == 'admincell')
-        {adminSystem();}
+        { 
+            adminSystem();
+            }
     }
 
     else {

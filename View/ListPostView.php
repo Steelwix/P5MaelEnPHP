@@ -14,6 +14,7 @@ while ($data = $posts->fetch())
             <?= htmlspecialchars($data['title']) ?>
             <em>le <?= $data['creation_date_fr'] ?></em>
             <em>Post numéro <?= $data['idPost'] ?></em>
+            <em>Rédigé par <?= $data['username'] ?></em>
         </h3>
         
         <p>

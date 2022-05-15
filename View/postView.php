@@ -9,6 +9,7 @@
     <h3>
         <?= htmlspecialchars($post['title']) ?>
         <em>le <?= $post['creation_date_fr'] ?></em>
+        <em>auteur <?= $post['id'] ?></em>
     </h3>
     
     <p>
