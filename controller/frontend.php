@@ -19,8 +19,6 @@ function post()
 {
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
-
-
     $post = $postManager->getPost($_GET['idPost']);
     $comments = $commentManager->getComments($_GET['idPost']); /*undefined index*/
 
@@ -77,10 +75,27 @@ function adminSystem()
     $users = $userManager->getUsers();
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $posts = $postManager->getPosts();
+    $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
+    $comments = $commentManager->getAllCom(); /*undefined index*/
     require('View/admincell.php');
     
 }
+function deletePost()
+{
+    $postManager = new \OpenClassrooms\Blog\Model\PostManager();
+    $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
+    $post = $postManager->getPost($_GET['idPost']);
+    $comments = $commentManager->getComments($_GET['idPost']); /*undefined index*/
 
+    require('View/deletePost.php');
+}
+function wipePost($idPost)
+{
+    $postManager = new \OpenClassrooms\Blog\Model\PostManager();
+    $postManager->deletePost($idPost);
+    header("Location: index.php?action=admincell");
+    
+}
 /*$_SESSION['current_user'] = getUser($username, $password);
 if ($_SESSION['current_user']['is_admin']){
     // je suis admin

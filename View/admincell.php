@@ -1,7 +1,7 @@
 <?php $title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
-<h1>Maël En PHP</h1>
+<h1>Maël En PHP, le backstage du blog backend</h1>
 
 <p>Administration :</p>
 
@@ -14,8 +14,6 @@ while ($data = $posts->fetch())
         <h3>
             <?= htmlspecialchars($data['title']) ?>
             <em>le <?= $data['creation_date_fr'] ?></em>
-            <em>Post numéro <?= $data['idPost'] ?></em>
-            <em>Ecrit par l'utilisateur  <?= $data['id'] ?></em>
             <em>S'appelant  <?= $data['username']; ?></em>
         </h3>
         
@@ -23,12 +21,40 @@ while ($data = $posts->fetch())
             <?= htmlspecialchars($data['hat']) ?>
             <?php htmlspecialchars($data['content']); ?>
             <br />
+            <br>
+    <em><a href="index.php?action=deletePost&amp;idPost=<?= $data['idPost'] ?>">Effacer ce post</a></em>
         </p>
     </div>
+    
 <?php
 }
-$posts->closeCursor();
+while ($com = $comments->fetch()){ ?>
+    <p>Contenu :<?= ($com['comment']) ?>
+    <em>le <?= $com['comDate'] ?></em>
+    <em>Ecrit par l'utilisateur  <?= $com['username'] ?></em>
+    <em>Sous le post  <?= $com['title'] ?></em><br>
+    <em><a href="index.php?action=admincell&amp;deleteComment=<?= $com['idComment'] ?>">Effacer ce commentaire</a></em>
+    <?php } 
+
+while ($com = $users->fetch()){
+    if ($com['isAdmin']==1){
+        $com['isAdmin'] = "admin";
+    } 
+    else { $com['isAdmin'] = "pas admin";
+    }?>
+    <p>Pseudo :<?= ($com['username']) ?>
+    <em>email <?= $com['email'] ?></em>
+    <em>mot de passe <?= $com['password'] ?></em>
+    <em>Compte créé le  <?= $com['created_at'] ?></em>
+    <em>est  <?= $com['isAdmin'] ?></em><br>
+    <em><a href="index.php?action=admincell&amp;deleteUser=<?= $com['id'] ?>">Effacer cet utilisateur</a></em>
+    <?php } 
+    
+
+$content = ob_get_clean();
+
 ?>
-<?php $content = ob_get_clean(); ?>
+
+
 
 <?php require('template.php'); ?>

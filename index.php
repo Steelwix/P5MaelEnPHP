@@ -50,13 +50,24 @@ try {
         if($_GET['action'] == 'admincell')
         { 
             adminSystem();
+            
+        }
+        if($_GET['action'] == 'deletePost')
+            {
+                if (isset($_GET['idPost']))
+                {
+                    deletePost();
+                    
+                }
+                
             }
-    }
 
-    else {
-        listPosts();
-    }
-}
+        if($_GET['action'] == 'wipePost') {
+            wipePost($_GET['idPost']);
+        }
+}else {
+    listPosts();
+}}
 catch(Exception $e) {
     echo 'Erreur : ' . $e->getMessage();
 }

@@ -1,5 +1,3 @@
-
-
 <footer class="footer-basic">
       <div class="social"><a href="#"><i class="icon ion-social-github"></i></a><a href="#"><i
             class="icon ion-social-linkedin"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a>

@@ -23,4 +23,9 @@ class CommentManager extends Manager
 
         return $newComment;
     }
+    public function getAllCom()
+    {
+        $req = $this->db->query('SELECT comment.idComment, comment.comment, comment.comDate, comment.idPost, comment.id, users.username, post.title FROM comment INNER JOIN users ON comment.id = users.id INNER JOIN post ON comment.idPost = post.idPost');
+            return $req;
+    }
 }
