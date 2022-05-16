@@ -33,7 +33,7 @@ while ($com = $comments->fetch()){ ?>
     <em>le <?= $com['comDate'] ?></em>
     <em>Ecrit par l'utilisateur  <?= $com['username'] ?></em>
     <em>Sous le post  <?= $com['title'] ?></em><br>
-    <em><a href="index.php?action=admincell&amp;deleteComment=<?= $com['idComment'] ?>">Effacer ce commentaire</a></em>
+    <em><a href="index.php?action=deleteComment&amp;idComment=<?= $com['idComment'] ?>">Effacer ce commentaire</a></em>
     <?php } 
 
 while ($com = $users->fetch()){

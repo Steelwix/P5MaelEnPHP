@@ -56,14 +56,15 @@ try {
             {
                 if (isset($_GET['idPost']))
                 {
-                    deletePost();
-                    
-                }
-                
+                    deletePost();      
+                }             
             }
 
         if($_GET['action'] == 'wipePost') {
             wipePost($_GET['idPost']);
+        }
+        if($_GET['action'] == 'deleteComment') {
+            deleteComment($_GET['idComment']);
         }
 }else {
     listPosts();

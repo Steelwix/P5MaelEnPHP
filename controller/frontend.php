@@ -96,6 +96,12 @@ function wipePost($idPost)
     header("Location: index.php?action=admincell");
     
 }
+function deleteComment($idComment)
+{
+    $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
+    $commentManager->deleteComment($idComment);
+    header("Location: index.php?action=admincell");
+}
 /*$_SESSION['current_user'] = getUser($username, $password);
 if ($_SESSION['current_user']['is_admin']){
     // je suis admin
