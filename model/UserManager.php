@@ -15,10 +15,11 @@ class UserManager extends Manager
 
     }
 
-    public function getUser($username)
+    public function getUser($id)
     {
 
-        $req = $this->db->prepare("SELECT username FROM users WHERE username ='$username' ");
+        $req = $this->db->prepare("SELECT * FROM users WHERE id = ? ");
+        $req->execute(array($id));
         $user = $req->fetch();
         return $user;
     }
@@ -28,4 +29,10 @@ class UserManager extends Manager
         $newUser = $this->db->query("INSERT INTO users(id, created_at, isAdmin, username, email, password) VALUES(NULL, NULL, 0, '".$username."', '".$email."', '".$password."')");
         return $newUser;
     }
+    public function deleteUser($id)
+    {
+        $req = $this->db->prepare("DELETE FROM users WHERE id = ? ");
+        $req->execute(array($id)); 
+    }
+    
 }

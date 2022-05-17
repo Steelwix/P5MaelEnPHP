@@ -33,4 +33,11 @@ class CommentManager extends Manager
         $req = $this->db->prepare("DELETE FROM comment WHERE idComment = ? ");
         $req->execute(array($idComment));
     }
+    public function getUserComments($id)
+    {
+        $req = $this->db->prepare('SELECT comment.comment, comment.comDate, comment.id, post.title FROM comment INNER JOIN post ON comment.idPost = post.idPost WHERE comment.id = ?');
+        $req->execute(array($id));
+        $usercom = $req;
+        return $usercom;
+    }
 }   

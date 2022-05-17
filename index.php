@@ -66,6 +66,12 @@ try {
         if($_GET['action'] == 'deleteComment') {
             deleteComment($_GET['idComment']);
         }
+        if($_GET['action'] == 'inspectUser') {
+            inspectUser($_GET['id']);
+        }
+        if($_GET['action'] == 'wipeUser') {
+            wipeUser($_GET['id']);
+        }
 }else {
     listPosts();
 }}

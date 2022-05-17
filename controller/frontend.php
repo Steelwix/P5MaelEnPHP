@@ -102,6 +102,22 @@ function deleteComment($idComment)
     $commentManager->deleteComment($idComment);
     header("Location: index.php?action=admincell");
 }
+function inspectUser()
+{
+    $userManager = new \OpenClassrooms\Blog\Model\UserManager();
+    $users = $userManager->getUser($_GET['id']);
+    $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
+    $userComs = $commentManager->getUserComments($_GET['id']);
+
+    require('View/deleteUser.php');
+}
+function wipeUser()
+{
+    $userManager = new \OpenClassrooms\Blog\Model\UserManager();
+    $userManager->deleteUser($_GET['id']);
+
+    header("Location: index.php?action=admincell");
+}
 /*$_SESSION['current_user'] = getUser($username, $password);
 if ($_SESSION['current_user']['is_admin']){
     // je suis admin

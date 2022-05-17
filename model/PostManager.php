@@ -20,7 +20,6 @@ class PostManager extends Manager
         $req = $this->db->prepare('SELECT idPost, title, hat, content,id, DATE_FORMAT(updateDate, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr FROM post WHERE idPost = ?');
         $req->execute(array($idPost));
         $post = $req->fetch();
-
         return $post;
     }
     public function deletePost($idPost)
