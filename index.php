@@ -72,6 +72,14 @@ try {
         if($_GET['action'] == 'wipeUser') {
             wipeUser($_GET['id']);
         }
+        if($_GET['action'] == 'createPost') {
+            createPost();
+        }
+        if($_GET['action'] == 'newPost') {
+            if(isset($_POST['title']) && isset($_POST['hat']) && isset($_POST['content']) && isset($_SESSION['id']))
+            {newPost($_POST['title'], $_POST['hat'], $_POST['content'], $_SESSION['id']);}
+            
+        }
 }else {
     listPosts();
 }}

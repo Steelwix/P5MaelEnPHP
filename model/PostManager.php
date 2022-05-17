@@ -27,4 +27,8 @@ class PostManager extends Manager
         $req = $this->db->prepare("DELETE FROM post WHERE idPost = ? ");
         $req->execute(array($idPost));
     }
+    public function newPost($datetime, $title, $hat, $content, $author){
+        $nPost = $this->db->query("INSERT INTO post(idPost, updateDate, title, hat, content, id) VALUES(NULL, '".$datetime."', '".$title."', '".$hat."', '".$content."', '".$author."')");
+        return $nPost;
+    }
 }   

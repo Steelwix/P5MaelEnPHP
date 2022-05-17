@@ -48,9 +48,10 @@ function loginSystem()
 }
 function registerSystem()
 {
-    require('View/register.php');
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
+    require('View/register.php');
+
 }
 function createUser($username, $email, $password)
 {
@@ -117,6 +118,22 @@ function wipeUser()
     $userManager->deleteUser($_GET['id']);
 
     header("Location: index.php?action=admincell");
+}
+function createPost()
+{
+    require('View/createPost.php');
+}
+function newPost($title, $hat, $content, $author)
+{
+    $postManager = new \OpenClassrooms\Blog\Model\PostManager();
+    $datetime = (new DateTime('now'))->format('Y-m-d H:i:s');
+    $newPost = $postManager->newPost($datetime, $title, $hat, $content, $author);
+    if($newPost === false) {
+        throw new Exception('Impossible de créer un post ! error HK43 ');
+    }
+    else {
+        header("Location: index.php?action=listPosts");
+    }
 }
 /*$_SESSION['current_user'] = getUser($username, $password);
 if ($_SESSION['current_user']['is_admin']){

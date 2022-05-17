@@ -5,8 +5,9 @@
 
 <p>Administration :</p>
 
-<?php
 
+<em><a href="index.php?action=createPost">Créer un post</a></em>
+<?php
 while ($data = $posts->fetch())
 { 
 ?>
