@@ -34,5 +34,10 @@ class UserManager extends Manager
         $req = $this->db->prepare("DELETE FROM users WHERE id = ? ");
         $req->execute(array($id)); 
     }
-    
+    public function userNewSettings($username, $email, $password, $id)
+    {
+        $req = $this->db->prepare("UPDATE users SET  username = '$username', email = '$email', password = '$password' WHERE id = '$id' ");
+        $req->execute(array($id));
+        return $req;
+    }
 }

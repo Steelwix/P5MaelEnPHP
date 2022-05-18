@@ -82,7 +82,7 @@ try {
             createPost();
         }
         if($_GET['action'] == 'newPost') {
-            if(isset($_POST['title']) && isset($_POST['hat']) && isset($_POST['content']) && isset($_SESSION['id']))
+            if(!empty($_POST['title']) && !empty($_POST['hat']) && !empty($_POST['content']) && !empty($_SESSION['id']))
             {newPost($_POST['title'], $_POST['hat'], $_POST['content'], $_SESSION['id']);}
             
         }
@@ -101,14 +101,21 @@ try {
         if($_GET['action'] == 'contact') {
             contactForm();
         }
-        if($_GET['action'] == 'sendContact') {
-            if(!empty($_POST['contact']) AND ((!empty($_POST['email'])) OR (!empty($_SESSION['email']))))
+        if($_GET['action'] == 'sendMessage') {
+            if(!empty($_POST['message']) && (!empty($_POST['email'])))
             {
-                throw new Exception('Valide');
+                header("Location: index.php?action=admincell");
+
             }
             else {
                 throw new Exception('Aucun identifiant de billet envoyé ULKT1');
             }
+        }
+        if($_GET['action'] == 'editUser') {
+            editUser($_GET['id']);
+        }
+        if($_GET['action'] == 'userUpdate'){
+            userUpdate($_POST['username'], $_POST['email'], $_POST['password'], $_GET['id']);
         }
 }else {
     listPosts();

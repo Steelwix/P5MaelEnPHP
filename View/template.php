@@ -14,6 +14,7 @@
     echo '<p>Bonjour ', ($_SESSION['username']);
      ?>
     <a href="index.php?action=logout&amp;">Se déconnecter </a>
+    <a href="index.php?action=editUser&amp;id=<?= $_SESSION['id'] ?>">Paramètres du compte </a>
  <?php }
 else {
         echo '<p>Vous êtes hors ligne</p>'; ?>

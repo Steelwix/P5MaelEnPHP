@@ -5,8 +5,28 @@ require_once('model/UserManager.php');
 // Define variables and initialize with empty values
 $username = $password = $email = $confirm_password = "";
 $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
+$username = $user['username'];
+$email = $user['email'];
+$password = $user['password'];
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
+    $username_err = "Please fill all blanks";
+} elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))){
+    $username_err = "Username can only contain letters, numbers, and underscores.";
+} elseif (isset($_POST['username']) &&  isset($_POST['email']) && isset($_POST['password'])) {
+    while($donnees = $users->fetch())
+    {
+        if($_POST['username'] == $donnees['username'] AND $_POST['email']== $donnees['email'])
+        { 
+            throw new Exception('Votre compte existe surement déjà !');
+        } else { 
+           $username = $_POST['username'];
+           $email = $_POST['email'];
+           $password = $_POST['password'];
 
+        }
+    }
+    }
 }
 ?>
  
@@ -25,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <div class="wrapper">
         <h2>Sign Up</h2>
         <p>Please fill this form to create an account.</p>
-        <form action="index.php?action=signin&amp;" method="post">
+        <form action="index.php?action=userUpdate&amp;id=<?= $_GET['id'] ?>" method="post">
             <div class="form-group">
                 <label>Username</label>
                 <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">

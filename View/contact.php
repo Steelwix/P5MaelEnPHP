@@ -1,34 +1,28 @@
+
+<?php $title = htmlspecialchars('Contact'); ?>
+
+<?php ob_start(); ?>
 <?php
-$contact = $email = "";
-$contact_err = $email_err = $login_err =  "";
+$email = $message = "";
+$email_err = $message_err = "";
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    if(empty($_POST['contact']))
-    {
-        $contact_err = "Vous devez entrer un message.";
+    if(empty(trim($_POST['email']))){
+        $email_err = 'Vous devez indiquer votre email';
     }
-    else
-    {
-
-        $contact = $_POST['contact'];
+    else{
+        $email = trim($_POST['email']);
     }
-    if(empty(trim($_POST['email'])))
-    {
-        $email_err = "Vous devez entrer votre email.";
+    if(empty($_POST['message'])){
+        $message_err = "Vous devez entrer un message.";
+    } else {
+        $message = $_POST['message'];
     }
-    elseif(filter_var("some@address.com", FILTER_VALIDATE_EMAIL))
-    {
-        $email = $_POST['email'];
-        $email = $_SESSION['email'];
-
-    }
-    else 
-    {
-        $email_err = "Email invalide.";
-    }
+    if(isset($_POST['email']) && isset($_POST['message']))
+    {}
 }
-
-
 ?>
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,61 +34,28 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         .wrapper{ width: 360px; padding: 20px; }
     </style>
 </head>
-<body>
+<body>aaaaaaaaaaaa
     <div class="wrapper">
-        <h2>Contact</h2>
-        <p>Please fill in your credentials to cintact.</p>
-<?php
-        if(!empty($login_err)){
-            echo '<div class="alert alert-danger">' . $login_err . '</div>';
-        }  
- if(isset($_SESSION['email']))
-{
-  
-        if(!empty($login_err)){
-            echo '<div class="alert alert-danger">' . $login_err . '</div>';
-        }  
-    ?>
-            <form action="index.php?action=sendContact&amp;" method="post">
+        <h2>Sign Up</h2>
+        <p>Please fill this form to create an account.</p>
+        <form action="index.php?action=sendMessage" method="post">
             <div class="form-group">
-                <label>Your text</label>
-                <input type="text" name="contact" class="form-control <?php echo (!empty($contact_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $contact; ?>">
-                <span class="invalid-feedback"><?php echo $contact_err; ?></span>
-            </div>    
+                <label>Email</label>
+                <input type="text" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
+                <span class="invalid-feedback"><?php echo $email_err; ?></span>
+            </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Login">
+                <label>Votre message</label>
+                <input type="text" name="message" class="form-control <?php echo (!empty($message_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $message; ?>">
+                <span class="invalid-feedback"><?php echo $message_err; ?></span>
+            <div class="form-group">
+                <input type="submit" class="btn btn-primary" value="Submit">
+                <input type="reset" class="btn btn-secondary ml-2" value="Reset">
             </div>
         </form>
-    </div>
-</body>
-</html> 
-       <?php 
-      
-        
-}
-else { 
-    if(!empty($login_err)){
-        echo '<div class="alert alert-danger">' . $login_err . '</div>';
-    }  
-?>
-    <form action="index.php?action=sendContact&amp;" method="post">
-    <div class="form-group">
-        <label>email</label>
-        <input type="text" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
-        <span class="invalid-feedback"><?php echo $email_err; ?></span>
-    </div>
-    <div class="form-group">
-        <label>Your text</label>
-        <input type="text" name="contact" class="form-control <?php echo (!empty($contact_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $contact; ?>">
-        <span class="invalid-feedback"><?php echo $contact_err; ?></span>
-    </div>     
-
-    <div class="form-group">
-        <input type="submit" class="btn btn-primary" value="Login">
-    </div>
-</form>
-</div>
+    </div>    
 </body>
 </html>
-<?php
-}
+<?php $content = ob_get_clean(); ?>
+
+<?php require('template.php'); ?>

@@ -159,6 +159,26 @@ function contactForm()
 {
     require('View/contact.php');
 }
+function editUser()
+{
+    $userManager = new \OpenClassrooms\Blog\Model\UserManager();
+    $user = $userManager->getUser($_GET['id']);
+    require('View/userSettings.php');
+    
+}
+function userUpdate($username, $email, $password, $id) 
+{
+    
+    $userManager = new \OpenClassrooms\Blog\Model\UserManager();
+    $editUser = $userManager->userNewSettings($username, $email, $password, $id);
+    if($editUser === false) {
+        throw new Exception('Impossible de modifier le profil ! error L1');
+        
+    }
+    else {
+        header("Location: index.php?action=admincell");
+    } 
+}
 /*$_SESSION['current_user'] = getUser($username, $password);
 if ($_SESSION['current_user']['is_admin']){
     // je suis admin
