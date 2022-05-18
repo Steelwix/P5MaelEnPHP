@@ -75,8 +75,14 @@ try {
         if($_GET['action'] == 'inspectUser') {
             inspectUser($_GET['id']);
         }
+        if($_GET['action'] == 'inspectUserSelf') {
+            inspectUserSelf($_GET['id']);
+        }
         if($_GET['action'] == 'wipeUser') {
             wipeUser($_GET['id']);
+        }
+        if($_GET['action'] == 'wipeUserSelf') {
+            wipeUserSelf($_GET['id']);
         }
         if($_GET['action'] == 'createPost') {
             createPost();
@@ -104,11 +110,11 @@ try {
         if($_GET['action'] == 'sendMessage') {
             if(!empty($_POST['message']) && (!empty($_POST['email'])))
             {
-                header("Location: index.php?action=admincell");
+                sendMessage($_POST['message'], $_POST['email']);
 
             }
             else {
-                throw new Exception('Aucun identifiant de billet envoyé ULKT1');
+                throw new Exception('Aucun message envoyé ZY7Z2');
             }
         }
         if($_GET['action'] == 'editUser') {
@@ -116,6 +122,9 @@ try {
         }
         if($_GET['action'] == 'userUpdate'){
             userUpdate($_POST['username'], $_POST['email'], $_POST['password'], $_GET['id']);
+        }
+        if($_GET['action'] == 'welcome'){
+           welcome();
         }
 }else {
     listPosts();

@@ -15,7 +15,7 @@
     
 </div>
 <p>Voulez vous vraiment effacer ce post? <strong>Ceci est une action irréversible.</strong></p>
-<a href="index.php?action=wipeUser&amp;id=<?= $users['id']?>">Oui, Supprimer ce user</a>
+<a href="index.php?action=wipeUserSelf&amp;id=<?= $users['id']?>">Oui, Supprimer ce user</a>
 
 <h2>Commentaires de l'utilisateur</h2>
 

@@ -3,7 +3,7 @@
 
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: View/welcome.php");
+    header("location: index.php");
     exit;
 }
  
@@ -30,7 +30,7 @@ while($donnees = $users->fetch())
         $_SESSION["loggedin"] = true;
         $_SESSION['isAdmin'] = $donnees['isAdmin'];
         $_SESSION['email'] = $donnees['email'];
-        header("location: View/welcome.php");
+        header("location: index.php?action=welcome");
     } else { 
         $errorMessage = sprintf('Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',
         $_POST['username'],

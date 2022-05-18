@@ -3,6 +3,7 @@
 require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
 require_once('model/UserManager.php');
+require_once('model/messageManager.php');
 
 
 function listPosts()
@@ -112,12 +113,27 @@ function inspectUser()
 
     require('View/deleteUser.php');
 }
+function inspectUserSelf()
+{
+    $userManager = new \OpenClassrooms\Blog\Model\UserManager();
+    $users = $userManager->getUser($_GET['id']);
+    $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
+    $userComs = $commentManager->getUserComments($_GET['id']);
+
+    require('View/deleteUserSelf.php');
+}
 function wipeUser()
 {
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $userManager->deleteUser($_GET['id']);
 
     header("Location: index.php?action=admincell");
+}
+function wipeUserSelf()
+{
+    $userManager = new \OpenClassrooms\Blog\Model\UserManager();
+    $userManager->deleteUser($_GET['id']);
+    header("Location: index.php?action=logout");
 }
 function createPost()
 {
@@ -159,6 +175,21 @@ function contactForm()
 {
     require('View/contact.php');
 }
+function sendMessage($email, $message)
+{
+    $messageManager = new \OpenClassrooms\Blog\Model\messageManager();
+    $datetime = (new DateTime('now'))->format('Y-m-d H:i:s');
+    $newMessage = $messageManager->newMessage($email, $message, $datetime);
+
+    if ($newMessage === false) {
+        throw new Exception('Impossible d\'envoyer le formulaire de contact ! ZY7Z2 ');
+
+    }
+    else {
+        header("Location: index.php?action=listPosts");
+    }
+
+}
 function editUser()
 {
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
@@ -176,8 +207,12 @@ function userUpdate($username, $email, $password, $id)
         
     }
     else {
-        header("Location: index.php?action=admincell");
+        header("Location: index.php");
     } 
+}
+function welcome()
+{
+    require('View/welcome.php');
 }
 /*$_SESSION['current_user'] = getUser($username, $password);
 if ($_SESSION['current_user']['is_admin']){
