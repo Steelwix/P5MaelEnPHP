@@ -24,7 +24,7 @@
                                     <a class="nav-link" href="view/login.php">Se connecter</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="">Contact</a>
+                                    <a class="nav-link" href="index.php?action=contact">Contact</a>
                                 </li>
                             </ul>
                         </div>

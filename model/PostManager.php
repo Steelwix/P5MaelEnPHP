@@ -31,4 +31,10 @@ class PostManager extends Manager
         $nPost = $this->db->query("INSERT INTO post(idPost, updateDate, title, hat, content, id) VALUES(NULL, '".$datetime."', '".$title."', '".$hat."', '".$content."', '".$author."')");
         return $nPost;
     }
+    public function editPost($datetime, $title, $hat, $content, $author, $idPost)
+    {
+        $req = $this->db->prepare("UPDATE post SET  title = '$title', hat = '$hat', content = '$content', updateDate = '$datetime', id = '$author' WHERE idPost = '$idPost' ");
+        $req->execute(array($idPost));
+        return $req;
+    }
 }   

@@ -17,7 +17,7 @@ try {
                createUser($_POST['username'], $_POST['email'], $_POST['password']); 
             }
             else {
-                throw new Exception('Tous les champs ne sont pas remplis !');
+                throw new Exception('Tous les champs ne sont pas complets !');
             }
             
         }
@@ -49,7 +49,13 @@ try {
         }
         if($_GET['action'] == 'admincell')
         { 
-            adminSystem();
+            if($_SESSION['isAdmin']==1)
+            {
+                adminSystem();
+            }
+            else {
+                throw new Exception('Accès non autorisé');
+            }
             
         }
         if($_GET['action'] == 'deletePost')
@@ -79,6 +85,30 @@ try {
             if(isset($_POST['title']) && isset($_POST['hat']) && isset($_POST['content']) && isset($_SESSION['id']))
             {newPost($_POST['title'], $_POST['hat'], $_POST['content'], $_SESSION['id']);}
             
+        }
+        if($_GET['action'] == 'modifyPost') {
+            modifyPost();
+        }
+        if($_GET['action'] == 'postEdit') {
+            if(isset($_POST['title']) && isset($_POST['hat']) && isset($_POST['content']) && isset($_GET['idPost']))
+            {
+                postEdit($_POST['title'], $_POST['hat'], $_POST['content'], $_SESSION['id'], $_GET['idPost']);
+            }
+            else { 
+                throw new Exception('Aucun identifiant de billet envoyé XAX');
+            }
+        }
+        if($_GET['action'] == 'contact') {
+            contactForm();
+        }
+        if($_GET['action'] == 'sendContact') {
+            if(!empty($_POST['contact']) AND ((!empty($_POST['email'])) OR (!empty($_SESSION['email']))))
+            {
+                throw new Exception('Valide');
+            }
+            else {
+                throw new Exception('Aucun identifiant de billet envoyé ULKT1');
+            }
         }
 }else {
     listPosts();

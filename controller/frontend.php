@@ -135,6 +135,30 @@ function newPost($title, $hat, $content, $author)
         header("Location: index.php?action=listPosts");
     }
 }
+function modifyPost()
+{
+    $postManager = new \OpenClassrooms\Blog\Model\PostManager();
+    $post = $postManager->getPost($_GET['idPost']);
+   require("View/modifypost.php");
+}
+function postEdit($title, $hat, $content, $author, $idPost)
+{   
+    $postManager = new \OpenClassrooms\Blog\Model\PostManager();
+    $datetime = (new DateTime('now'))->format('Y-m-d H:i:s');
+    $editPost = $postManager->editPost($datetime, $title, $hat, $content, $author, $idPost);
+    if($editPost === false) {
+        throw new Exception('Impossible de créer un post ! error T99');
+        
+    }
+    else {
+        header("Location: index.php?action=admincell");
+        
+    } 
+}
+function contactForm()
+{
+    require('View/contact.php');
+}
 /*$_SESSION['current_user'] = getUser($username, $password);
 if ($_SESSION['current_user']['is_admin']){
     // je suis admin

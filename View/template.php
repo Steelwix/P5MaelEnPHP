@@ -23,7 +23,10 @@ else {
     if($_SESSION['isAdmin'] == 1)
     {echo '<p> Vous êtes un admin'; ?>
         <em><a href="index.php?action=admincell&amp;">Acceder à la partie admin</a></em> <?php }
-    else {}?> 
+    else {
+        ?> <p> Vous n'etes pas admin </p> 
+        <?php
+    }?> 
         <?= $content ?>
         <?php require('View/footer.php'); ?>
     </body>

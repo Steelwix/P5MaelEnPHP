@@ -17,9 +17,9 @@ if(empty(trim($_POST['username']))){
     $username = trim($_POST['username']);  
 }
 if(empty(trim($_POST['password']))){
-    $username_err = "Vous devez entrer un mot de passe.";
+    $password_err = "Vous devez entrer un mot de passe.";
 } else {
-    $username = trim($_POST['password']);
+    $password = trim($_POST['password']);
 }
 while($donnees = $users->fetch())
 {
@@ -29,6 +29,7 @@ while($donnees = $users->fetch())
         $_SESSION['id'] = $donnees['id'];
         $_SESSION["loggedin"] = true;
         $_SESSION['isAdmin'] = $donnees['isAdmin'];
+        $_SESSION['email'] = $donnees['email'];
         header("location: View/welcome.php");
     } else { 
         $errorMessage = sprintf('Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',
@@ -70,7 +71,7 @@ while($donnees = $users->fetch())
             </div>    
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
+                <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
             <div class="form-group">
