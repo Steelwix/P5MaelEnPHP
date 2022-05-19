@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title><?= $title ?></title>
+        <title><?= $pagetitle ?></title>
         <link href="public/style.css" rel="stylesheet" /> 
     </head>
         

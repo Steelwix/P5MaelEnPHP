@@ -88,9 +88,11 @@ try {
             createPost();
         }
         if($_GET['action'] == 'newPost') {
-            if(!empty($_POST['title']) && !empty($_POST['hat']) && !empty($_POST['content']) && !empty($_SESSION['id']))
+            if(isset($_POST['title']) && isset($_POST['hat']) && isset($_POST['content']) && isset($_SESSION['id']))
             {newPost($_POST['title'], $_POST['hat'], $_POST['content'], $_SESSION['id']);}
-            
+            else {
+                throw new Exception("Error newPost Index, values not set");
+            }
         }
         if($_GET['action'] == 'modifyPost') {
             modifyPost();
@@ -120,8 +122,14 @@ try {
         if($_GET['action'] == 'editUser') {
             editUser($_GET['id']);
         }
+        if($_GET['action'] == 'editUserAdmin') {
+            editUserAdmin($_GET['id']);
+        }
         if($_GET['action'] == 'userUpdate'){
             userUpdate($_POST['username'], $_POST['email'], $_POST['password'], $_GET['id']);
+        }
+        if($_GET['action'] == 'userUpdateAdmin'){
+            userUpdateAdmin($_POST['username'], $_POST['email'], $_POST['password'], $_POST['isAdmin'], $_GET['id']);
         }
         if($_GET['action'] == 'welcome'){
            welcome();

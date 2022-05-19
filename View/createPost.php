@@ -1,21 +1,40 @@
 
-<?php $title = htmlspecialchars('Créer un post'); ?>
+<?php $pagetitle = htmlspecialchars('Créer un post'); ?>
 
 <?php ob_start(); ?>
 <?php
-$title = $hat = $content = $author = "";
-$title_err = $hat_err = $content_err = "";
+
+
+
+
+
+    $title = $hat = $content = $author = "";
+    $title_err = $hat_err = $content_err = "";
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    if(empty($_POST['title']) OR empty($_POST['hat']) OR ($_POST['content'])){
-        $title_err = $hat_err = $content_err = 'Please fill all blanks';
+    if(empty($_POST['title'])){
+        $title_err = 'Please fill all blanks';
     }
-    elseif(isset($_POST['title']) && isset($_POST['hat']) && isset($_POST['content']) && isset($_SESSION['id'])){
+    else {
         $title = $_POST['title'];
-        $hat = $_POST['hat'] ;
-        $content = $_POST['content'];
-        $author = $_SESSION['id'];
     }
+    if(empty($_POST['hat'])){
+        $hat_err = 'Please fill all blanks';
+    }
+    else {
+        $hat = $_POST['hat'];
+    }
+    if(empty($_POST['content'])){
+        $content_err = 'Please fill all blanks';
+    }
+    else {
+        $content = $_POST['content'];
+    }
+    if(!empty($_POST['title']) && !empty($_POST['hat']) && !empty($_POST['content']) && !empty($_SESSION['id']))
+{
+    //header('Location: index.php?action=newPost');
+}
+else {};
 }
 ?>
  
@@ -32,7 +51,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 <body>
     <div class="wrapper">
-        <h2>Sign Up</h2>
+        <h2>Contact</h2>
         <p>Please fill this form to create an account.</p>
         <form action="index.php?action=newPost" method="post">
             <div class="form-group">

@@ -4,7 +4,9 @@ require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
 require_once('model/UserManager.php');
 require_once('model/messageManager.php');
-
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
 
 function listPosts()
 {
@@ -57,12 +59,13 @@ function registerSystem()
 function createUser($username, $email, $password)
 {
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
-    $newUser = $userManager->createUser($username, $email, $password);
+    $datetime = (new DateTime('now'))->format('Y-m-d H:i:s');
+    $newUser = $userManager->createUser($username, $email, $password, $datetime);
     if($newUser === false) {
         throw new Exception('Impossible d\'ajouter l\'utilisateur ! error Z1 ');
     }
     else {
-        echo "Votre compte est enregistré";
+        header("Location: index.php?action=login");
     }
     
 }
@@ -197,11 +200,31 @@ function editUser()
     require('View/userSettings.php');
     
 }
+function editUserAdmin()
+{
+    $userManager = new \OpenClassrooms\Blog\Model\UserManager();
+    $user = $userManager->getUser($_GET['id']);
+    require('View/userSettingsAdmin.php');
+    
+}
 function userUpdate($username, $email, $password, $id) 
 {
     
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $editUser = $userManager->userNewSettings($username, $email, $password, $id);
+    if($editUser === false) {
+        throw new Exception('Impossible de modifier le profil ! error L1');
+        
+    }
+    else {
+        header("Location: index.php");
+    } 
+}
+function userUpdateAdmin($username, $email, $password, $isAdmin, $id) 
+{
+    
+    $userManager = new \OpenClassrooms\Blog\Model\UserManager();
+    $editUser = $userManager->userNewSettingsAdmin($username, $email, $password, $isAdmin, $id);
     if($editUser === false) {
         throw new Exception('Impossible de modifier le profil ! error L1');
         

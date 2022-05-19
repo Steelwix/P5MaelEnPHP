@@ -1,24 +1,38 @@
 
-<?php $title = htmlspecialchars('Créer un post'); ?>
+<?php $pagetitle = htmlspecialchars('Créer un post'); ?>
 
 <?php ob_start(); ?>
 <?php
+if(empty($_POST['title']) OR empty($_POST['hat']) OR ($_POST['content'])){
 $title = $post['title'];
 $hat = $post['hat'];
 $content = $post['content'];
+}
 
 $title_err = $hat_err = $content_err = "";
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    if(empty($_POST['title']) OR empty($_POST['hat']) OR ($_POST['content'])){
-        $title_err = $hat_err = $content_err = 'Please fill all blanks';
+    if(empty($_POST['title'])){
+        $title_err = 'Please fill all blanks';
     }
-    elseif(isset($_POST['title']) && isset($_POST['hat']) && isset($_POST['content']) && isset($_SESSION['id'])){
+    else {
         $title = $_POST['title'];
-        $hat = $_POST['hat'] ;
+    }
+    if(empty($_POST['hat'])){
+        $hat_err = 'Please fill all blanks';
+    }
+    else {
+        $hat = $_POST['hat'];
+    }
+    if(empty($_POST['content'])){
+        $content_err = 'Please fill all blanks';
+    }
+    else {
         $content = $_POST['content'];
-        $author = $_SESSION['id'];
-        $idPost = $_GET['idPost'];
+    }
+    if(isset($_POST['title']) && isset($_POST['hat']) && isset($_POST['content']) && isset($_SESSION['id'])){
+        //header('Location: index.php?action=postEdit');
+        exit;
     }
 }
 ?>
@@ -36,9 +50,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 <body>
     <div class="wrapper">
-        <h2>Sign Up</h2>
+        <h2>Editer un post</h2>
         <p>Please fill this form to create an account.</p>
-        <form action="index.php?action=postEdit&amp;idPost=<?=  $_GET['idPost'] ?> " method="post">
+        <form action="index.php?action=postEdit&amp;idPost=<?= $_GET['idPost'] ?> " method="post">
             <div class="form-group">
                 <label>Titre</label>
                 <input type="text" name="title" class="form-control <?php echo (!empty($title_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $title; ?>">

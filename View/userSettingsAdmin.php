@@ -1,25 +1,36 @@
 <?php
 // Include config file
-require_once('model/UserManager.php');
  
 // Define variables and initialize with empty values
 $username = $password = $email = $confirm_password = "";
 $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
+$username = $user['username'];
+$email = $user['email'];
+$password = $confirm_password = $user['password'];
+$isAdmin = $user['isAdmin'];
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
+if(empty(trim($_POST['username'])) OR empty(trim($_POST['email'])))
+{
     $username_err = "Please fill all blanks";
-} elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))){
+} 
+if(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"])))
+{
     $username_err = "Username can only contain letters, numbers, and underscores.";
-} elseif (isset($_POST['username']) &&  isset($_POST['email']) && isset($_POST['password'])) {
+}
+if(isset($isAdmin))
+{
+    $_POST['isAdmin']=1;
+}
+else {
+    $_POST['isAdmin']=0;
+}
+    if (isset($_POST['username']) &&  isset($_POST['email']) && isset($_POST['password'])) {
     while($donnees = $users->fetch())
     {
-        if($_POST['username'] == $donnees['username'])
+        if($_POST['username'] == $donnees['username'] AND $_POST['email']== $donnees['email'])
         { 
-            $username_err = "Pseudo déjà utilisé";
-        } elseif($_POST['email']== $donnees['email']) {
-            $email_err = "email déjà utilisé";
-         }else{
-
+            throw new Exception('Votre compte existe surement déjà !');
+        } else { 
            $username = $_POST['username'];
            $email = $_POST['email'];
            $password = $_POST['password'];
@@ -34,7 +45,7 @@ if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up</title>
+    <title>Editer le profil de l'utilisateur <?= $user['username']?></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body{ font: 14px sans-serif; }
@@ -43,14 +54,9 @@ if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
 </head>
 <body>
     <div class="wrapper">
-        <h2>Sign Up</h2>
+        <h2>Editer le profil de l'utilisateur <?= $user['username']?></h2>
         <p>Please fill this form to create an account.</p>
-<?php
-        if(!empty($login_err)){
-            echo '<div class="alert alert-danger">' . $login_err . '</div>';
-        }        
-        ?>
-        <form action="index.php?action=signin&amp;" method="post">
+        <form action="index.php?action=userUpdateAdmin&amp;id=<?= $_GET['id'] ?>" method="post">
             <div class="form-group">
                 <label>Username</label>
                 <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
@@ -62,14 +68,18 @@ if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
                 <span class="invalid-feedback"><?php echo $email_err; ?></span>
             </div>
             <div class="form-group">
-                <label>Password</label>
+                <label>New Password</label>
                 <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
             <div class="form-group">
-                <label>Confirm Password</label>
+                <label>Confirm new Password</label>
                 <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
                 <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
+            </div>
+            <div class="form-group">
+                <label>Est un admin</label>
+            <td><input type='checkbox' name="isAdmin" value="<?php echo $isAdmin ?>"></td>
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Submit">

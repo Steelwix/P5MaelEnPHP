@@ -49,7 +49,8 @@ while ($com = $users->fetch()){
     <em>mot de passe <?= $com['password'] ?></em>
     <em>Compte créé le  <?= $com['created_at'] ?></em>
     <em>est  <?= $com['isAdmin'] ?></em><br>
-    <em><a href="index.php?action=inspectUser&amp;id=<?= $com['id'] ?>">Inspecter cet utilisateur</a></em>
+    <em><a href="index.php?action=inspectUser&amp;id=<?= $com['id'] ?>">Supprimer cet utilisateur</a></em>
+    <em><a href="index.php?action=editUserAdmin&amp;id=<?= $com['id'] ?>">Editer cet utilisateur</a></em>
     <?php } 
     
 
