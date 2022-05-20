@@ -17,15 +17,10 @@ if(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"])))
 {
     $username_err = "Username can only contain letters, numbers, and underscores.";
 }
-if(isset($isAdmin))
-{
-    $_POST['isAdmin']=1;
-}
-else {
-    $_POST['isAdmin']=0;
-}
-    if (isset($_POST['username']) &&  isset($_POST['email']) && isset($_POST['password'])) {
-    while($donnees = $users->fetch())
+
+
+    elseif (isset($_POST['username']) &&  isset($_POST['email']) && isset($_POST['password'])) {
+    while($donnees = $user->fetch())
     {
         if($_POST['username'] == $donnees['username'] AND $_POST['email']== $donnees['email'])
         { 
@@ -34,11 +29,13 @@ else {
            $username = $_POST['username'];
            $email = $_POST['email'];
            $password = $_POST['password'];
-
+           $isAdmin = $_POST['isAdmin'];
+           //header("location: index.php?action=userUpdateAdmin");
         }
     }
     }
 }
+var_dump($isAdmin);
 ?>
  
 <!DOCTYPE html>
@@ -78,9 +75,17 @@ else {
                 <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
             </div>
             <div class="form-group">
-                <label>Est un admin</label>
-            <td><input type='checkbox' name="isAdmin" value="<?php echo $isAdmin ?>"></td>
-            </div>
+                <!--<label>IsAdmin?</label>
+                <input type="text" name="isAdmin" class="form-control <?php echo (!empty($isAdmin_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $isAdmin; ?>">
+                <span class="invalid-feedback"><?php echo $isAdmin_err; ?></span>
+            </div>-->
+            <div class="form-group">
+                <label>Rôle:</label>
+                <select name="isAdmin">
+                    <option value="1"">Admin</option>
+                    <option value="0">Utilisateur</option>
+                </select>
+
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Submit">
                 <input type="reset" class="btn btn-secondary ml-2" value="Reset">

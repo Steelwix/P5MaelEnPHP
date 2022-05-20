@@ -28,7 +28,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else {
         $message = $_POST['message'];
         $messageok = 1;
-        header('Location : index.php');
+        header("location: index.php?action=welcome");
     }
     if($emailok == 1 AND $messageok == 1)
     {
@@ -54,7 +54,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
        <div class="wrapper">
     <h2>Contact</h2>
     <p>Please fill this form to create an account.</p>
-    <form action="index.php?action=sendMessage" method="post">
+    <form action="index.php?action=contact" method="post">
         <div class="form-group">
             <label>Votre message</label>
             <input type="text" name="message" class="form-control <?php echo (!empty($message_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $message; ?>">

@@ -11,10 +11,9 @@ while ($data = $posts->fetch())
 ?>
     <div class="news">
         <h3>
-            <?= htmlspecialchars($data['title']) ?>
-            <em>le <?= $data['creation_date_fr'] ?></em>
-            <em>Post numéro <?= $data['idPost'] ?></em>
-            <em>Rédigé par <?= $data['username'] ?></em>
+            <strong><?= htmlspecialchars($data['title']) ?></strong>
+            le <?= $data['creation_date_fr'] ?>
+            Rédigé par <?= $data['username'] ?>
         </h3>
         
         <p>

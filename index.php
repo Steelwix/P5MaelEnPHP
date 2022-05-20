@@ -47,16 +47,40 @@ try {
                 throw new Exception('Aucun identifiant de billet envoyé BE26D');
             }
         }
-        if($_GET['action'] == 'admincell')
-        { 
-            if($_SESSION['isAdmin']==1)
+        if($_GET['action'] == 'editUser') {
+            editUser($_GET['id']);
+        }
+        if($_GET['action'] == 'userUpdate'){
+            userUpdate($_POST['username'], $_POST['email'], $_POST['password'], $_GET['id']);
+        }
+        if($_GET['action'] == 'welcome'){
+            welcome();
+         }
+         if($_GET['action'] == 'inspectUserSelf') {
+            inspectUserSelf($_GET['id']);
+        }
+        if($_GET['action'] == 'wipeUserSelf') {
+            wipeUserSelf($_GET['id']);
+        }
+        if($_GET['action'] == 'contact') {
+            contactForm();
+        }
+        if($_GET['action'] == 'sendMessage') {
+            if(!empty($_POST['message']) && (!empty($_POST['email'])))
             {
-                adminSystem();
+                sendMessage($_POST['message'], $_POST['email']);
+
             }
             else {
-                throw new Exception('Accès non autorisé');
+                throw new Exception('Aucun message envoyé ZY7Z2');
             }
-            
+        }
+
+         //ADMIN
+        if(isset($_SESSION['isAdmin']) AND $_SESSION['isAdmin']==1){
+        if($_GET['action'] == 'admincell')
+        { 
+            adminSystem();
         }
         if($_GET['action'] == 'deletePost')
             {
@@ -75,14 +99,8 @@ try {
         if($_GET['action'] == 'inspectUser') {
             inspectUser($_GET['id']);
         }
-        if($_GET['action'] == 'inspectUserSelf') {
-            inspectUserSelf($_GET['id']);
-        }
         if($_GET['action'] == 'wipeUser') {
             wipeUser($_GET['id']);
-        }
-        if($_GET['action'] == 'wipeUserSelf') {
-            wipeUserSelf($_GET['id']);
         }
         if($_GET['action'] == 'createPost') {
             createPost();
@@ -106,34 +124,17 @@ try {
                 throw new Exception('Aucun identifiant de billet envoyé XAX');
             }
         }
-        if($_GET['action'] == 'contact') {
-            contactForm();
-        }
-        if($_GET['action'] == 'sendMessage') {
-            if(!empty($_POST['message']) && (!empty($_POST['email'])))
-            {
-                sendMessage($_POST['message'], $_POST['email']);
-
-            }
-            else {
-                throw new Exception('Aucun message envoyé ZY7Z2');
-            }
-        }
-        if($_GET['action'] == 'editUser') {
-            editUser($_GET['id']);
-        }
         if($_GET['action'] == 'editUserAdmin') {
             editUserAdmin($_GET['id']);
-        }
-        if($_GET['action'] == 'userUpdate'){
-            userUpdate($_POST['username'], $_POST['email'], $_POST['password'], $_GET['id']);
         }
         if($_GET['action'] == 'userUpdateAdmin'){
             userUpdateAdmin($_POST['username'], $_POST['email'], $_POST['password'], $_POST['isAdmin'], $_GET['id']);
         }
-        if($_GET['action'] == 'welcome'){
-           welcome();
-        }
+    }
+    else {
+
+    }
+
 }else {
     listPosts();
 }}
