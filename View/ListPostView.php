@@ -1,4 +1,4 @@
-<?php $title = 'Mon blog'; ?>
+<?php $pagetitle = 'MaelEnPHP - Le blog des dev PHP juniors - Accueil'; ?>
 
 <?php ob_start(); ?>
 <h1>Maël En PHP</h1>

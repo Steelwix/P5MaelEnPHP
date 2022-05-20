@@ -76,7 +76,7 @@ try {
             }
         }
 
-         //ADMIN
+         //ADMIN----------------------------------------------------
         if(isset($_SESSION['isAdmin']) AND $_SESSION['isAdmin']==1){
         if($_GET['action'] == 'admincell')
         { 

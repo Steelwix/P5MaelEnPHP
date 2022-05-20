@@ -3,7 +3,7 @@
 <header class="container">
         <div class="row">
             <div class="col-6 text-center d-flex align-items-center">
-                <h1>MaelEnPHP, le blog du dev pour les juniors</h1>
+                <h1>MaelEnPHP, le blog des dev php juniors</h1>
                 <!--<?= $content ?>-->
             </div>
             <div class="col-6">

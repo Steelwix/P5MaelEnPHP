@@ -8,6 +8,7 @@ $username = $user['username'];
 $email = $user['email'];
 $password = $confirm_password = $user['password'];
 $isAdmin = $user['isAdmin'];
+$adaptedAction = "editUserAdmin";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 if(empty(trim($_POST['username'])) OR empty(trim($_POST['email'])))
 {
@@ -20,21 +21,16 @@ if(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"])))
 
 
     elseif (isset($_POST['username']) &&  isset($_POST['email']) && isset($_POST['password'])) {
-    while($donnees = $user->fetch())
-    {
-        if($_POST['username'] == $donnees['username'] AND $_POST['email']== $donnees['email'])
-        { 
-            throw new Exception('Votre compte existe surement déjà !');
-        } else { 
+
            $username = $_POST['username'];
            $email = $_POST['email'];
            $password = $_POST['password'];
            $isAdmin = $_POST['isAdmin'];
-           //header("location: index.php?action=userUpdateAdmin");
+           $adaptedAction = "userUpdateAdmin";
         }
-    }
-    }
-}
+    else {
+        
+    }}
 var_dump($isAdmin);
 ?>
  
@@ -53,7 +49,7 @@ var_dump($isAdmin);
     <div class="wrapper">
         <h2>Editer le profil de l'utilisateur <?= $user['username']?></h2>
         <p>Please fill this form to create an account.</p>
-        <form action="index.php?action=userUpdateAdmin&amp;id=<?= $_GET['id'] ?>" method="post">
+        <form action="index.php?action=<?=$adaptedAction?>&amp;id=<?= $_GET['id'] ?>" method="post">
             <div class="form-group">
                 <label>Username</label>
                 <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
@@ -82,8 +78,8 @@ var_dump($isAdmin);
             <div class="form-group">
                 <label>Rôle:</label>
                 <select name="isAdmin">
-                    <option value="1"">Admin</option>
-                    <option value="0">Utilisateur</option>
+                    <option value="0"">Utilisateur</option>
+                    <option value="1">Admin</option>
                 </select>
 
             <div class="form-group">
