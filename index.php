@@ -128,7 +128,14 @@ try {
             editUserAdmin($_GET['id']);
         }
         if($_GET['action'] == 'userUpdateAdmin'){
-            userUpdateAdmin($_POST['username'], $_POST['email'], $_POST['password'], $_POST['isAdmin'], $_GET['id']);
+            if($_POST['username']== "" OR $_POST['email']== "" OR $_POST['password']== "" OR $_POST['isAdmin']== "")
+            {
+                editUserAdmin($_GET['id']);
+            }
+            else {
+
+                userUpdateAdmin($_POST['username'], $_POST['email'], $_POST['password'], $_POST['isAdmin'], $_GET['id']);
+            }
         }
     }
     else {

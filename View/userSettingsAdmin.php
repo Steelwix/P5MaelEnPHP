@@ -26,12 +26,12 @@ if(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"])))
            $email = $_POST['email'];
            $password = $_POST['password'];
            $isAdmin = $_POST['isAdmin'];
-           $adaptedAction = "userUpdateAdmin";
+           $login_ok = "Les informations sont valides";
         }
     else {
         
     }}
-var_dump($isAdmin);
+
 ?>
  
 <!DOCTYPE html>
@@ -49,7 +49,10 @@ var_dump($isAdmin);
     <div class="wrapper">
         <h2>Editer le profil de l'utilisateur <?= $user['username']?></h2>
         <p>Please fill this form to create an account.</p>
-        <form action="index.php?action=<?=$adaptedAction?>&amp;id=<?= $_GET['id'] ?>" method="post">
+<?php  if(!empty($login_ok)){
+            echo '<div class="alert alert-success">' . $login_ok . '</div>';
+        }    ?>    
+        <form action="index.php?action=userUpdateAdmin&amp;id=<?= $_GET['id'] ?>" method="post">
             <div class="form-group">
                 <label>Username</label>
                 <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
@@ -83,7 +86,7 @@ var_dump($isAdmin);
                 </select>
 
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Submit">
+                <input type="submit" class="btn btn-primary" value="Valider">
                 <input type="reset" class="btn btn-secondary ml-2" value="Reset">
             </div>
             <p>Already have an account? <a href="login.php">Login here</a>.</p>
