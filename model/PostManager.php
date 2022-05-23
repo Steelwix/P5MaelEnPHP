@@ -17,7 +17,7 @@ class PostManager extends Manager
 
     public function getPost($idPost)
     {
-        $req = $this->db->prepare('SELECT idPost, title, hat, content,id, DATE_FORMAT(updateDate, \'%d/%m/%Y \') AS creation_date_fr FROM post WHERE idPost = ?');
+        $req = $this->db->prepare('SELECT post.idPost, post.title, post.hat, post.content, post.id, users.username, DATE_FORMAT(updateDate, \'%d/%m/%Y \') AS creation_date_fr FROM post INNER JOIN users ON post.id = users.id WHERE idPost = ?');
         $req->execute(array($idPost));
         $post = $req->fetch();
         return $post;

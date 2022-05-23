@@ -3,13 +3,12 @@
 
 <?php ob_start(); ?>
 <?php
-if(empty($_POST['title']) OR empty($_POST['hat']) OR ($_POST['content'])){
+
+
+$title_err = $hat_err = $content_err = "";
 $title = $post['title'];
 $hat = $post['hat'];
 $content = $post['content'];
-}
-
-$title_err = $hat_err = $content_err = "";
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($_POST['title'])){
@@ -32,7 +31,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     if(isset($_POST['title']) && isset($_POST['hat']) && isset($_POST['content']) && isset($_SESSION['id'])){
         //header('Location: index.php?action=postEdit');
-        exit;
+       
     }
 }
 ?>

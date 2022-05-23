@@ -14,12 +14,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST['email']))){
         $email_err = 'Vous devez indiquer votre email';
     }
-    elseif (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-        $email = trim($_POST['email']);
-        $emailok = 1;
-    }
-    else {
-        $email_err = 'Vous devez entrer un mail valide';
+    else{
+        $email = $_POST['email'];
     }
 
     
@@ -27,13 +23,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $message_err = "Vous devez entrer un message.";
     } else {
         $message = $_POST['message'];
-        $messageok = 1;
         header("location: index.php?action=welcome");
     }
-    if($emailok == 1 AND $messageok == 1)
-    {
-//header("Location: index.php?action=sendMessage");
-    }
+
 }
 ?>
  
@@ -54,7 +46,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
        <div class="wrapper">
     <h2>Contact</h2>
     <p>Please fill this form to create an account.</p>
-    <form action="index.php?action=contact" method="post">
+    <form action="index.php?action=sendMessage" method="post">
         <div class="form-group">
             <label>Votre message</label>
             <input type="text" name="message" class="form-control <?php echo (!empty($message_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $message; ?>">

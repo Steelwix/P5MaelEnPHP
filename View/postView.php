@@ -1,5 +1,5 @@
 
-<?php $title = htmlspecialchars($post['title']); ?>
+<?php $pagetitle = htmlspecialchars($post['title']); ?>
 
 <?php ob_start(); ?>
 <h1>Mon super blog !</h1>
@@ -9,7 +9,7 @@
     <h3>
         <?= htmlspecialchars($post['title']) ?>
         <em>le <?= $post['creation_date_fr'] ?></em>
-        <em>auteur <?= $post['id'] ?></em>
+        <em>auteur <?= $post['username'] ?></em>
     </h3>
     
     <p>
@@ -20,7 +20,7 @@
 <h2>Commentaires</h2>
 <form action="index.php?action=addComment&amp;idPost=<?= $_GET['idPost'] ?>" method="post">
     <div>
-        <label for="comment">Ton commentaire :</label><br />
+        <p><label for="comment">Ton commentaire :</label><br /></p>
         <textarea type ="text" id="comment" name="comment"></textarea>
     </div>
     <div>

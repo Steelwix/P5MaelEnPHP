@@ -36,7 +36,13 @@ while ($com = $comments->fetch()){ ?>
     <em>Ecrit par l'utilisateur  <?= $com['username'] ?></em>
     <em>Sous le post  <?= $com['title'] ?></em><br>
     <em><a href="index.php?action=deleteComment&amp;idComment=<?= $com['idComment'] ?>">Effacer ce commentaire</a></em>
-    <?php } 
+    <?php if($com['isValid'] == 0)
+    {
+        ?> <em><a href="index.php?action=commentIsValid&amp;idComment=<?= $com['idComment'] ?>">Valider ce commentaire</a></em> 
+        <?php
+    }
+    
+     } 
 
 while ($com = $users->fetch()){
     if ($com['isAdmin']==1){

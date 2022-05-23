@@ -26,11 +26,11 @@ function post()
 }
 
 
-function addComment($comment, $id, $idPost)
+function addComment($comment, $isValid, $id, $idPost)
 {
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $datetime = (new DateTime('now'))->format('Y-m-d H:i:s');
-    $newComment = $commentManager->postComment($datetime, $comment, $id, $idPost);
+    $newComment = $commentManager->postComment($datetime, $comment, $isValid, $id, $idPost);
 
     if ($newComment === false) {
         throw new Exception('Impossible d\'ajouter le commentaire ! error HK3 ');
@@ -102,6 +102,12 @@ function deleteComment($idComment)
 {
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $commentManager->deleteComment($idComment);
+    header("Location: index.php?action=admincell");
+}
+function commentIsValid($idComment)
+{
+    $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
+    $commentManager->commentIsValid($idComment);
     header("Location: index.php?action=admincell");
 }
 function inspectUser()

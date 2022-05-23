@@ -1,0 +1,12 @@
+{
+    "name": "steelwix/mael-en-php",
+    "description": "p5 Formation",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Steelwix\\MaelEnPhp\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {}
+}

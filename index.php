@@ -1,6 +1,7 @@
 <?php 
 session_start();
 require('controller/frontend.php');
+require_once 'vendor/autoload.php';
 
 try {
     if (isset($_GET['action'])) {
@@ -12,12 +13,12 @@ try {
         }
         if ($_GET['action'] == 'register'){
             registerSystem();}
-            elseif($_GET['action'] == 'signin'){
-            if(isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])){
-               createUser($_POST['username'], $_POST['email'], $_POST['password']); 
+        if($_GET['action'] == 'signin'){
+            if($_POST['username']=="" OR $_POST['email']=="" OR $_POST['password']==""){
+                registerSystem();
             }
             else {
-                throw new Exception('Tous les champs ne sont pas complets !');
+                createUser($_POST['username'], $_POST['email'], $_POST['password']);
             }
             
         }
@@ -34,13 +35,18 @@ try {
                 post();
             }
         }
-        elseif ($_GET['action'] == 'addComment') {
+        if ($_GET['action'] == 'addComment') {
             if (isset($_POST['comment']) && $_SESSION['username']) {
-                if (!empty($_POST['comment'])) {
-                    addComment($_POST['comment'], $_SESSION['id'], $_GET['idPost']);
+                if (empty($_POST['comment'])) {
+                    throw new Exception('Tous les champs ne sont pas remplis !');
+                }
+                elseif($_SESSION['isAdmin']==1) {
+                    $_POST['isValid']=1;
+                    addComment($_POST['comment'], $_POST['isValid'], $_SESSION['id'], $_GET['idPost']);
                 }
                 else {
-                    throw new Exception('Tous les champs ne sont pas remplis !');
+                    $_POST['isValid']=0;
+                    addComment($_POST['comment'], $_POST['isValid'], $_SESSION['id'], $_GET['idPost']);
                 }
             }
             else {
@@ -51,8 +57,14 @@ try {
             editUser($_GET['id']);
         }
         if($_GET['action'] == 'userUpdate'){
-            userUpdate($_POST['username'], $_POST['email'], $_POST['password'], $_GET['id']);
-        }
+            if($_POST['username']== "" OR $_POST['email']== "" OR $_POST['password']== "")
+            {
+                editUser($_GET['id']);
+            }
+            else {
+
+                userUpdate($_POST['username'], $_POST['email'], $_POST['password'], $_GET['id']);
+            }}
         if($_GET['action'] == 'welcome'){
             welcome();
          }
@@ -66,16 +78,14 @@ try {
             contactForm();
         }
         if($_GET['action'] == 'sendMessage') {
-            if(!empty($_POST['message']) && (!empty($_POST['email'])))
+            if($_POST['message']=="" OR $_POST['email']=="")
             {
-                sendMessage($_POST['message'], $_POST['email']);
-
+                contactForm();
             }
             else {
-                throw new Exception('Aucun message envoyé ZY7Z2');
+                sendMessage($_POST['message'], $_POST['email']);
             }
         }
-
          //ADMIN----------------------------------------------------
         if(isset($_SESSION['isAdmin']) AND $_SESSION['isAdmin']==1){
         if($_GET['action'] == 'admincell')
@@ -96,6 +106,9 @@ try {
         if($_GET['action'] == 'deleteComment') {
             deleteComment($_GET['idComment']);
         }
+        if($_GET['action'] == 'commentIsValid') {
+            commentIsValid($_GET['idComment']);
+        }
         if($_GET['action'] == 'inspectUser') {
             inspectUser($_GET['id']);
         }
@@ -106,22 +119,25 @@ try {
             createPost();
         }
         if($_GET['action'] == 'newPost') {
-            if(isset($_POST['title']) && isset($_POST['hat']) && isset($_POST['content']) && isset($_SESSION['id']))
-            {newPost($_POST['title'], $_POST['hat'], $_POST['content'], $_SESSION['id']);}
+            if($_POST['title']=="" OR $_POST['hat']=="" OR $_POST['content']=="" OR !isset($_SESSION['id']))
+            {createPost();}
             else {
-                throw new Exception("Error newPost Index, values not set");
+                
+                newPost($_POST['title'], $_POST['hat'], $_POST['content'], $_SESSION['id']);
             }
         }
         if($_GET['action'] == 'modifyPost') {
             modifyPost();
         }
+        
         if($_GET['action'] == 'postEdit') {
-            if(isset($_POST['title']) && isset($_POST['hat']) && isset($_POST['content']) && isset($_GET['idPost']))
+            if($_POST['title']=="" OR $_POST['hat']=="" OR $_POST['content']=="" OR !isset($_SESSION['id']) OR !isset($_GET['idPost']))
             {
-                postEdit($_POST['title'], $_POST['hat'], $_POST['content'], $_SESSION['id'], $_GET['idPost']);
+                modifyPost();
             }
             else { 
-                throw new Exception('Aucun identifiant de billet envoyé XAX');
+
+                postEdit($_POST['title'], $_POST['hat'], $_POST['content'], $_SESSION['id'], $_GET['idPost']);
             }
         }
         if($_GET['action'] == 'editUserAdmin') {
@@ -137,6 +153,8 @@ try {
                 userUpdateAdmin($_POST['username'], $_POST['email'], $_POST['password'], $_POST['isAdmin'], $_GET['id']);
             }
         }
+
+        
     }
     else {
 

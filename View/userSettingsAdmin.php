@@ -26,7 +26,7 @@ if(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"])))
            $email = $_POST['email'];
            $password = $_POST['password'];
            $isAdmin = $_POST['isAdmin'];
-           $login_ok = "Les informations sont valides";
+           $login_ok = "Les informations ne sont pas valides";
         }
     else {
         
@@ -50,7 +50,7 @@ if(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"])))
         <h2>Editer le profil de l'utilisateur <?= $user['username']?></h2>
         <p>Please fill this form to create an account.</p>
 <?php  if(!empty($login_ok)){
-            echo '<div class="alert alert-success">' . $login_ok . '</div>';
+            echo '<div class="alert alert-danger">' . $login_ok . '</div>';
         }    ?>    
         <form action="index.php?action=userUpdateAdmin&amp;id=<?= $_GET['id'] ?>" method="post">
             <div class="form-group">
