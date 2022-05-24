@@ -1,7 +1,18 @@
 
-<?php $pagetitle = htmlspecialchars('Contact'); ?>
+<?php $pagetitle = htmlspecialchars('Contact'); 
+require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require 'vendor/phpmailer/phpmailer/src/SMTP.php';
+require 'vendor/phpmailer/phpmailer/src/Exception.php';
+//Import PHPMailer classes into the global namespace
+//These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
-<?php ob_start(); ?>
+//Load Composer's autoloader
+require 'vendor/autoload.php';
+
+ ob_start(); ?>
 <?php
 $emailok = $messageok = "";
 $email = $message = "";
@@ -23,7 +34,47 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $message_err = "Vous devez entrer un message.";
     } else {
         $message = $_POST['message'];
-        header("location: index.php?action=welcome");
+
+//Create an instance; passing `true` enables exceptions
+$mail = new PHPMailer(true);
+
+try {
+    //Server settings
+    $mail->SMTPDebug = 1;                      //Enable verbose debug output
+    $mail->isSMTP();                                            //Send using SMTP
+    $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+    $mail->Username   = 'exagon3d@gmail.com';                     //SMTP username
+    $mail->Password   = 'xhxmhadfvotkedbc';                               //SMTP password
+    $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+    $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+    //Recipients
+    $mail->setFrom('exagon3d@gmail.com', 'Exagon');
+    $mail->addAddress('maelmhun@gmail.com', 'Mael');     //Add a recipient
+    $mail->addAddress('mhunmael@hotmail.com', 'Malou');               //Name is optional
+    //$mail->addReplyTo('info@example.com', 'Information');
+   // $mail->addCC('cc@example.com');
+    //$mail->addBCC('bcc@example.com');
+
+    //Attachments
+    //$mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+    //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+$body = '<p><strong>Hello</strong> this is my first email with PHPMAILER</p>';
+    //Content
+    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->Subject = 'This is a text';
+    $mail->Body    = $body;
+    $mail->AltBody = strip_tags($body);
+
+    $mail->send();
+    echo 'Message has been sent';
+} catch (Exception $e) {
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+} 
+
+
+        
     }
 
 }
@@ -46,7 +97,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
        <div class="wrapper">
     <h2>Contact</h2>
     <p>Please fill this form to create an account.</p>
-    <form action="index.php?action=sendMessage" method="post">
+    <form action="index.php?action=contact" method="post">
         <div class="form-group">
             <label>Votre message</label>
             <input type="text" name="message" class="form-control <?php echo (!empty($message_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $message; ?>">

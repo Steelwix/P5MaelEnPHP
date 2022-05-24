@@ -11,12 +11,20 @@ class ComposerStaticInit9b7637460d710c43bfcceb536f60896a
         array (
             'Steelwix\\MaelEnPhp\\' => 19,
         ),
+        'P' => 
+        array (
+            'PHPMailer\\PHPMailer\\' => 20,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'Steelwix\\MaelEnPhp\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
     );
 

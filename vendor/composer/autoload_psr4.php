@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Steelwix\\MaelEnPhp\\' => array($baseDir . '/src'),
+    'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
 );

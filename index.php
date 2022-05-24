@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 session_start();
 require('controller/frontend.php');
 require_once 'vendor/autoload.php';
