@@ -1,7 +1,8 @@
 <?php
 // Include config file
 require_once('model/UserManager.php');
- 
+
+
 // Define variables and initialize with empty values
 $username = $password = $email = $confirm_password = "";
 $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
@@ -23,7 +24,6 @@ if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
            $username = $_POST['username'];
            $email = $_POST['email'];
            $password = $_POST['password'];
-
         }
     }
     }

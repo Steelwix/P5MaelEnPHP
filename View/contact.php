@@ -50,9 +50,9 @@ try {
     $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
-    $mail->setFrom('exagon3d@gmail.com', 'Exagon');
-    $mail->addAddress('maelmhun@gmail.com', 'Mael');     //Add a recipient
-    $mail->addAddress('mhunmael@hotmail.com', 'Malou');               //Name is optional
+    $mail->setFrom('exagon3d@gmail.com', 'MAELENPHP');
+    //$mail->addAddress('maelmhun@gmail.com', 'Mael');     //Add a recipient
+    $mail->addAddress('mhunmael@hotmail.com', 'Mael');               //Name is optional
     //$mail->addReplyTo('info@example.com', 'Information');
    // $mail->addCC('cc@example.com');
     //$mail->addBCC('bcc@example.com');
@@ -60,12 +60,11 @@ try {
     //Attachments
     //$mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
     //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
-$body = '<p><strong>Hello</strong> this is my first email with PHPMAILER</p>';
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = 'This is a text';
-    $mail->Body    = $body;
-    $mail->AltBody = strip_tags($body);
+    $mail->Subject = 'MAELENPHP CONTACT REQUEST FROM '.$email.' ';
+    $mail->Body    = 'Message recu venant de '.$email.' : '.$message.' ';
+    $mail->AltBody = 'Message recu venant de '.$email.' : '.$message.' ';
 
     $mail->send();
     echo 'Message has been sent';

@@ -20,6 +20,7 @@ try {
             }
             else {
                 createUser($_POST['username'], $_POST['email'], $_POST['password']);
+                sendMailCreateUser($_POST['username'], $_POST['email'], $_POST['password']);
             }
             
         }
