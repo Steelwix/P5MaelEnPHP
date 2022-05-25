@@ -80,3 +80,6 @@ if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
     </div>    
 </body>
 </html>
+<?php $content = ob_get_clean(); ?>
+
+<?php require('template.php'); ?>

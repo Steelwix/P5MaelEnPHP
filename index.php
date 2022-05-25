@@ -85,7 +85,7 @@ try {
                 contactForm();
             }
             else {
-                sendMessage($_POST['message'], $_POST['email']);
+                sendMailContact($_POST['email'], $_POST['message']);
             }
         }
          //ADMIN----------------------------------------------------

@@ -14,17 +14,23 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <meta charset="UTF-8">
     <title>Welcome</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body{ font: 14px sans-serif; text-align: center; }
-    </style>
 </head>
 <body>
-    <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
-    <p>
-        <a href="index.php?action=editUser&amp;id=<?= $_SESSION['id'] ?>" class="btn btn-warning">Editer le profil</a>
-        <a href="index.php?action=inspectUserSelf&amp;id=<?= $_SESSION['id'] ?>" class="btn btn-warning">Effacer le profil</a>
-        <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
-        <a href="index.php" class="btn btn-danger">Go to home</a>
+    <div class="container">
+        <div class="row">
+        <div class="col-12"><h1>Bonjour, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
+        <p>
+        <a href="index.php?action=editUser&amp;id=<?= $_SESSION['id'] ?>" class="btn btn-primary">Editer le profil</a>
+        <a href="index.php?action=inspectUserSelf&amp;id=<?= $_SESSION['id'] ?>" class="btn btn-danger">Effacer le profil</a>
+        <a href="logout.php" class="btn btn-secondary ml-3">Sign Out of Your Account</a>
+        <a href="index.php" class="btn btn-primary">Go to home</a>
     </p>
+        </div>
+    </div>
+    
+
 </body>
 </html>
+<?php $content = ob_get_clean(); ?>
+
+<?php require('template.php'); ?>

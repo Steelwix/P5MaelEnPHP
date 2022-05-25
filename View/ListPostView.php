@@ -9,7 +9,9 @@
 while ($data = $posts->fetch())
 {
 ?>
-    <div class="news">
+<div class="container">
+    <div class="row">
+    <div class="card">
         <h3>
             <strong><?= htmlspecialchars($data['title']) ?></strong>
             le <?= $data['creation_date_fr'] ?>
@@ -22,6 +24,8 @@ while ($data = $posts->fetch())
             <em><a href="index.php?action=post&amp;idPost=<?= $data['idPost'] ?>">Lire ce post et voir les commentaires</a></em>
         </p>
     </div>
+    </div>
+</div>
 <?php
 }
 $posts->closeCursor();
