@@ -38,6 +38,7 @@ else { ?>
   <div class="card-body">
     <p class="card-text">
     <em><a href="index.php?action=login&amp;">Se connecter</a></em> </p>
+    <em><a href="index.php?action=register&amp;">S'inscrire</a></em> </p>
     <?php } ?>
   </div>
 </div>

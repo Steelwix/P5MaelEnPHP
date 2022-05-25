@@ -1,17 +1,21 @@
 <?php
 // Include config file
 require_once('model/UserManager.php');
-
+$pagetitle = 'S\'inscrire';
 
 // Define variables and initialize with empty values
 $username = $password = $email = $confirm_password = "";
 $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
-    $username_err = "Please fill all blanks";
-} elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))){
+    $email = "Please fill all blanks";
+}if(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))){
     $username_err = "Username can only contain letters, numbers, and underscores.";
-} elseif (isset($_POST['username']) &&  isset($_POST['email']) && isset($_POST['password'])) {
+} 
+if(($_POST['password'] !== $_POST['confirm_password'])== true) {
+    $password_err = "Mots de passe non identiques.";
+}
+elseif (isset($_POST['username']) &&  isset($_POST['email']) && isset($_POST['password'])) {
     while($donnees = $users->fetch())
     {
         if($_POST['username'] == $donnees['username'])
@@ -24,6 +28,7 @@ if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
            $username = $_POST['username'];
            $email = $_POST['email'];
            $password = $_POST['password'];
+           
         }
     }
     }
@@ -34,7 +39,7 @@ if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up</title>
+    <title><?= $pagetitle ?></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body{ font: 14px sans-serif; }
@@ -43,8 +48,8 @@ if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
 </head>
 <body>
     <div class="wrapper">
-        <h2>Sign Up</h2>
-        <p>Please fill this form to create an account.</p>
+        <h2>S'inscrire</h2>
+        <p>Remplissez les champs ci dessous pour vous inscrire, un mail de confirmation vous sera envoyé</p>
 <?php
         if(!empty($login_err)){
             echo '<div class="alert alert-danger">' . $login_err . '</div>';

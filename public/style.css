@@ -73,7 +73,7 @@ IMPORTED
      scroll-behavior: smooth;
    }
  }
- 
+
  body {
    margin: 0;
    font-family: var(--bs-body-font-family);
@@ -86,7 +86,21 @@ IMPORTED
    -webkit-text-size-adjust: 100%;
    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
  }
- 
+ .posttitle
+ {
+
+   background:rgba(145, 0, 150, 0.4);
+ }
+ .postdata
+ {
+  background:rgba(145, 0, 150, 0.1);
+  margin-bottom:5%;
+ }
+ .airmaker
+ {
+  margin-bottom:10%;
+  padding-top:5%;
+ }
  hr {
    margin: 1rem 0;
    color: inherit;
@@ -830,6 +844,7 @@ IMPORTED
    -ms-flex: 0 0 auto;
    flex: 0 0 auto;
    width: 100%;
+
  }
  
  .offset-1 {

@@ -15,12 +15,14 @@ try {
         if ($_GET['action'] == 'register'){
             registerSystem();}
         if($_GET['action'] == 'signin'){
-            if($_POST['username']=="" OR $_POST['email']=="" OR $_POST['password']==""){
+            if($_POST['username']=="" OR $_POST['email']=="" OR $_POST['password']=="" OR ($_POST['password']!==$_POST['confirm_password'])==true){
                 registerSystem();
             }
             else {
                 createUser($_POST['username'], $_POST['email'], $_POST['password']);
                 sendMailCreateUser($_POST['username'], $_POST['email'], $_POST['password']);
+                header("location: index.php?action=login");
+
             }
             
         }

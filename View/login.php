@@ -1,6 +1,6 @@
 <?php
 // Initialize the session
-
+$pagetitle = 'Se connecter';
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     header("location: index.php");
@@ -45,7 +45,7 @@ while($donnees = $users->fetch())
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title><?= $pagetitle ?></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body{ font: 14px sans-serif; }

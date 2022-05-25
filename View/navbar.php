@@ -8,12 +8,12 @@
     </head>
 
 <header class="container">
-        <div class="row">
-            <div class="col-6 text-center d-flex align-items-center">
+        <div class="row  airmaker">
+            <div class="col-lg-6 col-8 text-center d-flex align-items-center">
                 <h1>MaelEnPHP, le blog des dev php juniors</h1>
                 <!--<?= $content ?>-->
             </div>
-            <div class="col-6">
+            <div class="col-lg-6 col-4">
                 <nav class="navbar navbar-expand-lg navbar-dark">
                     <div class="container-fluid">
                         <button class="navbar-toggler mx-auto align-middle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
