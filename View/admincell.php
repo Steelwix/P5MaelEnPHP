@@ -4,6 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
+          <br>
 <h1>Maël En PHP, la partie administrateur</h1>
 <h2>Edition des posts</h2><br>
 <em><a href="index.php?action=createPost" class="btn btn-success">Créer un post</a></em>
@@ -11,8 +12,8 @@
     </div>
 </div>
 <br><div class="container">
-    <div class="row">
-        <div class="col-12 mx-auto">
+    <div class="row justify-content-center">
+        <div class="col-12">
     <table class="table">
   <thead>
     <tr>
@@ -52,8 +53,8 @@ while ($data = $posts->fetch())
     </div> 
     </div>
     <div class="container">
-    <div class="row">
-        <div class="col-12 mx-auto">
+    <div class="row justify-content-center">
+        <div class="col-12">
     <table class="table">
   <thead>
     <tr>
@@ -101,8 +102,8 @@ while ($com = $comments->fetch()){ ?>
     </div> 
     </div>
     <div class="container">
-    <div class="row">
-        <div class="col-12 mx-auto">
+    <div class="row justify-content-center">
+        <div class="col-12">
     <table class="table">
   <thead>
     <tr>
@@ -126,7 +127,7 @@ while ($com = $users->fetch()){
       <td><?= ($com['email']) ?></td>
       <td><?= ($com['created_at']) ?></td>
       <td><?= ($com['isAdmin']) ?></td>
-      <td><a href="index.php?action=inspectUser&amp;id=<?= $com['id'] ?>" class="btn btn-danger">Supprimer</a>
+      <td><a href="index.php?action=inspectUser&amp;id=<?= $com['id'] ?>" class="btn btn-danger">Effacer</a>
       <a href="index.php?action=editUserAdmin&amp;id=<?= $com['id'] ?>" class="btn btn-primary">Editer</a>
     </td>
     <?php } ?>

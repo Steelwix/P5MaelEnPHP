@@ -94,3 +94,7 @@ if(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"])))
     </div>    
 </body>
 </html>
+
+<?php $content = ob_get_clean(); ?>
+
+<?php require('template.php'); ?>

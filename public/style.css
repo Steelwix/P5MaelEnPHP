@@ -375,6 +375,9 @@ IMPORTED
    font-family: inherit;
    font-size: inherit;
    line-height: inherit;
+    width: 50%;
+    height:15%;
+  
  }
  
  button,

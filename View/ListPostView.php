@@ -27,7 +27,7 @@ while ($data = $posts->fetch())
             <br />
 </div>
 <div class="col-6 postdata">
-            <em><a href="index.php?action=post&amp;idPost=<?= $data['idPost'] ?>">Lire ce post et voir les commentaires</a></em>
+            <em><a href="index.php?action=post&amp;idPost=<?= $data['idPost'] ?> "class="btn btn-primary">Lire ce post et voir les commentaires</a></em>
         </p>
 </div>
     </div>

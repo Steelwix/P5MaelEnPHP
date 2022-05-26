@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-3 col-md-12 text-center">
-<p><a href="index.php">Retour à la liste des posts</a></p>
+<p><a href="index.php" class="btn btn-primary">Retour à la liste des posts</a></p>
         </div></div></div>
 <div class="container">
     <div class="row">
@@ -30,14 +30,13 @@
 
 <h2>Commentaires</h2>
 <form action="index.php?action=addComment&amp;idPost=<?= $_GET['idPost'] ?>" method="post">
-    <div>
-        <p><label for="comment">Ton commentaire :</label><br /></p>
-        <textarea type ="text" id="comment" name="comment"></textarea>
-    </div>
-    <div>
-        <input type="submit" />
+<div class="form-group">
+        <textarea type ="text" id="comment" name="comment"></textarea><br><br>
+    <div class="form-group col-4">
+        <input type="submit" class="btn btn-primary" value="Ajouter un commentaire...">
         <br><br>
     </div>
+</div>
 </form>
 </div></div>   
          
@@ -48,7 +47,7 @@ while ($comment = $comments->fetch())
  
  <div class="row">
  <div class="col-12"> 
-    <p><strong><?= htmlspecialchars($comment['username']) ?></strong> le <?=htmlspecialchars($comment['comDate']) ?>
+    <p><strong><?= htmlspecialchars($comment['username']) ?></strong> le <small> <?=htmlspecialchars($comment['comDate']) ?> </small>
     <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
     <br><br>
 <?php
