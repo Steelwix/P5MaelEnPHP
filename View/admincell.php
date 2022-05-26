@@ -3,50 +3,57 @@
 <?php ob_start(); ?>
 <div class="container">
     <div class="row">
-        <div class="col-12 text-center">
+        <div class="col-12">
 <h1>Maël En PHP, la partie administrateur</h1>
 <h2>Edition des posts</h2><br>
 <em><a href="index.php?action=createPost" class="btn btn-success">Créer un post</a></em>
 </div>
     </div>
 </div>
-<br>
+<br><div class="container">
+    <div class="row">
+        <div class="col-12 mx-auto">
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Titre</th>
+      <th scope="col">Chapo</th>
+      <th scope="col">Date de publication</th>
+      <th scope="col">Auteur</th>
+      <th scope="col">Options</th>
+    </tr>
+  </thead>
 <?php
 while ($data = $posts->fetch())
 { 
-    ?><div class="container">
-    <div class="row">
-    <div class="col-12 posttitle text-center">
-        <h3>
-            <?= htmlspecialchars($data['title']) ?>
-            <em>le <?= $data['creation_date_fr'] ?></em>
-            <em>S'appelant  <?= $data['username']; ?></em>
-        </h3>
-        </div>
-        <div class="col-12 postdata">
-        <p>
-            <?= htmlspecialchars($data['hat']) ?>
-            <?php htmlspecialchars($data['content']); ?>
-</div>
-            <br />
-            <br>
-
-<div class="col-12 text-center">
-    <em><a href="index.php?action=deletePost&amp;idPost=<?= $data['idPost'] ?>" class="btn btn-danger">Effacer ce post</a></em>
-    <em><a href="index.php?action=modifyPost&amp;idPost=<?= $data['idPost'] ?>" class="btn btn-primary">Modifier ce post</a></em>
-        </p>
-    </div>
-      </div></div>
-    
+    ?> <tbody>
+    <tr>
+      <td><?= ($data['title']) ?></td>
+      <td><?= ($data['hat']) ?></td>
+      <td><?= ($data['creation_date_fr']) ?></td>
+      <td><?= ($data['username']) ?></td>
+      <td><a href="index.php?action=deletePost&amp;idPost=<?= $data['idPost'] ?>" class="btn btn-danger">Effacer</a>
+      <a href="index.php?action=modifyPost&amp;idPost=<?= $data['idPost'] ?>" class="btn btn-primary">Modifier</a>
+    </td>
 <?php
 } ?>
+    </tr>
+  </tbody>
+</table>
+</div>
+    </div>
+</div>
+
 <div class="container">
     <div class="row">
-        <div class="col-12  text-center">
+        <div class="col-12">
 <h2>Edition des commentaires</h2>
 </div>
     </div> 
     </div>
+    <div class="container">
+    <div class="row">
+        <div class="col-12 mx-auto">
     <table class="table">
   <thead>
     <tr>
@@ -68,8 +75,8 @@ while ($com = $comments->fetch()){ ?>
       <?php if($com['isValid'] == 0) 
  {
        ?>   
-        <td><a href="index.php?action=deleteComment&amp;idComment=<?= $com['idComment'] ?>"class="btn btn-danger">Effacer</a></td>   
-        <td><a href="index.php?action=commentIsValid&amp;idComment=<?= $com['idComment'] ?>"class="btn btn-success">Valider</a></td> 
+        <td><a href="index.php?action=deleteComment&amp;idComment=<?= $com['idComment'] ?>"class="btn btn-danger">Effacer</a>  
+        <a href="index.php?action=commentIsValid&amp;idComment=<?= $com['idComment'] ?>"class="btn btn-success">Valider</a></td> 
         <?php
     }
     else {
@@ -77,20 +84,25 @@ while ($com = $comments->fetch()){ ?>
         <td><a href="index.php?action=deleteComment&amp;idComment=<?= $com['idComment'] ?>"class="btn btn-danger">Effacer</a> </td> 
            <?php
     } ?>
-    </td>
     <?php } ?>
     </tr>
   </tbody>
 </table>
+</div>
+    </div> 
+    </div>
 
  
         <div class="container">
     <div class="row">
-        <div class="col-12  text-center">
+        <div class="col-12">
 <h2>Edition des utilisateurs</h2>
 </div>
     </div> 
     </div>
+    <div class="container">
+    <div class="row">
+        <div class="col-12 mx-auto">
     <table class="table">
   <thead>
     <tr>
@@ -121,6 +133,9 @@ while ($com = $users->fetch()){
     </tr>
   </tbody>
 </table>
+</div>
+    </div> 
+    </div>
 
 
    
