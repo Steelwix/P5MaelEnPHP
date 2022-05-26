@@ -103,7 +103,8 @@ IMPORTED
  }
  .setbutton
  {
-   margin: 25%;
+  padding-top:2%;
+  padding-bottom:2%;
  }
  hr {
    margin: 1rem 0;

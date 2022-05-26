@@ -49,26 +49,30 @@ while ($data = $posts->fetch())
     </div>
     <?php
 while ($com = $comments->fetch()){ ?>
-
+<br>
 <div class="container">
     <div class="row">
-        <br><div class="col-12 posttitle">
+        <div class="col-11 postdata">
         <p>Contenu :<strong><?= ($com['comment']) ?></strong>
     <em>le <?= $com['comDate'] ?></em>
     <em>Ecrit par l'utilisateur<strong>  <?= $com['username'] ?></em></strong>
-    <em>Sous le post  <?= $com['title'] ?></em><br>
-    </div></div></div>
-    <div class="container">
-    <div class="row">
-        <div class="col-12"><br>
-    <em><a href="index.php?action=deleteComment&amp;idComment=<?= $com['idComment'] ?>"class="btn btn-danger">Effacer ce commentaire</a></em>
+    <em>Sous le post  <?= $com['title'] ?></em>
+    </div>
     <?php if($com['isValid'] == 0) 
  {
-        ?>
-            <em><a href="index.php?action=commentIsValid&amp;idComment=<?= $com['idComment'] ?>"class="btn btn-success">Valider ce commentaire</a></em> 
+        ?>    
+            <div class="col-1 postdata">
+               
+        <a href="index.php?action=deleteComment&amp;idComment=<?= $com['idComment'] ?>"class="btn btn-danger">Effacer ce commentaire</a>   
+            <a href="index.php?action=commentIsValid&amp;idComment=<?= $com['idComment'] ?>"class="btn btn-success">Valider ce commentaire</a></div>
         <?php
+    }
+    else {
+       ?> <div class="col-1 postdata">
+        <a href="index.php?action=deleteComment&amp;idComment=<?= $com['idComment'] ?>"class="btn btn-danger">Effacer ce commentaire</a></div> 
+           <?php
     }} ?>
-        </div></div></div>
+</div></div>
         <div class="container">
     <div class="row">
         <div class="col-12  text-center">
@@ -76,36 +80,72 @@ while ($com = $comments->fetch()){ ?>
 </div>
     </div> 
     </div>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td colspan="2">Larry the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
+        <div class="container">
+    <div class="row">
+        <div class="col-3 posttitle"><b>Pseudo</b></div>
+        <div class="col-3 posttitle"><b>email</b></div>
+        <div class="col-3 posttitle"><b>création</b></div>
+        <div class="col-3 posttitle"><b>droits</b></div>
+       
+    </div>
 <?php
 while ($com = $users->fetch()){
     if ($com['isAdmin']==1){
-        $com['isAdmin'] = "admin";
+        $com['isAdmin'] = "administrateur";
     } 
-    else { $com['isAdmin'] = "n'est pas admin";
+    else { $com['isAdmin'] = "utilisateur";
     }?>
-<div class="container">
-    <div class="row">
-        <br><div class="col-12 posttitle">
-    <p>Pseudo :<?= ($com['username']) ?>
-    <em>email <?= $com['email'] ?></em>
-    <em>mot de passe <?= $com['password'] ?></em>
-    <em>Compte créé le  <?= $com['created_at'] ?></em>
-    <em>est  <?= $com['isAdmin'] ?></em><br>
-</div>
-        <div class="col-12">
-<br>
-    <em><a href="index.php?action=inspectUser&amp;id=<?= $com['id'] ?>" class="btn btn-danger">Supprimer cet utilisateur</a></em>
-    <em><a href="index.php?action=editUserAdmin&amp;id=<?= $com['id'] ?>" class="btn btn-primary">Editer cet utilisateur</a><br><br></em>
-        </div></div></div>
-    <?php } 
-    
 
+    <div class="row">
+        <div class="col-3 postdata text-left"><?= ($com['username']) ?></div>
+        <div class="col-3 postdata text-left"><?= $com['email'] ?></div>
+        <div class="col-3 postdata text-left"><?= $com['created_at'] ?></div>
+        <div class="col-3 postdata text-left"><?= $com['isAdmin'] ?></div>
+         <div class="col-1">
+    <em><a href="index.php?action=inspectUser&amp;id=<?= $com['id'] ?>" class="btn btn-danger">Supprimer</a></em></div>
+    <div class="col-1">
+    <em><a href="index.php?action=editUserAdmin&amp;id=<?= $com['id'] ?>" class="btn btn-primary">Editer</a></em>
+
+
+        </div></div></div>
+
+    <?php } ?>
+
+    
+<?php
 $content = ob_get_clean();
 
 ?>
-</div>
-    </div> 
-    </div>
+
 
 
 <?php require('template.php'); ?>
