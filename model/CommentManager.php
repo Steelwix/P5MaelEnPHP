@@ -43,7 +43,7 @@ class CommentManager extends Manager
     }
     public function commentIsValid($idComment)
     {
-        $req = $this->db->prepare("UPDATE comment SET isValid = 1 WHERE idComment = '$idComment' ");
+        $req = $this->db->prepare("UPDATE comment SET isValid = 1 WHERE idComment = ? ");
         $req->execute(array($idComment));
         return $req;
     }

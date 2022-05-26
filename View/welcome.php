@@ -18,15 +18,18 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <body>
     <div class="container">
         <div class="row">
-        <div class="col-12"><h1>Bonjour, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
-        <p>
+        <div class="col-12 text-center"><h1>Bonjour, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
+        <p><br>
+
         <a href="index.php?action=editUser&amp;id=<?= $_SESSION['id'] ?>" class="btn btn-primary">Editer le profil</a>
         <a href="index.php?action=inspectUserSelf&amp;id=<?= $_SESSION['id'] ?>" class="btn btn-danger">Effacer le profil</a>
-        <a href="logout.php" class="btn btn-secondary ml-3">Sign Out of Your Account</a>
+
+        <a href="logout.php" class="btn btn-secondary">Sign Out of Your Account</a>
         <a href="index.php" class="btn btn-primary">Go to home</a>
     </p>
-        </div>
+
     </div>
+        </div></div>
     
 
 </body>

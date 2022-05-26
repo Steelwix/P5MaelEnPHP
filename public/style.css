@@ -101,6 +101,10 @@ IMPORTED
   margin-bottom:10%;
   padding-top:5%;
  }
+ .setbutton
+ {
+   margin: 25%;
+ }
  hr {
    margin: 1rem 0;
    color: inherit;
@@ -222,7 +226,7 @@ IMPORTED
  
  b,
  strong {
-   font-weight: bolder;
+   font-weight:bolder;
  }
  
  small, .small {

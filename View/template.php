@@ -13,18 +13,18 @@
     <body>
     <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
   <div class="card-header"><?php if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){    
-    echo 'Bonjour ', ($_SESSION['username']);
-     ?></div>
+    ?><p> <?php echo 'Bonjour ', ($_SESSION['username']);
+     ?></p></div>
   <div class="card-body">
     <h4 class="card-title"> <?php
     if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true && $_SESSION['isAdmin'] == 1)
-    {echo '<p> Vous êtes un admin'; ?>
-        <em><a href="index.php?action=admincell&amp;">Acceder à la partie admin</a></em> <?php }
+    {echo '<p> Vous êtes un admin'; ?><br>
+        <em><a href="index.php?action=admincell&amp;" class="btn btn-primary">Acceder à la partie admin</a></em> <?php }
     else {}
         ?> </h4>
     <p class="card-text">    
-    <a href="index.php?action=logout&amp;">Se déconnecter </a><br>
-    <a href="index.php?action=welcome&amp;id=<?= $_SESSION['id'] ?>">Paramètres du compte </a>
+    <a href="index.php?action=logout&amp;" class="btn btn-danger">Se déconnecter </a><br><br>
+    <a href="index.php?action=welcome&amp;id=<?= $_SESSION['id'] ?>" class="btn btn-secondary">Paramètres du compte </a>
   </div>
 
 
