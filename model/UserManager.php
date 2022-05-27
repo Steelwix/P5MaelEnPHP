@@ -42,7 +42,7 @@ class UserManager extends Manager
     }
     public function userNewSettingsAdmin($username, $email, $password, $isAdmin, $id)
     {
-        $req = $this->db->prepare("UPDATE users SET  username = '$username', email = '$email', password = '$password', isAdmin = '$isAdmin' WHERE id = '$id' ");
+        $req = $this->db->prepare("UPDATE users SET  username = '$username', email = '$email', password = '$password', isAdmin = '$isAdmin' WHERE id = ? ");
         $req->execute(array($id));
         return $req;
     }

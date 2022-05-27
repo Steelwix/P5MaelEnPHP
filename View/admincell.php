@@ -33,8 +33,9 @@ while ($data = $posts->fetch())
       <td><?= ($data['hat']) ?></td>
       <td><?= ($data['creation_date_fr']) ?></td>
       <td><?= ($data['username']) ?></td>
-      <td><a href="index.php?action=deletePost&amp;idPost=<?= $data['idPost'] ?>" class="btn btn-danger">Effacer</a>
-      <a href="index.php?action=modifyPost&amp;idPost=<?= $data['idPost'] ?>" class="btn btn-primary">Modifier</a>
+      <td><a href="index.php?action=modifyPost&amp;idPost=<?= $data['idPost'] ?>" class="btn btn-primary">Modifier</a>
+      <a href="index.php?action=deletePost&amp;idPost=<?= $data['idPost'] ?>" class="btn btn-danger">Effacer</a>
+      
     </td>
 <?php
 } ?>
@@ -73,18 +74,17 @@ while ($com = $comments->fetch()){ ?>
       <td><?= ($com['comDate']) ?></td>
       <td><?= ($com['username']) ?></td>
       <td><?= ($com['title']) ?></td>
+      <td> 
       <?php if($com['isValid'] == 0) 
  {
        ?>   
-        <td><a href="index.php?action=deleteComment&amp;idComment=<?= $com['idComment'] ?>"class="btn btn-danger">Effacer</a>  
-        <a href="index.php?action=commentIsValid&amp;idComment=<?= $com['idComment'] ?>"class="btn btn-success">Valider</a></td> 
+        <a href="index.php?action=commentIsValid&amp;idComment=<?= $com['idComment'] ?>"class="btn btn-success">Valider</a> 
         <?php
     }
     else {
-       ?>
-        <td><a href="index.php?action=deleteComment&amp;idComment=<?= $com['idComment'] ?>"class="btn btn-danger">Effacer</a> </td> 
-           <?php
+
     } ?>
+    <a href="index.php?action=deleteComment&amp;idComment=<?= $com['idComment'] ?>"class="btn btn-danger">Effacer</a></td>
     <?php } ?>
     </tr>
   </tbody>
@@ -127,8 +127,9 @@ while ($com = $users->fetch()){
       <td><?= ($com['email']) ?></td>
       <td><?= ($com['created_at']) ?></td>
       <td><?= ($com['isAdmin']) ?></td>
-      <td><a href="index.php?action=inspectUser&amp;id=<?= $com['id'] ?>" class="btn btn-danger">Effacer</a>
-      <a href="index.php?action=editUserAdmin&amp;id=<?= $com['id'] ?>" class="btn btn-primary">Editer</a>
+      <td><a href="index.php?action=editUserAdmin&amp;id=<?= $com['id'] ?>" class="btn btn-primary">Editer</a>
+      <a href="index.php?action=inspectUser&amp;id=<?= $com['id'] ?>" class="btn btn-danger">Effacer</a>
+      
     </td>
     <?php } ?>
     </tr>
