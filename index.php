@@ -82,6 +82,9 @@ try {
             contactForm();
         }
         if($_GET['action'] == 'sendMessage') {
+            if(isset($_SESSION['email'])){
+                $_POST['email'] = $_SESSION['email'];
+            }
             if($_POST['message']=="" OR $_POST['email']=="")
             {
                 contactForm();
@@ -123,7 +126,7 @@ try {
             createPost();
         }
         if($_GET['action'] == 'newPost') {
-            if($_POST['title']=="" OR $_POST['hat']=="" OR $_POST['content']=="" OR !isset($_SESSION['id']))
+            if($_POST['title']=="" OR $_POST['hat']=="" OR $_POST['content']=="")
             {createPost();}
             else {
                 

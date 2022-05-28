@@ -1,17 +1,5 @@
 
 <?php $pagetitle = htmlspecialchars('Contact'); 
-require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
-require 'vendor/phpmailer/phpmailer/src/SMTP.php';
-require 'vendor/phpmailer/phpmailer/src/Exception.php';
-//Import PHPMailer classes into the global namespace
-//These must be at the top of your script, not inside a function
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
-//Load Composer's autoloader
-require 'vendor/autoload.php';
-
  ob_start(); ?>
 <?php
 $emailok = $messageok = "";
@@ -57,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
        <div class="wrapper">
     <h2>Contact</h2>
     <p>Please fill this form to create an account.</p>
-    <form action="index.php?action=contact" method="post">
+    <form action="index.php?action=sendMessage" method="post">
         <div class="form-group">
             <label>Votre message</label>
             <input type="text" name="message" class="form-control <?php echo (!empty($message_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $message; ?>">
@@ -74,7 +62,7 @@ else { ?>
     <div class="wrapper">
     <h2>Contact</h2>
     <p>Please fill this form to create an account.</p>
-    <form action="index.php?action=contact" method="post">
+    <form action="index.php?action=sendMessage" method="post">
         <div class="form-group">
             <label>Email</label>
             <input type="text" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">

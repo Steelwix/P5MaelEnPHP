@@ -144,9 +144,7 @@ while ($com = $users->fetch()){
 
     
 <?php
-$content = ob_get_clean();
-
-?>
+$content = ob_get_clean();?>
 
 
 

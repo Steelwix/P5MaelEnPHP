@@ -190,7 +190,31 @@ function wipeUserSelf()
 }
 function createPost()
 {
-    require('View/createPost.php');
+
+    $title = $hat = $content = $author = "";
+    $title_err = $hat_err = $content_err = "";
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    if(empty($_POST['title'])){
+        $title_err = 'Please fill all blanks';
+    }
+    else {
+        $title = $_POST['title'];
+    }
+    if(empty($_POST['hat'])){
+        $hat_err = 'Please fill all blanks';
+    }
+    else {
+        $hat = $_POST['hat'];
+    }
+    if(empty($_POST['content'])){
+        $content_err = 'Please fill all blanks';
+    }
+    else {
+        $content = $_POST['content'];
+    }
+}
+require('View/createPost.php');
 }
 function newPost($title, $hat, $content, $author)
 {
@@ -228,7 +252,7 @@ function contactForm()
 {
     require('View/contact.php');
 }
-function sendMailContact($message, $email)
+function sendMailContact($email, $message)
 {
     $mail = new PHPMailer(true);
 
@@ -262,9 +286,11 @@ function sendMailContact($message, $email)
     
         $mail->send();
         echo 'Message has been sent';
+        header("Location: index.php");
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     } 
+    
 }
 function editUser()
 {

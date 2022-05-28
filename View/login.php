@@ -30,7 +30,7 @@ while($donnees = $users->fetch())
         $_SESSION["loggedin"] = true;
         $_SESSION['isAdmin'] = $donnees['isAdmin'];
         $_SESSION['email'] = $donnees['email'];
-        header("location: index.php?action=welcome");
+        header("location: index.php");
     } else { 
         $errorMessage = sprintf('Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',
         $_POST['username'],

@@ -1,7 +1,7 @@
 <?php
 // Include config file
 require_once('model/UserManager.php');
- 
+$pagetitle = 'Editer le profil';
 // Define variables and initialize with empty values
 $username = $password = $email = $confirm_password = "";
 $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
@@ -30,21 +30,13 @@ if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
 }
 ?>
  
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 360px; padding: 20px; }
-    </style>
-</head>
+
 <body>
-    <div class="wrapper">
-        <h2>Sign Up</h2>
-        <p>Please fill this form to create an account.</p>
+    <div class="container">
+        <div class="row">
+    <div class="col-12 wrapper">
+        <h2>Editer le profil</h2>
+        <p>Modifier vos informations dans les champs ci dessous.</p>
         <form action="index.php?action=userUpdate&amp;id=<?= $_GET['id'] ?>" method="post">
             <div class="form-group">
                 <label>Username</label>
@@ -73,6 +65,8 @@ if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
             <p>Already have an account? <a href="login.php">Login here</a>.</p>
         </form>
     </div>    
+    </div>
+    </div>
 </body>
 </html>
 
