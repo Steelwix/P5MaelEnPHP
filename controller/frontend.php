@@ -53,12 +53,77 @@ function loginSystem()
 {
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
+    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+        header("location: index.php");
+        exit;
+    }
+     
+    
+    $username = $password = "";
+    $username_err = $password_err = $login_err = "";
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+    if(empty(trim($_POST['username']))){
+        $username_err = "Vous devez entrer un pseudo.";
+    } else {
+        $username = trim($_POST['username']);  
+    }
+    if(empty(trim($_POST['password']))){
+        $password_err = "Vous devez entrer un mot de passe.";
+    } else {
+        $password = trim($_POST['password']);
+    }
+    while($donnees = $users->fetch())
+    {
+        if($_POST['username'] == $donnees['username'] AND $_POST['password']== $donnees['password'])
+        { echo "connexion validée";
+            $_SESSION['username'] = $donnees['username'];
+            $_SESSION['id'] = $donnees['id'];
+            $_SESSION["loggedin"] = true;
+            $_SESSION['isAdmin'] = $donnees['isAdmin'];
+            $_SESSION['email'] = $donnees['email'];
+            header("location: index.php");
+        } else { 
+            $errorMessage = sprintf('Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',
+            $_POST['username'],
+            $_POST['password']);
+        }
+    }
+    }
     require('View/login.php');
 }
 function registerSystem()
 {
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
+    $username = $password = $email = $confirm_password = "";
+$username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
+    $email = "Please fill all blanks";
+}if(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))){
+    $username_err = "Username can only contain letters, numbers, and underscores.";
+} 
+if(($_POST['password'] !== $_POST['confirm_password'])== true) {
+    $password_err = "Mots de passe non identiques.";
+}
+elseif (isset($_POST['username']) &&  isset($_POST['email']) && isset($_POST['password'])) {
+    while($donnees = $users->fetch())
+    {
+        if($_POST['username'] == $donnees['username'])
+        { 
+            $username_err = "Pseudo déjà utilisé";
+        } elseif($_POST['email']== $donnees['email']) {
+            $email_err = "email déjà utilisé";
+         }else{
+
+           $username = $_POST['username'];
+           $email = $_POST['email'];
+           $password = $_POST['password'];
+           
+        }
+    }
+    }
+}
     require('View/register.php');
 
 }
@@ -232,6 +297,35 @@ function modifyPost()
 {
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $post = $postManager->getPost($_GET['idPost']);
+    $title_err = $hat_err = $content_err = "";
+$title = $post['title'];
+$hat = $post['hat'];
+$content = $post['content'];
+
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+    if(empty($_POST['title'])){
+        $title_err = 'Please fill all blanks';
+    }
+    else {
+        $title = $_POST['title'];
+    }
+    if(empty($_POST['hat'])){
+        $hat_err = 'Please fill all blanks';
+    }
+    else {
+        $hat = $_POST['hat'];
+    }
+    if(empty($_POST['content'])){
+        $content_err = 'Please fill all blanks';
+    }
+    else {
+        $content = $_POST['content'];
+    }
+    if(isset($_POST['title']) && isset($_POST['hat']) && isset($_POST['content']) && isset($_SESSION['id'])){
+        //header('Location: index.php?action=postEdit');
+       
+    }
+}
    require("View/modifypost.php");
 }
 function postEdit($title, $hat, $content, $author, $idPost)
@@ -250,7 +344,34 @@ function postEdit($title, $hat, $content, $author, $idPost)
 }
 function contactForm()
 {
-    require('View/contact.php');
+    $emailok = $messageok = "";
+    $email = $message = "";
+    $email_err = $message_err = "";  
+  
+if(isset($_SESSION['email']))
+{
+    $_POST['email'] = $_SESSION['email'];
+}
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+ 
+    if(empty(trim($_POST['email']))){
+        $email_err = 'Vous devez indiquer votre email';
+    }
+    else{
+        $email = $_POST['email'];
+    }
+
+    
+    if(empty($_POST['message'])){
+        $message_err = "Vous devez entrer un message.";
+    } else {
+        $message = $_POST['message'];
+    
+    }
+
+    
+}
+require('View/contact.php');
 }
 function sendMailContact($email, $message)
 {
@@ -296,6 +417,32 @@ function editUser()
 {
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $user = $userManager->getUser($_GET['id']);
+    $username = $password = $email = $confirm_password = "";
+$username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
+$username = $user['username'];
+$email = $user['email'];
+$password = $user['password'];
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
+    $username_err = "Please fill all blanks";
+} elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))){
+    $username_err = "Username can only contain letters, numbers, and underscores.";
+} elseif (isset($_POST['username']) &&  isset($_POST['email']) && isset($_POST['password'])) {
+    while($donnees = $user->fetch())
+    {
+        if($_POST['username'] == $donnees['username'] AND $_POST['email']== $donnees['email'])
+        { 
+            throw new Exception('Votre compte existe surement déjà !');
+        } else { 
+           $username = $_POST['username'];
+           $email = $_POST['email'];
+           $password = $_POST['password'];
+
+        }
+    }
+    }
+}
+
     require('View/userSettings.php');
     
 }
@@ -303,6 +450,36 @@ function editUserAdmin()
 {
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $user = $userManager->getUser($_GET['id']);
+    $username = $password = $email = $confirm_password = "";
+$username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
+$username = $user['username'];
+$email = $user['email'];
+$password = $confirm_password = $user['password'];
+$isAdmin = $user['isAdmin'];
+$adaptedAction = "editUserAdmin";
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+if(empty(trim($_POST['username'])) OR empty(trim($_POST['email'])))
+{
+    $username_err = "Please fill all blanks";
+} 
+if(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"])))
+{
+    $username_err = "Username can only contain letters, numbers, and underscores.";
+}
+
+
+    elseif (isset($_POST['username']) &&  isset($_POST['email']) && isset($_POST['password'])) {
+
+           $username = $_POST['username'];
+           $email = $_POST['email'];
+           $password = $_POST['password'];
+           $isAdmin = $_POST['isAdmin'];
+           $login_ok = "Les informations ne sont pas valides";
+        }
+    else {
+        
+    }}
+
     require('View/userSettingsAdmin.php');
     
 }

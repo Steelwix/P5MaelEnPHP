@@ -1,51 +1,13 @@
 <?php
 // Include config file
- 
+$pagetitle = htmlspecialchars('Se connecter'); 
+ob_start(); 
+
 // Define variables and initialize with empty values
-$username = $password = $email = $confirm_password = "";
-$username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
-$username = $user['username'];
-$email = $user['email'];
-$password = $confirm_password = $user['password'];
-$isAdmin = $user['isAdmin'];
-$adaptedAction = "editUserAdmin";
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-if(empty(trim($_POST['username'])) OR empty(trim($_POST['email'])))
-{
-    $username_err = "Please fill all blanks";
-} 
-if(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"])))
-{
-    $username_err = "Username can only contain letters, numbers, and underscores.";
-}
-
-
-    elseif (isset($_POST['username']) &&  isset($_POST['email']) && isset($_POST['password'])) {
-
-           $username = $_POST['username'];
-           $email = $_POST['email'];
-           $password = $_POST['password'];
-           $isAdmin = $_POST['isAdmin'];
-           $login_ok = "Les informations ne sont pas valides";
-        }
-    else {
-        
-    }}
 
 ?>
  
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Editer le profil de l'utilisateur <?= $user['username']?></title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 360px; padding: 20px; }
-    </style>
-</head>
-<body>
+
     <div class="wrapper">
         <h2>Editer le profil de l'utilisateur <?= $user['username']?></h2>
         <p>Please fill this form to create an account.</p>

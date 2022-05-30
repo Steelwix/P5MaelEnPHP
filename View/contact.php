@@ -1,46 +1,8 @@
 
 <?php $pagetitle = htmlspecialchars('Contact'); 
- ob_start(); ?>
-<?php
-$emailok = $messageok = "";
-$email = $message = "";
-$email_err = $message_err = "";
-if(isset($_SESSION['email']))
-{
-    $_POST['email'] = $_SESSION['email'];
-}
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    if(empty(trim($_POST['email']))){
-        $email_err = 'Vous devez indiquer votre email';
-    }
-    else{
-        $email = $_POST['email'];
-    }
+ ob_start(); 
 
-    
-    if(empty($_POST['message'])){
-        $message_err = "Vous devez entrer un message.";
-    } else {
-        $message = $_POST['message'];
-    
-    }
-
-}
-?>
- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Contact</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 360px; padding: 20px; }
-    </style>
-</head>
-<body>
-<?php if(isset($_SESSION['email']))
+ if(isset($_SESSION['email']))
 { ?>
        <div class="wrapper">
     <h2>Contact</h2>
@@ -81,8 +43,6 @@ else { ?>
 <?php
 }
    ?>
-</body>
-</html>
 <?php $content = ob_get_clean(); ?>
 
 <?php require('template.php'); ?>

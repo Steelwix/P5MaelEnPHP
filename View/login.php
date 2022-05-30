@@ -1,58 +1,9 @@
 <?php
-// Initialize the session
-$pagetitle = 'Se connecter';
-// Check if the user is already logged in, if yes then redirect him to welcome page
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: index.php");
-    exit;
-}
- 
-
-$username = $password = "";
-$username_err = $password_err = $login_err = "";
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-if(empty(trim($_POST['username']))){
-    $username_err = "Vous devez entrer un pseudo.";
-} else {
-    $username = trim($_POST['username']);  
-}
-if(empty(trim($_POST['password']))){
-    $password_err = "Vous devez entrer un mot de passe.";
-} else {
-    $password = trim($_POST['password']);
-}
-while($donnees = $users->fetch())
-{
-    if($_POST['username'] == $donnees['username'] AND $_POST['password']== $donnees['password'])
-    { echo "connexion validée";
-        $_SESSION['username'] = $donnees['username'];
-        $_SESSION['id'] = $donnees['id'];
-        $_SESSION["loggedin"] = true;
-        $_SESSION['isAdmin'] = $donnees['isAdmin'];
-        $_SESSION['email'] = $donnees['email'];
-        header("location: index.php");
-    } else { 
-        $errorMessage = sprintf('Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',
-        $_POST['username'],
-        $_POST['password']);
-    }
-}
-}
-
+ $pagetitle = htmlspecialchars('Se connecter'); 
+ob_start(); 
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title><?= $pagetitle ?></title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 360px; padding: 20px; }
-    </style>
-</head>
-<body>
+
     <div class="wrapper">
         <h2>Login</h2>
         <p>Please fill in your credentials to login.</p>
@@ -77,7 +28,7 @@ while($donnees = $users->fetch())
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Login">
             </div>
-            <p>Don't have an account? <a href="index.php?action=register&amp;">Sign up now</a>
+            <p>Don't have an account? <a href="index.php?action=register&amp;" class="btn btn-secondary">Sign up now</a>
         </form>
     </div>
 </body>
