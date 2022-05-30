@@ -31,8 +31,7 @@ ob_start();
             <p>Don't have an account? <a href="index.php?action=register&amp;" class="btn btn-secondary">Sign up now</a>
         </form>
     </div>
-</body>
-</html>
+
 <?php $content = ob_get_clean(); ?>
 
 <?php require('template.php'); ?>

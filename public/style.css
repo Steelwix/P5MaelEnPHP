@@ -368,18 +368,9 @@ IMPORTED
    outline: 0;
  }
  
- input,
- button,
- select,
- optgroup,
+
  textarea {
-   margin: 0;
-   font-family: inherit;
-   font-size: inherit;
-   line-height: inherit;
-    width: 50%;
-    height:15%;
-  
+  height: 200px;
  }
  
  button,
