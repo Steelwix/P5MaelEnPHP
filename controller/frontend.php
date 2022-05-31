@@ -30,8 +30,20 @@ function post()
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $post = $postManager->getPost($_GET['idPost']);
     $comments = $commentManager->getComments($_GET['idPost']); /*undefined index*/
+    $ncomment = $ncomment_err = "";
+
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+ 
+        if(($_POST['comment'])==""){
+            $ncomment_err = 'Vous devez écrire un commentaire';
+        }
+        else{
+            $_POST['comment']=$ncomment;
+        }    
+    }
 
     require('View/postView.php');
+    
 }
 
 
@@ -46,6 +58,7 @@ function addComment($comment, $isValid, $id, $idPost)
 
     }
     else {
+        
         header("Location: index.php?action=post&idPost=" .$idPost);
     }
 }
@@ -97,6 +110,7 @@ function registerSystem()
     $users = $userManager->getUsers();
     $username = $password = $email = $confirm_password = "";
 $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
+unset( $_SESSION['validRegister']);
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
     $email = "Please fill all blanks";
@@ -109,13 +123,16 @@ if(($_POST['password'] !== $_POST['confirm_password'])== true) {
 elseif (isset($_POST['username']) &&  isset($_POST['email']) && isset($_POST['password'])) {
     while($donnees = $users->fetch())
     {
-        if($_POST['username'] == $donnees['username'])
+        if($_POST['username'] === $donnees['username'])
         { 
-            $username_err = "Pseudo déjà utilisé";
-        } elseif($_POST['email']== $donnees['email']) {
-            $email_err = "email déjà utilisé";
-         }else{
 
+            $username_err = "Pseudo déjà utilisé";
+        } elseif($_POST['email']=== $donnees['email']) {
+
+            $email_err = "email déjà utilisé";
+           
+         }else{
+            $_SESSION['validRegister']='yes';
            $username = $_POST['username'];
            $email = $_POST['email'];
            $password = $_POST['password'];
@@ -322,7 +339,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $content = $_POST['content'];
     }
     if(isset($_POST['title']) && isset($_POST['hat']) && isset($_POST['content']) && isset($_SESSION['id'])){
-        //header('Location: index.php?action=postEdit');
        
     }
 }

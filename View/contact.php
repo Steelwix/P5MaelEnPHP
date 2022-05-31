@@ -1,7 +1,7 @@
 
 <?php $pagetitle = htmlspecialchars('Contact'); 
  ob_start(); ?>
- <div class="container">
+ <div class="container formpage">
      <div class="row">
      <div class="col-12">
     <h2>Contact</h2>

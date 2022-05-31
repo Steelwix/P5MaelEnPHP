@@ -16,7 +16,6 @@ class CommentManager extends Manager
         $comments = $req;
         return $comments;
     }
-
     public function postComment($datetime, $comment, $isValid, $id, $idPost)
     {
         $newComment = $this->db->prepare("INSERT INTO comment(idComment, comDate, comment, isvalid, id, idPost) VALUES (NULL, '".$datetime."', '".addslashes($comment)."', '".$isValid."', '".$id."', '".$idPost."')");

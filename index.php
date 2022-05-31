@@ -15,7 +15,7 @@ try {
         if ($_GET['action'] == 'register'){
             registerSystem();}
         if($_GET['action'] == 'signin'){
-            if($_POST['username']=="" OR $_POST['email']=="" OR $_POST['password']=="" OR ($_POST['password']!==$_POST['confirm_password'])==true){
+            if($_POST['username']=="" OR $_POST['email']=="" OR $_POST['password']=="" OR ($_POST['password']!==$_POST['confirm_password'])==true OR  !isset($_SESSION['validRegister'])){
                 registerSystem();
             }
             else {
@@ -30,33 +30,28 @@ try {
             logOutSystem();
         }
 
-        elseif ($_GET['action'] == 'post') {
+        if ($_GET['action'] == 'post') {
             if (isset($_GET['idPost'])) {
                 post();
-
             }
             elseif (isset($idPost)) {
                 post();
             }
         }
         if ($_GET['action'] == 'addComment') {
-            if (isset($_POST['comment']) && $_SESSION['username']) {
-                if (empty($_POST['comment'])) {
-                    throw new Exception('Tous les champs ne sont pas remplis !');
+                if ($_POST['comment']=="") {
+                    post();
                 }
                 elseif($_SESSION['isAdmin']==1) {
-                    $_POST['isValid']=1;
-                    addComment($_POST['comment'], $_POST['isValid'], $_SESSION['id'], $_GET['idPost']);
+                    $_POST['isValid']=1;      
                 }
                 else {
-                    $_POST['isValid']=0;
-                    addComment($_POST['comment'], $_POST['isValid'], $_SESSION['id'], $_GET['idPost']);
+                    $_POST['isValid']=0;      
                 }
+                addComment($_POST['comment'], $_POST['isValid'], $_SESSION['id'], $_GET['idPost']);
+                
             }
-            else {
-                throw new Exception('Aucun identifiant de billet envoyé BE26D');
-            }
-        }
+        
         if($_GET['action'] == 'editUser') {
             editUser($_GET['id']);
         }

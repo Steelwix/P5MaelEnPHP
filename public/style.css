@@ -368,11 +368,17 @@ IMPORTED
    outline: 0;
  }
  
-
+.comarea {
+  width: 100%;
+  height:30%;
+}
  textarea {
-  height: 200px;
  }
- 
+ .formpage
+ {
+ padding-top:10%;
+ padding-bottom:10%;
+ }
  button,
  select {
    text-transform: none;
