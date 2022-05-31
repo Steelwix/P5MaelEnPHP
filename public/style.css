@@ -343,18 +343,19 @@ IMPORTED
  th {
    text-align: inherit;
    text-align: -webkit-match-parent;
+   
  }
- 
  thead,
  tbody,
  tfoot,
  tr,
  td,
  th {
-   border-color: inherit;
-   border-style: solid;
-   border-width: 0;
+
+  border: 1px solid rgb(28, 247, 255);
+  
  }
+
  
  label {
    display: inline-block;

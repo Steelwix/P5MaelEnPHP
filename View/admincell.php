@@ -1,6 +1,6 @@
-<?php $pagetitle = 'Mon blog'; ?>
+<?php $pagetitle = htmlspecialchars('Administration - Mael En PHP');
 
-<?php ob_start(); ?>
+ ob_start(); ?>
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -33,10 +33,8 @@ while ($data = $posts->fetch())
       <td><?= ($data['hat']) ?></td>
       <td><?= ($data['creation_date_fr']) ?></td>
       <td><?= ($data['username']) ?></td>
-      <td><a href="index.php?action=modifyPost&amp;idPost=<?= $data['idPost'] ?>" class="btn btn-primary">Modifier</a>
-      <a href="index.php?action=deletePost&amp;idPost=<?= $data['idPost'] ?>" class="btn btn-danger">Effacer</a>
-      
-    </td>
+      <td><a href="index.php?action=modifyPost&amp;idPost=<?= $data['idPost'] ?>" class="btn btn-primary">Modifier</a><br><br>
+      <a href="index.php?action=deletePost&amp;idPost=<?= $data['idPost'] ?>" class="btn btn-danger">Effacer</a>   </td>
 <?php
 } ?>
     </tr>

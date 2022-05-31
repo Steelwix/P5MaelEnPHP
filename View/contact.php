@@ -5,7 +5,7 @@
      <div class="row">
      <div class="col-12">
     <h2>Contact</h2>
-    <p>Please fill this form to create an account.</p>
+    <p>Dites nous tout.</p>
     <form action="index.php?action=sendMessage" method="post">
         <div class="form-group">
 <?php
@@ -24,7 +24,7 @@ else { ?>
    ?>            <label>Votre message</label>
    <textarea type="text" name="message" class="form-control <?php echo (!empty($message_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $message; ?>"></textarea>
    <span class="invalid-feedback"><?php echo $message_err; ?></span>
-<div class="form-group">
+<div class="form-group"><br>
    <input type="submit" class="btn btn-primary" value="Submit">
    <input type="reset" class="btn btn-secondary ml-2" value="Reset">
 </div>

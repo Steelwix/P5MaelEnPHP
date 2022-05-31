@@ -1,16 +1,15 @@
 <?php
-// Include config file
-$pagetitle = htmlspecialchars('Se connecter'); 
+
+$pagetitle = htmlspecialchars('Paramètres d\'utilisateur'); 
 ob_start(); 
 
-// Define variables and initialize with empty values
 
 ?>
  
 
     <div class="wrapper">
         <h2>Editer le profil de l'utilisateur <?= $user['username']?></h2>
-        <p>Please fill this form to create an account.</p>
+        <p>Modifiez les paramètres de l'utilisateur.</p>
 <?php  if(!empty($login_ok)){
             echo '<div class="alert alert-danger">' . $login_ok . '</div>';
         }    ?>    
@@ -34,28 +33,32 @@ ob_start();
                 <label>Confirm new Password</label>
                 <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
                 <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
+                
             </div>
-            <div class="form-group">
-                <!--<label>IsAdmin?</label>
-                <input type="text" name="isAdmin" class="form-control <?php echo (!empty($isAdmin_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $isAdmin; ?>">
-                <span class="invalid-feedback"><?php echo $isAdmin_err; ?></span>
-            </div>-->
-            <div class="form-group">
+<br>
+<div class="form-group">
                 <label>Rôle:</label>
                 <select name="isAdmin">
-                    <option value="0"">Utilisateur</option>
-                    <option value="1">Admin</option>
-                </select>
+<?php if($isAdmin==1)
+{?>
+                    <option value="1"">Administrateur</option>
+                    <option value="0">Utilisateur</option>
+<?php }
+else 
+{?>                     <option value="0"">Utilisateur</option>
+                        <option value="1">Administrateur</option>
+<?php } ?>
+           
 
-            <div class="form-group">
+                </select>
+            </div>
+            <div class="form-group"><br>
                 <input type="submit" class="btn btn-primary" value="Valider">
                 <input type="reset" class="btn btn-secondary ml-2" value="Reset">
             </div>
-            <p>Already have an account? <a href="login.php">Login here</a>.</p>
         </form>
-    </div>    
-</body>
-</html>
+    </div> 
+
 
 <?php $content = ob_get_clean(); ?>
 

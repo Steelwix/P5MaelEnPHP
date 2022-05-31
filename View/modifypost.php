@@ -1,12 +1,12 @@
 
-<?php $pagetitle = htmlspecialchars('Créer un post'); ?>
+<?php $pagetitle = htmlspecialchars('Modifier un post - Mael En PHP'); ?>
 
 <?php ob_start(); ?>
 
 
     <div class="wrapper">
         <h2>Editer un post</h2>
-        <p>Please fill this form to create an account.</p>
+        <p>Modifier les champs pour éditer le commentaire.</p>
         <form action="index.php?action=postEdit&amp;idPost=<?= $_GET['idPost'] ?> " method="post">
             <div class="form-group">
                 <label>Titre</label>
@@ -20,18 +20,16 @@
             </div>
             <div class="form-group">
                 <label>Contenu</label>
-                <input type="text" name="content" class="form-control <?php echo (!empty($content_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $content; ?>">
+                <textarea type="text" name="content" class="form-control <?php echo (!empty($content_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $content; ?>"></textarea>
                 <span class="invalid-feedback"><?php echo $content_err; ?></span>
             </div>
-            <div class="form-group">
-            <div class="form-group">
+            <div class="form-group"><br>
                 <input type="submit" class="btn btn-primary" value="Submit">
                 <input type="reset" class="btn btn-secondary ml-2" value="Reset">
             </div>
         </form>
-    </div>    
-</body>
-</html>
+    </div>
+
 <?php $content = ob_get_clean(); ?>
 
 <?php require('template.php'); ?>

@@ -185,7 +185,7 @@ function sendMailCreateUser($username, $email, $password)
         //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
-        $mail->Subject = 'Bonjour '.$username.', votre compte est créé ';
+        $mail->Subject = 'Bonjour '.$username.', bienvenue sur Mael En PHP ';
         $mail->Body    = "Voici vos informations, ne les partagez pas. \r\n Votre email = '$email'\r\n Votre username = '$username'\r\n Votre mot de passe = '$password'" ;
         $mail->AltBody = "Voici vos informations, ne les partagez pas. \r\n Votre email = '$email'\r\n Votre username = '$username'\r\n Votre mot de passe = '$password'" ;
     
@@ -509,7 +509,7 @@ function userUpdate($username, $email, $password, $id)
         
     }
     else {
-        header("Location: index.php");
+        header("Location: index.php?action=admincell");
     } 
 }
 function userUpdateAdmin($username, $email, $password, $isAdmin, $id) 
@@ -522,21 +522,10 @@ function userUpdateAdmin($username, $email, $password, $isAdmin, $id)
         
     }
     else {
-        header("Location: index.php");
+        header("Location: index.php?action=admincell");
     } 
 }
 function welcome()
 {
     require('View/welcome.php');
 }
-/*$_SESSION['current_user'] = getUser($username, $password);
-if ($_SESSION['current_user']['is_admin']){
-    // je suis admin
-}
-
-if ($_SESSION['current_user']){
-    //connecte
-}
-
-$_SESSION['current_user'] = null;
-unset($_SESSION['current_user']);*/
