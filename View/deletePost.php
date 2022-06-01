@@ -10,7 +10,7 @@
     <h3>
         <?= htmlspecialchars($post['title']) ?>
         <em>le <?= $post['creation_date_fr'] ?></em>
-        <em>auteur <?= $post['id'] ?></em>
+        <em>par <?= $post['username'] ?></em>
     </h3>
 </div>
 <div class="col-12 postdata">

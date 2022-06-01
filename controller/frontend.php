@@ -509,7 +509,7 @@ function userUpdate($username, $email, $password, $id)
         
     }
     else {
-        header("Location: index.php?action=admincell");
+        header("Location: index.php");
     } 
 }
 function userUpdateAdmin($username, $email, $password, $isAdmin, $id) 

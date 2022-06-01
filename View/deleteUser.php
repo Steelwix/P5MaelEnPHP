@@ -1,35 +1,59 @@
-<?php $title = htmlspecialchars($users['username']);
+<?php $pagetitle = htmlspecialchars($users['username']);
 ?>
 
 <?php ob_start(); ?>
-<h1>Mon super blog !</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12">
+    <table class="table">
+  <thead>
+    <tr><br><br>
+      <th scope="col">Pseudo</th>
+      <th scope="col">Email</th>
+      <th scope="col">Création du compte</th>
+      <th scope="col">Droits</th>
 
-<div class="news">
-    <h3>
-        <?= htmlspecialchars($users['username']) ?>
-        <?= htmlspecialchars($users['email']) ?>
-        <em>mdp <?= $users['password'] ?></em>
-        <em>création <?= $users['created_at'] ?></em>
-        <em>admin? <?= $users['isAdmin'] ?></em>
-    </h3>
-    
+    </tr>
+  </thead>
+  <?php
+    if ($users['isAdmin']==1){
+        $users['isAdmin'] = "administrateur";
+    } 
+    else { $users['isAdmin'] = "utilisateur";
+    }?>
+  <tbody>
+    <tr>
+      <td><?= ($users['username']) ?></td>
+      <td><?= ($users['email']) ?></td>
+      <td><?= ($users['created_at']) ?></td>
+      <td><?= ($users['isAdmin']) ?></td>
+
+      
+    </td>
+    </tr>
+  </tbody>
+</table>
+<br><br>
+<p>Voulez vous vraiment effacer cet utilisateur? <strong>Ceci est une action irréversible.</strong></p>
+<a href="index.php?action=wipeUser&amp;id=<?= $users['id']?>" class="btn btn-danger">Oui, Supprimer cet utilisateur</a>
+
 </div>
-<p>Voulez vous vraiment effacer ce post? <strong>Ceci est une action irréversible.</strong></p>
-<a href="index.php?action=wipeUser&amp;id=<?= $users['id']?>">Oui, Supprimer ce user</a>
-
-
+<div class="col-12">
+<br>
 <h2>Commentaires de l'utilisateur</h2>
-
+<br>
 <?php
 while ($ucom = $userComs->fetch())
 {
 ?>
-    <p><?= nl2br(htmlspecialchars($ucom['comment'])) ?></p>
-    <p> Sur le post <?= nl2br(htmlspecialchars($ucom['title'])) ?></p>
+    <p><small>le <?=nl2br(htmlspecialchars($ucom['comDate'])) ?> Sur le post <?= nl2br(htmlspecialchars($ucom['title'])) ?></small></p>
+    <strong><p><?= nl2br(htmlspecialchars($ucom['comment'])) ?></p></strong>
+    
+</div>
 <?php
 }
 ?>
-
+<br>
 <?php $content = ob_get_clean(); ?>
 
 <?php require('template.php'); ?>
