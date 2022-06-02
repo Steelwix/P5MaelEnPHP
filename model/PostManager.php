@@ -28,7 +28,7 @@ class PostManager extends Manager
         $req->execute(array($idPost));
     }
     public function newPost($datetime, $title, $hat, $content, $author){
-        $nPost = $this->db->query("INSERT INTO post(idPost, updateDate, title, hat, content, id) VALUES(NULL, '".$datetime."', '".$title."', '".$hat."', '".$content."', '".$author."')");
+        $nPost = $this->db->query("INSERT INTO post(idPost, updateDate, title, hat, content, id) VALUES(NULL, '".$datetime."', '".addslashes($title)."', '".addslashes($hat)."', '".addslashes($content)."', '".$author."')");
         return $nPost;
     }
     public function editPost($datetime, $title, $hat, $content, $author, $idPost)

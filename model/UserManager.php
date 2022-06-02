@@ -26,7 +26,7 @@ class UserManager extends Manager
     public function createUser($username, $email, $password, $datetime)
     {
 
-        $newUser = $this->db->query("INSERT INTO users(id, created_at, isAdmin, username, email, password) VALUES(NULL, '".$datetime."', 0, '".$username."', '".$email."', '".$password."')");
+        $newUser = $this->db->query("INSERT INTO users(id, created_at, isAdmin, username, email, password) VALUES(NULL, '".$datetime."', 0, '".addslashes($username)."', '".$email."', '".addslashes($password)."')");
         return $newUser;
     }
     public function deleteUser($id)
@@ -36,13 +36,13 @@ class UserManager extends Manager
     }
     public function userNewSettings($username, $email, $password, $id)
     {
-        $req = $this->db->prepare("UPDATE users SET  username = '$username', email = '$email', password = '$password' WHERE id = '$id' ");
+        $req = $this->db->prepare("UPDATE users SET  username = '".addslashes($username)."', email = '$email', password = '".addslashes($password)."' WHERE id = ? ");
         $req->execute(array($id));
         return $req;
     }
     public function userNewSettingsAdmin($username, $email, $password, $isAdmin, $id)
     {
-        $req = $this->db->prepare("UPDATE users SET  username = '$username', email = '$email', password = '$password', isAdmin = '$isAdmin' WHERE id = ? ");
+        $req = $this->db->prepare("UPDATE users SET  username = '".addslashes($username)."', email = '$email', password = '".addslashes($password)."', isAdmin = '$isAdmin' WHERE id = ? ");
         $req->execute(array($id));
         return $req;
     }

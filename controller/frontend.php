@@ -3,7 +3,6 @@
 require_once('model/PostManager.php');
 require_once('model/CommentManager.php');
 require_once('model/UserManager.php');
-require_once('model/messageManager.php');
 require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require 'vendor/phpmailer/phpmailer/src/SMTP.php';
 require 'vendor/phpmailer/phpmailer/src/Exception.php';
@@ -438,6 +437,10 @@ $username_err = $password_err = $login_err = $email_err = $confirm_password_err 
 $username = $user['username'];
 $email = $user['email'];
 $password = $user['password'];
+if($_SESSION['id'] != $_GET['id'])
+{
+    header("Location: index.php");
+}
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
     $username_err = "Please fill all blanks";
@@ -448,7 +451,7 @@ if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
     {
         if($_POST['username'] == $donnees['username'] AND $_POST['email']== $donnees['email'])
         { 
-            throw new Exception('Votre compte existe surement déjà !');
+            throw new Exception('Ces informations appartiennent a un autre utilisateur');
         } else { 
            $username = $_POST['username'];
            $email = $_POST['email'];
@@ -509,6 +512,8 @@ function userUpdate($username, $email, $password, $id)
         
     }
     else {
+        $_SESSION['username'] = $_POST['username'];
+        $_SESSION['email'] = $_POST['email'];
         header("Location: index.php");
     } 
 }
