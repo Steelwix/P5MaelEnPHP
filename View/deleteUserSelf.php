@@ -22,9 +22,9 @@
     }?>
   <tbody>
     <tr>
-      <td><?= ($users['username']) ?></td>
-      <td><?= ($users['email']) ?></td>
-      <td><?= ($users['created_at']) ?></td>
+      <td><?= htmlspecialchars($users['username']) ?></td>
+      <td><?= htmlspecialchars($users['email']) ?></td>
+      <td><?= htmlspecialchars($users['created_at']) ?></td>
 
       
     </td>

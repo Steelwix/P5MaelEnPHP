@@ -4,8 +4,10 @@
 <?php ob_start(); ?>
 
  
+<div class="container">
+    <div class="row">
+        <div class="col-12"><br>
 
-    <div class="wrapper">
         <h2>Créer un post</h2>
         <p>Remplissez les champs pour créer un post.</p>
         <form action="index.php?action=newPost" method="post">
@@ -27,11 +29,8 @@
             <div class="form-group"><br>
                 <input type="submit" class="btn btn-primary" value="Submit">
                 <input type="reset" class="btn btn-secondary ml-2" value="Reset">
-            </div>
-        </form>
-    </div>    
-</body>
-</html>
+            </div><br>
+        </form>  </div></div></div>  
 <?php $content = ob_get_clean(); ?>
 
 <?php require('template.php'); ?>

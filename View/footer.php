@@ -30,19 +30,19 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="index.php?action=login&amp;">Contact</a>
+                <a class="nav-link" href="index.php?action=contact">Contact</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="index.php?action=register&amp;">A propos</a>
+                <a class="nav-link" href="index.php">A propos</a>
               </li>
               <?php if($_SESSION['isAdmin'] == 1)
     { ?> 
               <li class="nav-item">
-                <a class="nav-link" href="index.php?action=contact">Tableau d'administration</a>
+                <a class="nav-link" href="index.php?action=admincell">Tableau d'administration</a>
               </li>
               <?php } ?>
               <li class="nav-item">
-                <a class="nav-link" href="#">Paramètres du compte</a>
+                <a class="nav-link" href="index.php?action=welcome">Paramètres du compte</a>
               </li>
               <?php }
               else { ?>

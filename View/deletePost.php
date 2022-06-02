@@ -9,8 +9,8 @@
 <div class="col-12 posttitle">
     <h3>
         <?= htmlspecialchars($post['title']) ?>
-        <em>le <?= $post['creation_date_fr'] ?></em>
-        <em>par <?= $post['username'] ?></em>
+        <em>le <?= htmlspecialchars($post['creation_date_fr']) ?></em>
+        <em>par <?= htmlspecialchars($post['username']) ?></em>
     </h3>
 </div>
 <div class="col-12 postdata">

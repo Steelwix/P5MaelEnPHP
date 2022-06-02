@@ -11,7 +11,7 @@ ob_start();
 
         <?php 
         if(!empty($login_err)){
-            echo '<div class="alert alert-danger">' . $login_err . '</div>';
+            echo '<div class="alert alert-danger">' . htmlspecialchars($login_err) . '</div>';
         }        
         ?>
 

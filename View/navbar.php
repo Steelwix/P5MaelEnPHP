@@ -32,7 +32,7 @@
     else {}
        ?>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><b><?= $currentUser ?></b></a>
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><b><?= htmlspecialchars($currentUser) ?></b></a>
           <div class="dropdown-menu">
           <a class="dropdown-item" href="index.php?action=logout&amp;">Se déconnecter</a>
             <a class="dropdown-item" href="index.php?action=editUser&amp;id=<?= $_SESSION['id'] ?>">Paramètres</a>

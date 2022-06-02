@@ -3,8 +3,9 @@
 
 <?php ob_start(); ?>
 
-
-    <div class="wrapper">
+<div class="container">
+    <div class="row">
+        <div class="col-12"><br>
         <h2>Editer un post</h2>
         <p>Modifier les champs pour éditer le commentaire.</p>
         <form action="index.php?action=postEdit&amp;idPost=<?= $_GET['idPost'] ?> " method="post">
@@ -26,10 +27,9 @@
             <div class="form-group"><br>
                 <input type="submit" class="btn btn-primary" value="Submit">
                 <input type="reset" class="btn btn-secondary ml-2" value="Reset">
-            </div>
+            </div><br>
         </form>
-    </div>
-
+        </div></div></div>
 <?php $content = ob_get_clean(); ?>
 
 <?php require('template.php'); ?>

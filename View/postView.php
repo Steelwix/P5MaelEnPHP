@@ -14,8 +14,8 @@
         <h3>
     <h3>
         <?= htmlspecialchars($post['title']) ?>
-        <small><em>le <?= $post['creation_date_fr'] ?></em>
-        <em>par  <?= $post['username'] ?></em></small>
+        <small><em>le <?= htmlspecialchars($post['creation_date_fr']) ?></em>
+        <em>par  <?= htmlspecialchars($post['username']) ?></em></small>
     </h3>
 </div>
 <div class="col-12 postdata">
@@ -31,7 +31,7 @@
 <h2>Commentaires</h2>
 <?php 
         if(!empty($com_info)){
-            echo '<div class="alert alert-danger">' . $com_info . '</div>';
+            echo '<div class="alert alert-danger">' . htmlspecialchars($com_info) . '</div>';
         }        
         ?>
 <form action="index.php?action=addComment&amp;idPost=<?= $_GET['idPost'] ?>" method="post">

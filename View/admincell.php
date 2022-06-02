@@ -29,10 +29,10 @@ while ($data = $posts->fetch())
 { 
     ?> <tbody>
     <tr>
-      <td><?= ($data['title']) ?></td>
-      <td><?= ($data['hat']) ?></td>
-      <td><?= ($data['creation_date_fr']) ?></td>
-      <td><?= ($data['username']) ?></td>
+      <td><?= htmlspecialchars($data['title']) ?></td>
+      <td><?= htmlspecialchars($data['hat']) ?></td>
+      <td><?= htmlspecialchars($data['creation_date_fr']) ?></td>
+      <td><?= htmlspecialchars($data['username']) ?></td>
       <td><a href="index.php?action=modifyPost&amp;idPost=<?= $data['idPost'] ?>" class="btn btn-primary">Modifier</a><br><br>
       <a href="index.php?action=deletePost&amp;idPost=<?= $data['idPost'] ?>" class="btn btn-danger">Effacer</a>   </td>
 <?php
@@ -68,10 +68,10 @@ while ($data = $posts->fetch())
 while ($com = $comments->fetch()){ ?>
  <tbody>
     <tr>
-      <td><?= ($com['comment']) ?></td>
-      <td><?= ($com['comDate']) ?></td>
-      <td><?= ($com['username']) ?></td>
-      <td><?= ($com['title']) ?></td>
+      <td><?= htmlspecialchars($com['comment']) ?></td>
+      <td><?= htmlspecialchars($com['comDate']) ?></td>
+      <td><?= htmlspecialchars($com['username']) ?></td>
+      <td><?= htmlspecialchars($com['title']) ?></td>
       <td> 
       <?php if($com['isValid'] == 0) 
  {
@@ -121,10 +121,10 @@ while ($com = $users->fetch()){
     }?>
   <tbody>
     <tr>
-      <td><?= ($com['username']) ?></td>
-      <td><?= ($com['email']) ?></td>
-      <td><?= ($com['created_at']) ?></td>
-      <td><?= ($com['isAdmin']) ?></td>
+      <td><?= htmlspecialchars($com['username']) ?></td>
+      <td><?= htmlspecialchars($com['email']) ?></td>
+      <td><?= htmlspecialchars($com['created_at']) ?></td>
+      <td><?= htmlspecialchars($com['isAdmin']) ?></td>
       <td><a href="index.php?action=editUserAdmin&amp;id=<?= $com['id'] ?>" class="btn btn-primary">Editer</a>
       <a href="index.php?action=inspectUser&amp;id=<?= $com['id'] ?>" class="btn btn-danger">Effacer</a>
       

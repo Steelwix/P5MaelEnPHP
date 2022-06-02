@@ -13,7 +13,7 @@ ob_start();
         <h2><?= $user['username']?>,</h2>
         <p>Editez votre profil ci dessous</p>
 <?php  if(!empty($login_ok)){
-            echo '<div class="alert alert-danger">' . $login_ok . '</div>';
+            echo '<div class="alert alert-danger">' . htmlspecialchars($login_ok) . '</div>';
         }    ?>    
         <form action="index.php?action=userUpdate&amp;id=<?= $_GET['id'] ?>" method="post">
             <div class="form-group">

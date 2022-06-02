@@ -12,7 +12,7 @@ ob_start();
         <p>Remplissez les champs ci dessous pour vous inscrire, un mail de confirmation vous sera envoyé</p>
 <?php
         if(!empty($login_err)){
-            echo '<div class="alert alert-danger">' . $login_err . '</div>';
+            echo '<div class="alert alert-danger">' . htmlspecialchars($login_err) . '</div>';
         }        
         ?>
         <form action="index.php?action=signin&amp;" method="post">
@@ -43,8 +43,7 @@ ob_start();
             <p>Déjà un compte? <a href="login.php"  class="btn btn-success">Connectez vous</a></p>
         </form>
     </div> </div></div>  
-</body>
-</html>
+
 <?php $content = ob_get_clean(); ?>
 
 <?php require('template.php'); ?>
