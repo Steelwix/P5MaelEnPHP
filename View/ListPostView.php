@@ -4,7 +4,7 @@
 <br><br>
 <section class="container">
         <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-8 postdata">
             <h3>Maël Mhun, développeur et prometteur</h3>
             <p> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore 
                 et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
@@ -45,12 +45,11 @@ while ($data = $posts->fetch())
             par <?= htmlspecialchars($data['username']) ?></small></i>
         </h3>
         </div>
-        <div class="col-10 postdata">
-        <p>
+        <div class="col-12 postdata">
+        <p><br>
             <?= htmlspecialchars($data['hat']) ?>
-            <br />
-</div>
-<div class="col-2 postdata text-center">
+            <br>
+<br>
             <em><a href="index.php?action=post&amp;idPost=<?= $data['idPost'] ?> "class="btn btn-primary">Lire ce post</a></em>
         </p>
 </div>

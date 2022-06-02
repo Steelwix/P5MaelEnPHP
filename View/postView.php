@@ -7,8 +7,7 @@
     <div class="row">
         <div class="col-lg-3 col-md-12 text-center">
 <p><a href="index.php" class="btn btn-primary"> << Retour à la liste des posts</a></p>
-        </div></div></div>
-<div class="container">
+        </div></div><br>
     <div class="row">
     <div class="col-12 posttitle text-center">
         <h3>
@@ -37,22 +36,20 @@
 <form action="index.php?action=addComment&amp;idPost=<?= $_GET['idPost'] ?>" method="post">
 <div class="form-group">
 <textarea type="text" name="comment" class="form-control <?php echo (!empty($ncomment_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $ncomment; ?>"></textarea>
-   <span class="invalid-feedback"><?php echo $ncomment_err; ?></span>
+   <span class="invalid-feedback"><?php echo $ncomment_err; ?></span></div>
    <br>
 <div class="form-group">
    <input type="submit" class="btn btn-primary" value="Publier">
 </div>
-</form>
-</div></div>   
+</form><br>
+ 
 
-         
+       
 <?php
 while ($comment = $comments->fetch())
 {
 ?>
 
- <div class="row">
- <div class="col-12"> 
 
     <p><strong><?= htmlspecialchars($comment['username']) ?></strong> le <small> <?=htmlspecialchars($comment['comDate']) ?> </small>
     <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
@@ -60,6 +57,7 @@ while ($comment = $comments->fetch())
 <?php
 }
 ?>
-<?php $content = ob_get_clean(); ?>
 </div></div></div>
+<?php $content = ob_get_clean(); ?>
+
 <?php require('template.php'); ?>
