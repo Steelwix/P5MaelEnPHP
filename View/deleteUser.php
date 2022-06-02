@@ -46,7 +46,7 @@
 while ($ucom = $userComs->fetch())
 {
 ?>
-    <p><small>le <?=nl2br(htmlspecialchars($ucom['comDate'])) ?> Sur le post <?= nl2br(htmlspecialchars($ucom['title'])) ?></small></p>
+    <p><small>le <?=htmlspecialchars($ucom['comDate']) ?> Sur le post <?= htmlspecialchars($ucom['title']) ?></small></p>
     <strong><p><?= nl2br(htmlspecialchars($ucom['comment'])) ?></p></strong>
     
 </div>

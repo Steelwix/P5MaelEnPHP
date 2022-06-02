@@ -15,7 +15,7 @@
 </div>
 <div class="col-12 postdata">
     <p>
-        <?= nl2br(htmlspecialchars($post['content']))?> 
+        <?= htmlspecialchars($post['content'])?> 
     </p>
 </div>
 <div class="col-12">
