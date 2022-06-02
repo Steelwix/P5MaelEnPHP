@@ -47,7 +47,7 @@ while ($data = $posts->fetch())
         </div>
         <div class="col-10 postdata">
         <p>
-            <?= nl2br(htmlspecialchars($data['hat'])) ?>
+            <?= (htmlspecialchars($data['hat'])) ?>
             <br />
 </div>
 <div class="col-2 postdata text-center">
