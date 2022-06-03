@@ -11,17 +11,17 @@
         <form action="index.php?action=postEdit&amp;idPost=<?= $_GET['idPost'] ?> " method="post">
             <div class="form-group">
                 <label>Titre</label>
-                <input type="text" name="title" class="form-control <?= (!empty($title_err)) ? 'is-invalid' : ''; ?>" value="<?= $title; ?>">
+                <input type="text" name="title" class="form-control <?= (!empty($title_err)) ? 'is-invalid' : ''; ?>" value="<?= htmlspecialchars($title) ?>">
                 <span class="invalid-feedback"><?= $title_err; ?></span>
             </div>
             <div class="form-group">
                 <label>Chapo</label>
-                <input type="text" name="hat" class="form-control <?= (!empty($hat_err)) ? 'is-invalid' : ''; ?>" value="<?= $hat; ?>">
+                <input type="text" name="hat" class="form-control <?= (!empty($hat_err)) ? 'is-invalid' : ''; ?>" value="<?= htmlspecialchars($hat) ?>">
                 <span class="invalid-feedback"><?= $hat_err; ?></span>
             </div>
             <div class="form-group">
                 <label>Contenu</label>
-                <textarea type="text" name="content" class="form-control <?= (!empty($content_err)) ? 'is-invalid' : ''; ?>" value="<?= $content; ?>"></textarea>
+                <textarea type="text" name="content" class="form-control <?= (!empty($content_err)) ? 'is-invalid' : ''; ?>" value="<?= htmlspecialchars($content) ?>"></textarea>
                 <span class="invalid-feedback"><?= $content_err; ?></span>
             </div>
             <div class="form-group"><br>
