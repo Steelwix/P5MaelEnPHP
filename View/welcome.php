@@ -12,7 +12,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <div class="container">
         <div class="row">
         <div class="col-12 text-center"><br>
-            <h1>Bonjour <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>.</h1>
+            <h1>Bonjour <b><?= htmlspecialchars($_SESSION["username"]); ?></b>.</h1>
         <p><br>
 
         <a href="index.php?action=editUser&amp;id=<?= $_SESSION['id'] ?>" class="btn btn-primary">Editer le profil</a>

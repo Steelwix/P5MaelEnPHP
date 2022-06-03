@@ -13,18 +13,18 @@
         <form action="index.php?action=newPost" method="post">
             <div class="form-group">
                 <label>Titre</label>
-                <input type="text" name="title" class="form-control <?php echo (!empty($title_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $title; ?>">
-                <span class="invalid-feedback"><?php echo $title_err; ?></span>
+                <input type="text" name="title" class="form-control <?= (!empty($title_err)) ? 'is-invalid' : ''; ?>" value="<?= $title; ?>">
+                <span class="invalid-feedback"><?= $title_err; ?></span>
             </div>
             <div class="form-group">
                 <label>Chapo</label>
-                <input type="text" name="hat" class="form-control <?php echo (!empty($hat_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $hat; ?>">
-                <span class="invalid-feedback"><?php echo $hat_err; ?></span>
+                <input type="text" name="hat" class="form-control <?= (!empty($hat_err)) ? 'is-invalid' : ''; ?>" value="<?= $hat; ?>">
+                <span class="invalid-feedback"><?= $hat_err; ?></span>
             </div>
             <div class="form-group">
                 <label>Contenu</label>
-                <textarea type="text" name="content" class="form-control <?php echo (!empty($content_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $content; ?>"></textarea>
-                <span class="invalid-feedback"><?php echo $content_err; ?></span>
+                <textarea type="text" name="content" class="form-control <?= (!empty($content_err)) ? 'is-invalid' : ''; ?>" value="<?= $content; ?>"></textarea>
+                <span class="invalid-feedback"><?= $content_err; ?></span>
             </div>
             <div class="form-group"><br>
                 <input type="submit" class="btn btn-primary" value="Submit">

@@ -15,15 +15,15 @@
 else { ?>
 
             <label>Email</label>
-            <input type="text" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
-            <span class="invalid-feedback"><?php echo $email_err; ?></span>
+            <input type="text" name="email" class="form-control <?= (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?= $email; ?>">
+            <span class="invalid-feedback"><?= $email_err; ?></span>
         </div>
         <div class="form-group">
 <?php
 }
    ?>            <label>Votre message</label>
-   <textarea type="text" name="message" class="form-control <?php echo (!empty($message_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $message; ?>"></textarea>
-   <span class="invalid-feedback"><?php echo $message_err; ?></span>
+   <textarea type="text" name="message" class="form-control <?= (!empty($message_err)) ? 'is-invalid' : ''; ?>" value="<?= $message; ?>"></textarea>
+   <span class="invalid-feedback"><?= $message_err; ?></span>
 <div class="form-group"><br>
    <input type="submit" class="btn btn-primary" value="Submit">
    <input type="reset" class="btn btn-secondary ml-2" value="Reset">

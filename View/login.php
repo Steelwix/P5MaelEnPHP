@@ -18,13 +18,13 @@ ob_start();
         <form action="index.php?action=login&amp;" method="post">
             <div class="form-group">
                 <label>Nom d'utilisateur</label>
-                <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
-                <span class="invalid-feedback"><?php echo $username_err; ?></span>
+                <input type="text" name="username" class="form-control <?= (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?= $username; ?>">
+                <span class="invalid-feedback"><?= $username_err; ?></span>
             </div>    
             <div class="form-group">
                 <label>Mot de passe</label>
-                <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
-                <span class="invalid-feedback"><?php echo $password_err; ?></span>
+                <input type="password" name="password" class="form-control <?= (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?= $password; ?>">
+                <span class="invalid-feedback"><?= $password_err; ?></span>
             </div><br>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Login">

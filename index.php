@@ -3,6 +3,10 @@
 session_start();
 require('controller/frontend.php');
 require_once 'vendor/autoload.php';
+if(isset($_GET['idPost']))
+{
+    $getIdPost = $_GET['idPost'];
+}
 
 try {
     if (isset($_GET['action'])) {
@@ -31,7 +35,7 @@ try {
         }
 
         if ($_GET['action'] == 'post') {
-            if (isset($_GET['idPost'])) {
+            if (isset($getIdPost)) {
                 post();
             }
             elseif (isset($idPost)) {
@@ -96,8 +100,10 @@ try {
         }
         if($_GET['action'] == 'deletePost')
             {
+
                 if (isset($_GET['idPost']))
                 {
+                    
                     deletePost();      
                 }             
             }

@@ -35,8 +35,8 @@
         ?>
 <form action="index.php?action=addComment&amp;idPost=<?= $_GET['idPost'] ?>" method="post">
 <div class="form-group">
-<textarea type="text" name="comment" class="form-control <?php echo (!empty($ncomment_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $ncomment; ?>"></textarea>
-   <span class="invalid-feedback"><?php echo $ncomment_err; ?></span></div>
+<textarea type="text" name="comment" class="form-control <?= (!empty($ncomment_err)) ? 'is-invalid' : ''; ?>" value="<?= $ncomment; ?>"></textarea>
+   <span class="invalid-feedback"><?= $ncomment_err; ?></span></div>
    <br>
 <div class="form-group">
    <input type="submit" class="btn btn-primary" value="Publier">
