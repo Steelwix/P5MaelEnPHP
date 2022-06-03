@@ -12,7 +12,11 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-
+function secureText($text)
+{
+   $text = htmlspecialchars($text);
+   return ($text);
+}
 function listPosts()
 {
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
@@ -206,7 +210,7 @@ function adminSystem()
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $posts = $postManager->getPosts();
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
-    $comments = $commentManager->getAllCom(); /*undefined index*/
+    $comments = $commentManager->getAllCom(); 
     require('View/admincell.php');
     
 }
@@ -215,8 +219,8 @@ function deletePost()
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $post = $postManager->getPost($_GET['idPost']);
-    $comments = $commentManager->getComments($_GET['idPost']); /*undefined index*/
-
+    $comments = $commentManager->getComments($_GET['idPost']);
+    $title = secureText($post['title']);
     require('View/deletePost.php');
 }
 function wipePost($idPost)
