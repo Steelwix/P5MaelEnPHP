@@ -16,6 +16,10 @@ if(isset($_GET['idComment']))
 {
     $getIdComment = $_GET['idComment'];
 }
+if(isset($_GET['action']))
+{
+    $getAction = $_GET['action'];
+}
 //POST
 if(isset($_POST['username']))
 {
@@ -79,16 +83,16 @@ if(isset($_SESSION['validRegister']))
     $sessionValidRegister = $_SESSION['validRegister'];
 }
 try {
-    if (isset($_GET['action'])) {
-        if ($_GET['action'] == 'listPosts') {
+    if (isset($getAction)) {
+        if ($getAction == 'listPosts') {
             listPosts();
         }
-        if ($_GET['action'] == 'login'){
+        if ($getAction == 'login'){
             loginSystem();
         }
-        if ($_GET['action'] == 'register'){
+        if ($getAction == 'register'){
             registerSystem();}
-        if($_GET['action'] == 'signin'){
+        if($getAction == 'signin'){
             if($postUsername=="" OR $postEmail=="" OR $postPassword=="" OR ($postPassword!==$postConfirmPassword)==true OR  !isset($sessionValidRegister)){
                 registerSystem();
             }
@@ -100,11 +104,11 @@ try {
             }
             
         }
-        if ($_GET['action'] == 'logout'){
+        if ($getAction == 'logout'){
             logOutSystem();
         }
 
-        if ($_GET['action'] == 'post') {
+        if ($getAction == 'post') {
             if (isset($getIdPost)) {
                 post();
             }
@@ -112,7 +116,7 @@ try {
                 post();
             }
         }
-        if ($_GET['action'] == 'addComment') {
+        if ($getAction == 'addComment') {
                 if ($postComment=="") {
                     post();
                 }
@@ -126,10 +130,10 @@ try {
                 
             }
         
-        if($_GET['action'] == 'editUser') {
+        if($getAction == 'editUser') {
             editUser($getId);
         }
-        if($_GET['action'] == 'userUpdate'){
+        if($getAction == 'userUpdate'){
             if($postUsername== "" OR $postEmail== "" OR $postPassword== "")
             {
                 editUser($getId);
@@ -138,19 +142,19 @@ try {
 
                 userUpdate($postUsername, $postEmail, $postPassword, $getId);
             }}
-        if($_GET['action'] == 'welcome'){
+        if($getAction == 'welcome'){
             welcome();
          }
-         if($_GET['action'] == 'inspectUserSelf') {
+         if($getAction == 'inspectUserSelf') {
             inspectUserSelf($getId);
         }
-        if($_GET['action'] == 'wipeUserSelf') {
+        if($getAction == 'wipeUserSelf') {
             wipeUserSelf($getId);
         }
-        if($_GET['action'] == 'contact') {
+        if($getAction == 'contact') {
             contactForm();
         }
-        if($_GET['action'] == 'sendMessage') {
+        if($getAction == 'sendMessage') {
             if(isset($sessionEmail)){
                 $postEmail = $sessionEmail;
             }
@@ -164,11 +168,11 @@ try {
         }
          //ADMIN----------------------------------------------------
         if(isset($sessionIsAdmin) AND $sessionIsAdmin==1){
-        if($_GET['action'] == 'admincell')
+        if($getAction == 'admincell')
         { 
             adminSystem();
         }
-        if($_GET['action'] == 'deletePost')
+        if($getAction == 'deletePost')
             {
 
                 if (isset($getIdPost))
@@ -178,25 +182,25 @@ try {
                 }             
             }
 
-        if($_GET['action'] == 'wipePost') {
+        if($getAction == 'wipePost') {
             wipePost($getIdPost);
         }
-        if($_GET['action'] == 'deleteComment') {
+        if($getAction == 'deleteComment') {
             deleteComment($getIdComment);
         }
-        if($_GET['action'] == 'commentIsValid') {
+        if($getAction == 'commentIsValid') {
             commentIsValid($getIdComment);
         }
-        if($_GET['action'] == 'inspectUser') {
+        if($getAction == 'inspectUser') {
             inspectUser($getId);
         }
-        if($_GET['action'] == 'wipeUser') {
+        if($getAction == 'wipeUser') {
             wipeUser($getId);
         }
-        if($_GET['action'] == 'createPost') {
+        if($getAction == 'createPost') {
             createPost();
         }
-        if($_GET['action'] == 'newPost') {
+        if($getAction == 'newPost') {
             if($postTitle=="" OR $postHat=="" OR $postContent=="")
             {createPost();}
             else {
@@ -204,11 +208,11 @@ try {
                 newPost($postTitle, $postHat, $postContent, $sessionId);
             }
         }
-        if($_GET['action'] == 'modifyPost') {
+        if($getAction == 'modifyPost') {
             modifyPost();
         }
         
-        if($_GET['action'] == 'postEdit') {
+        if($getAction == 'postEdit') {
             if($postTitle=="" OR $postHat=="" OR $postContent=="" OR !isset($sessionId) OR !isset($getIdPost))
             {
                 modifyPost();
@@ -218,10 +222,10 @@ try {
                 postEdit($postTitle, $postHat, $postContent, $sessionId, $getIdPost);
             }
         }
-        if($_GET['action'] == 'editUserAdmin') {
+        if($getAction == 'editUserAdmin') {
             editUserAdmin($getId);
         }
-        if($_GET['action'] == 'userUpdateAdmin'){
+        if($getAction == 'userUpdateAdmin'){
             if($postUsername== "" OR $postEmail== "" OR $postPassword== "" OR $postIsAdmin== "")
             {
                 editUserAdmin($getId);
