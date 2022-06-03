@@ -1,4 +1,4 @@
-<?php $pagetitle = htmlspecialchars('Administration - Mael En PHP');
+<?php $pagetitle = secureText('Administration - Mael En PHP');
 
  ob_start(); ?>
 <div class="container">
@@ -29,10 +29,10 @@ while ($data = $posts->fetch())
 { 
     ?> <tbody>
     <tr>
-      <td><?= htmlspecialchars($data['title']) ?></td>
-      <td><?= htmlspecialchars($data['hat']) ?></td>
-      <td><?= htmlspecialchars($data['creation_date_fr']) ?></td>
-      <td><?= htmlspecialchars($data['username']) ?></td>
+      <td><?= secureText($data['title']) ?></td>
+      <td><?= secureText($data['hat']) ?></td>
+      <td><?= secureText($data['creation_date_fr']) ?></td>
+      <td><?= secureText($data['username']) ?></td>
       <td><a href="index.php?action=modifyPost&amp;idPost=<?= $data['idPost'] ?>" class="btn btn-primary">Modifier</a><br><br>
       <a href="index.php?action=deletePost&amp;idPost=<?= $data['idPost'] ?>" class="btn btn-danger">Effacer</a>   </td>
 <?php
@@ -68,10 +68,10 @@ while ($data = $posts->fetch())
 while ($com = $comments->fetch()){ ?>
  <tbody>
     <tr>
-      <td><?= htmlspecialchars($com['comment']) ?></td>
-      <td><?= htmlspecialchars($com['comDate']) ?></td>
-      <td><?= htmlspecialchars($com['username']) ?></td>
-      <td><?= htmlspecialchars($com['title']) ?></td>
+      <td><?= secureText($com['comment']) ?></td>
+      <td><?= secureText($com['comDate']) ?></td>
+      <td><?= secureText($com['username']) ?></td>
+      <td><?= secureText($com['title']) ?></td>
       <td> 
       <?php if($com['isValid'] == 0) 
  {
@@ -121,10 +121,10 @@ while ($com = $users->fetch()){
     }?>
   <tbody>
     <tr>
-      <td><?= htmlspecialchars($com['username']) ?></td>
-      <td><?= htmlspecialchars($com['email']) ?></td>
-      <td><?= htmlspecialchars($com['created_at']) ?></td>
-      <td><?= htmlspecialchars($com['isAdmin']) ?></td>
+      <td><?= secureText($com['username']) ?></td>
+      <td><?= secureText($com['email']) ?></td>
+      <td><?= secureText($com['created_at']) ?></td>
+      <td><?= secureText($com['isAdmin']) ?></td>
       <td><a href="index.php?action=editUserAdmin&amp;id=<?= $com['id'] ?>" class="btn btn-primary">Editer</a>
       <a href="index.php?action=inspectUser&amp;id=<?= $com['id'] ?>" class="btn btn-danger">Effacer</a>
       
