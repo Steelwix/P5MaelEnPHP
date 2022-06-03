@@ -3,6 +3,7 @@
 session_start();
 require('controller/frontend.php');
 require_once 'vendor/autoload.php';
+//GET
 if(isset($_GET['idPost']))
 {
     $getIdPost = $_GET['idPost'];
@@ -11,7 +12,72 @@ if(isset($_GET['id']))
 {
     $getId = $_GET['id'];
 }
-
+if(isset($_GET['idComment']))
+{
+    $getIdComment = $_GET['idComment'];
+}
+//POST
+if(isset($_POST['username']))
+{
+    $postUsername = $_POST['username'];
+}
+if(isset($_POST['email']))
+{
+    $postEmail = $_POST['email'];
+}
+if(isset($_POST['password']))
+{
+    $postPassword = $_POST['password'];
+}
+if(isset($_POST['title']))
+{
+    $postTitle = $_POST['title'];
+}
+if(isset($_POST['hat']))
+{
+    $postHat = $_POST['hat'];
+}
+if(isset($_POST['content']))
+{
+    $postContent = $_POST['content'];
+}
+if(isset($_POST['comment']))
+{
+    $postComment = $_POST['comment'];
+}
+if(isset($_POST['confirm_password']))
+{
+    $postConfirmPassword = $_POST['confirm_password'];
+}
+if(isset($_POST['isValid']))
+{
+    $postIsValid = $_POST['isValid'];
+}
+if(isset($_POST['message']))
+{
+    $postMessage = $_POST['message'];
+}
+if(isset($_POST['isAdmin']))
+{
+    $postIsAdmin = $_POST['isAdmin'];
+}
+//SESSION
+if(isset($_SESSION['id']))
+{
+    $sessionId = $_SESSION['id'];
+}
+if(isset($_SESSION['email']))
+{
+    $sessionEmail = $_SESSION['email'];
+}
+if(isset($_SESSION['isAdmin']))
+{
+    $sessionIsAdmin = $_SESSION['isAdmin'];
+}
+if(isset($_SESSION['validRegister']))
+{
+    $sessionValidRegister = $_SESSION['validRegister'];
+}
 try {
     if (isset($_GET['action'])) {
         if ($_GET['action'] == 'listPosts') {
@@ -23,12 +89,12 @@ try {
         if ($_GET['action'] == 'register'){
             registerSystem();}
         if($_GET['action'] == 'signin'){
-            if($_POST['username']=="" OR $_POST['email']=="" OR $_POST['password']=="" OR ($_POST['password']!==$_POST['confirm_password'])==true OR  !isset($_SESSION['validRegister'])){
+            if($postUsername=="" OR $postEmail=="" OR $postPassword=="" OR ($postPassword!==$postConfirmPassword)==true OR  !isset($sessionValidRegister)){
                 registerSystem();
             }
             else {
-                createUser($_POST['username'], $_POST['email'], $_POST['password']);
-                sendMailCreateUser($_POST['username'], $_POST['email'], $_POST['password']);
+                createUser($postUsername, $postEmail, $postPassword);
+                sendMailCreateUser($postUsername, $postEmail, $postPassword);
                 header("location: index.php?action=login");
 
             }
@@ -47,16 +113,16 @@ try {
             }
         }
         if ($_GET['action'] == 'addComment') {
-                if ($_POST['comment']=="") {
+                if ($postComment=="") {
                     post();
                 }
-                elseif($_SESSION['isAdmin']==1) {
-                    $_POST['isValid']=1;      
+                elseif($sessionIsAdmin==1) {
+                    $postIsValid=1;      
                 }
                 else {
-                    $_POST['isValid']=0;      
+                    $postIsValid=0;      
                 }
-                addComment($_POST['comment'], $_POST['isValid'], $_SESSION['id'], $getIdPost);
+                addComment($postComment, $postIsValid, $sessionId, $getIdPost);
                 
             }
         
@@ -64,13 +130,13 @@ try {
             editUser($getId);
         }
         if($_GET['action'] == 'userUpdate'){
-            if($_POST['username']== "" OR $_POST['email']== "" OR $_POST['password']== "")
+            if($postUsername== "" OR $postEmail== "" OR $postPassword== "")
             {
                 editUser($getId);
             }
             else {
 
-                userUpdate($_POST['username'], $_POST['email'], $_POST['password'], $getId);
+                userUpdate($postUsername, $postEmail, $postPassword, $getId);
             }}
         if($_GET['action'] == 'welcome'){
             welcome();
@@ -85,19 +151,19 @@ try {
             contactForm();
         }
         if($_GET['action'] == 'sendMessage') {
-            if(isset($_SESSION['email'])){
-                $_POST['email'] = $_SESSION['email'];
+            if(isset($sessionEmail)){
+                $postEmail = $sessionEmail;
             }
-            if($_POST['message']=="" OR $_POST['email']=="")
+            if($postMessage=="" OR $postEmail=="")
             {
                 contactForm();
             }
             else {
-                sendMailContact($_POST['email'], $_POST['message']);
+                sendMailContact($postEmail, $postMessage);
             }
         }
          //ADMIN----------------------------------------------------
-        if(isset($_SESSION['isAdmin']) AND $_SESSION['isAdmin']==1){
+        if(isset($sessionIsAdmin) AND $sessionIsAdmin==1){
         if($_GET['action'] == 'admincell')
         { 
             adminSystem();
@@ -116,10 +182,10 @@ try {
             wipePost($getIdPost);
         }
         if($_GET['action'] == 'deleteComment') {
-            deleteComment($_GET['idComment']);
+            deleteComment($getIdComment);
         }
         if($_GET['action'] == 'commentIsValid') {
-            commentIsValid($_GET['idComment']);
+            commentIsValid($getIdComment);
         }
         if($_GET['action'] == 'inspectUser') {
             inspectUser($getId);
@@ -131,11 +197,11 @@ try {
             createPost();
         }
         if($_GET['action'] == 'newPost') {
-            if($_POST['title']=="" OR $_POST['hat']=="" OR $_POST['content']=="")
+            if($postTitle=="" OR $postHat=="" OR $postContent=="")
             {createPost();}
             else {
                 
-                newPost($_POST['title'], $_POST['hat'], $_POST['content'], $_SESSION['id']);
+                newPost($postTitle, $postHat, $postContent, $sessionId);
             }
         }
         if($_GET['action'] == 'modifyPost') {
@@ -143,26 +209,26 @@ try {
         }
         
         if($_GET['action'] == 'postEdit') {
-            if($_POST['title']=="" OR $_POST['hat']=="" OR $_POST['content']=="" OR !isset($_SESSION['id']) OR !isset($getIdPost))
+            if($postTitle=="" OR $postHat=="" OR $postContent=="" OR !isset($sessionId) OR !isset($getIdPost))
             {
                 modifyPost();
             }
             else { 
 
-                postEdit($_POST['title'], $_POST['hat'], $_POST['content'], $_SESSION['id'], $getIdPost);
+                postEdit($postTitle, $postHat, $postContent, $sessionId, $getIdPost);
             }
         }
         if($_GET['action'] == 'editUserAdmin') {
             editUserAdmin($getId);
         }
         if($_GET['action'] == 'userUpdateAdmin'){
-            if($_POST['username']== "" OR $_POST['email']== "" OR $_POST['password']== "" OR $_POST['isAdmin']== "")
+            if($postUsername== "" OR $postEmail== "" OR $postPassword== "" OR $postIsAdmin== "")
             {
                 editUserAdmin($getId);
             }
             else {
 
-                userUpdateAdmin($_POST['username'], $_POST['email'], $_POST['password'], $_POST['isAdmin'], $getId);
+                userUpdateAdmin($postUsername, $postEmail, $postPassword, $postIsAdmin, $getId);
             }
         }
 
