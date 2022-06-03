@@ -36,14 +36,14 @@ class UserManager extends Manager
     }
     public function userNewSettings($username, $email, $password, $id)
     {
-        $req = $this->db->prepare("UPDATE users SET  username = '".addslashes($username)."', email = '$email', password = '".addslashes($password)."' WHERE id = ? ");
-        $req->execute(array($id));
+        $req = $this->db->prepare("UPDATE users SET  username = :username, email = :email, password = :password WHERE id = :id ");
+        $req->execute(array(':username' => $username, ':email' => $email, ':password' => $password, ':id' => $id));
         return $req;
     }
     public function userNewSettingsAdmin($username, $email, $password, $isAdmin, $id)
     {
-        $req = $this->db->prepare("UPDATE users SET  username = '".addslashes($username)."', email = '$email', password = '".addslashes($password)."', isAdmin = '$isAdmin' WHERE id = ? ");
-        $req->execute(array($id));
+        $req = $this->db->prepare("UPDATE users SET  username = :username, email = :email, password = :password, isAdmin = :isAdmin WHERE id = :id ");
+        $req->execute(array(':username' => $username, ':email' => $email, ':password' => $password, ':isAdmin' => $isAdmin, ':id' => $id));
         return $req;
     }
 }
