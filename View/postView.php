@@ -30,7 +30,8 @@
 <h2>Commentaires</h2>
 <?php 
         if(!empty($com_info)){
-            echo '<div class="alert alert-danger">' . htmlspecialchars($com_info) . '</div>';
+            ?><div class="alert alert-danger"><?= htmlspecialchars($com_info) ?> </div>
+            <?php
         }        
         ?>
 <form action="index.php?action=addComment&amp;idPost=<?= $_GET['idPost'] ?>" method="post">

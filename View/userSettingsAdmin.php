@@ -13,7 +13,8 @@ ob_start();
         <h2>Editer le profil de l'utilisateur <?= $user['username']?></h2>
         <p>Modifiez les paramètres de l'utilisateur.</p>
 <?php  if(!empty($login_ok)){
-            echo '<div class="alert alert-danger">' . htmlspecialchars($login_ok) . '</div>';
+            ?><div class="alert alert-danger"><?= htmlspecialchars($com_info) ?> </div>
+            <?php
         }    ?>    
         <form action="index.php?action=userUpdateAdmin&amp;id=<?= $_GET['id'] ?>" method="post">
             <div class="form-group">

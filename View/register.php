@@ -12,7 +12,8 @@ ob_start();
         <p>Remplissez les champs ci dessous pour vous inscrire, un mail de confirmation vous sera envoyé</p>
 <?php
         if(!empty($login_err)){
-            echo '<div class="alert alert-danger">' . htmlspecialchars($login_err) . '</div>';
+            ?> <div class="alert alert-danger"><?=htmlspecialchars($login_err) ?></div>
+            <?php
         }        
         ?>
         <form action="index.php?action=signin&amp;" method="post">
