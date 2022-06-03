@@ -40,9 +40,9 @@ while ($data = $posts->fetch())
     <div class="row">
     <div class="col-12 posttitle text-center">
         <h3>
-            <strong><?= $data['title'] ?></strong>
-            <small><i> <?= $data['creation_date_fr'] ?>
-            par <?= $data['username'] ?></small></i>
+            <strong><?= htmlspecialchars($data['title']) ?></strong>
+            <small><i> <?= htmlspecialchars($data['creation_date_fr']) ?>
+            par <?= htmlspecialchars($data['username']) ?></small></i>
         </h3>
         </div>
         <div class="col-12 postdata">
