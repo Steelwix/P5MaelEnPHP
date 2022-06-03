@@ -7,6 +7,10 @@ if(isset($_GET['idPost']))
 {
     $getIdPost = $_GET['idPost'];
 }
+if(isset($_GET['id']))
+{
+    $getId = $_GET['id'];
+}
 
 try {
     if (isset($_GET['action'])) {
@@ -52,30 +56,30 @@ try {
                 else {
                     $_POST['isValid']=0;      
                 }
-                addComment($_POST['comment'], $_POST['isValid'], $_SESSION['id'], $_GET['idPost']);
+                addComment($_POST['comment'], $_POST['isValid'], $_SESSION['id'], $getIdPost);
                 
             }
         
         if($_GET['action'] == 'editUser') {
-            editUser($_GET['id']);
+            editUser($getId);
         }
         if($_GET['action'] == 'userUpdate'){
             if($_POST['username']== "" OR $_POST['email']== "" OR $_POST['password']== "")
             {
-                editUser($_GET['id']);
+                editUser($getId);
             }
             else {
 
-                userUpdate($_POST['username'], $_POST['email'], $_POST['password'], $_GET['id']);
+                userUpdate($_POST['username'], $_POST['email'], $_POST['password'], $getId);
             }}
         if($_GET['action'] == 'welcome'){
             welcome();
          }
          if($_GET['action'] == 'inspectUserSelf') {
-            inspectUserSelf($_GET['id']);
+            inspectUserSelf($getId);
         }
         if($_GET['action'] == 'wipeUserSelf') {
-            wipeUserSelf($_GET['id']);
+            wipeUserSelf($getId);
         }
         if($_GET['action'] == 'contact') {
             contactForm();
@@ -101,7 +105,7 @@ try {
         if($_GET['action'] == 'deletePost')
             {
 
-                if (isset($_GET['idPost']))
+                if (isset($getIdPost))
                 {
                     
                     deletePost();      
@@ -109,7 +113,7 @@ try {
             }
 
         if($_GET['action'] == 'wipePost') {
-            wipePost($_GET['idPost']);
+            wipePost($getIdPost);
         }
         if($_GET['action'] == 'deleteComment') {
             deleteComment($_GET['idComment']);
@@ -118,10 +122,10 @@ try {
             commentIsValid($_GET['idComment']);
         }
         if($_GET['action'] == 'inspectUser') {
-            inspectUser($_GET['id']);
+            inspectUser($getId);
         }
         if($_GET['action'] == 'wipeUser') {
-            wipeUser($_GET['id']);
+            wipeUser($getId);
         }
         if($_GET['action'] == 'createPost') {
             createPost();
@@ -139,26 +143,26 @@ try {
         }
         
         if($_GET['action'] == 'postEdit') {
-            if($_POST['title']=="" OR $_POST['hat']=="" OR $_POST['content']=="" OR !isset($_SESSION['id']) OR !isset($_GET['idPost']))
+            if($_POST['title']=="" OR $_POST['hat']=="" OR $_POST['content']=="" OR !isset($_SESSION['id']) OR !isset($getIdPost))
             {
                 modifyPost();
             }
             else { 
 
-                postEdit($_POST['title'], $_POST['hat'], $_POST['content'], $_SESSION['id'], $_GET['idPost']);
+                postEdit($_POST['title'], $_POST['hat'], $_POST['content'], $_SESSION['id'], $getIdPost);
             }
         }
         if($_GET['action'] == 'editUserAdmin') {
-            editUserAdmin($_GET['id']);
+            editUserAdmin($getId);
         }
         if($_GET['action'] == 'userUpdateAdmin'){
             if($_POST['username']== "" OR $_POST['email']== "" OR $_POST['password']== "" OR $_POST['isAdmin']== "")
             {
-                editUserAdmin($_GET['id']);
+                editUserAdmin($getId);
             }
             else {
 
-                userUpdateAdmin($_POST['username'], $_POST['email'], $_POST['password'], $_POST['isAdmin'], $_GET['id']);
+                userUpdateAdmin($_POST['username'], $_POST['email'], $_POST['password'], $_POST['isAdmin'], $getId);
             }
         }
 
