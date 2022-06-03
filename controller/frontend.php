@@ -23,6 +23,11 @@ function listPosts()
     $posts = $postManager->getPosts();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
+    secureText($posts['title']);
+    secureText($posts['hat']);
+    secureText($posts['content']);
+    secureText($posts['idPost']);
+    secureText($posts['id']);
     require('View/ListPostView.php');
     
 }
