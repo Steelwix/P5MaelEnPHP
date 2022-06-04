@@ -3,7 +3,7 @@
 $pagetitle = htmlspecialchars('Paramètres d\'utilisateur');
 ob_start(); 
 
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+if(!isset($sessionLoggedIn) || $sessionLoggedIn !== true){
     header("location: index.php");
     exit;
 }

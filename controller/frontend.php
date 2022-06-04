@@ -70,7 +70,7 @@ function loginSystem()
 {
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
-    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+    if(isset($sessionLoggedIn) && $sessionLoggedIn === true){
         header("location: index.php");
         exit;
     }
@@ -95,7 +95,7 @@ function loginSystem()
         { echo "connexion validée";
             $_SESSION['username'] = $donnees['username'];
             $_SESSION['id'] = $donnees['id'];
-            $_SESSION["loggedin"] = true;
+            $sessionLoggedIn = true;
             $_SESSION['isAdmin'] = $donnees['isAdmin'];
             $_SESSION['email'] = $donnees['email'];
             header("location: index.php");

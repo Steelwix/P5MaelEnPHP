@@ -82,6 +82,10 @@ if(isset($_SESSION['validRegister']))
 {
     $sessionValidRegister = $_SESSION['validRegister'];
 }
+if(isset($_SESSION["loggedin"]))
+{
+    $sessionLoggedIn = $_SESSION["loggedin"];
+}
 try {
     if (isset($getAction)) {
         if ($getAction == 'listPosts') {

@@ -7,7 +7,7 @@
     </button>
 
     
-    <?php if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){    
+    <?php if(isset($sessionLoggedIn) && $sessionLoggedIn === true){    
       $currentUser = $_SESSION['username']; ?>
 <!-- ONLINE NAVBAR -->
 
@@ -24,7 +24,7 @@
         <li class="nav-item">
           <a class="nav-link" href="#">A propos</a>
         </li>
-        <?php if($_SESSION['isAdmin'] == 1)
+        <?php if($sessionIsAdmin == 1)
     { ?>  <li class="nav-item">
         <a class="nav-link" href="index.php?action=admincell&amp;">Tableau d'administration</a>
       </li>

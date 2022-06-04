@@ -23,7 +23,7 @@
   <div class="row">
 <div class="col-12 text-center">
 <ul class="navbar-nav me-auto">
-<?php if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+<?php if(isset($sessionLoggedIn) && $sessionLoggedIn === true){
     ?>
               <li class="nav-item">
                 <a class="nav-link" href="index.php">Accueil
