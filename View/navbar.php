@@ -7,7 +7,7 @@
     </button>
 
     
-    <?php if(isset($sessionLoggedIn) && $sessionLoggedIn === true){    
+    <?php if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){    
       $currentUser = $_SESSION['username']; ?>
 <!-- ONLINE NAVBAR -->
 
@@ -24,7 +24,7 @@
         <li class="nav-item">
           <a class="nav-link" href="#">A propos</a>
         </li>
-        <?php if($sessionIsAdmin == 1)
+        <?php if($_SESSION['isAdmin'] == 1)
     { ?>  <li class="nav-item">
         <a class="nav-link" href="index.php?action=admincell&amp;">Tableau d'administration</a>
       </li>
@@ -35,9 +35,9 @@
           <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><b><?= htmlspecialchars($currentUser) ?></b></a>
           <div class="dropdown-menu">
           <a class="dropdown-item" href="index.php?action=logout&amp;">Se déconnecter</a>
-            <a class="dropdown-item" href="index.php?action=editUser&amp;id=<?= $sessionId ?>">Paramètres</a>
+            <a class="dropdown-item" href="index.php?action=editUser&amp;id=<?= $_SESSION['id'] ?>">Paramètres</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="index.php?action=inspectUserSelf&amp;id=<?= $sessionId ?>">Supprimer le compte</a>
+            <a class="dropdown-item" href="index.php?action=inspectUserSelf&amp;id=<?= $_SESSION['id'] ?>">Supprimer le compte</a>
           </div>
         </li>  
     <?php }

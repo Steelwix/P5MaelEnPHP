@@ -9,7 +9,7 @@
     <form action="index.php?action=sendMessage" method="post">
         <div class="form-group">
 <?php
- if(isset($sessionEmail))
+ if(isset($_SESSION['email']))
 {
 }
 else { ?>
