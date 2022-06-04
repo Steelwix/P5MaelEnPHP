@@ -7,7 +7,7 @@ require_once 'vendor/autoload.php';
 if(isset($_GET['idPost']))
 {
     $getIdPost = $_GET['idPost'];
-}
+} 
 if(isset($_GET['id']))
 {
     $getId = $_GET['id'];

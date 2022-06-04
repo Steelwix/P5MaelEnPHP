@@ -20,10 +20,17 @@ function secureText($text)
 function listPosts()
 {
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
-    $posts = $postManager->getPosts();
+    $posts = $postManager->getPosts()->fetchAll();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
-
+    Foreach($posts as $post){
+   $post['title'] = htmlspecialchars ($post['title']);
+   $post['hat'] = htmlspecialchars ($post['hat']);
+   $post['content'] = htmlspecialchars ($post['content']);
+   $post['creation_date_fr'] = htmlspecialchars ($post['creation_date_fr']);
+   $post['username'] = htmlspecialchars ($post['username']);
+   $post['idPost'] = htmlspecialchars ($post['idPost']);
+}
     require('View/ListPostView.php');
     
 }

@@ -33,24 +33,24 @@
 <p>Derniers articles du blog :</p>
         </div></div></div>
 <?php
-while ($data = $posts->fetch())
+foreach ($posts as $post)
 {
 ?>
 <div class="container">
     <div class="row">
     <div class="col-12 posttitle text-center">
         <h3>
-            <strong><?= htmlspecialchars($data['title']) ?></strong>
-            <small><i> <?= htmlspecialchars($data['creation_date_fr']) ?>
-            par <?= htmlspecialchars($data['username']) ?></small></i>
+            <strong><?= htmlspecialchars($post['title']) ?></strong>
+            <small><i> <?= htmlspecialchars($post['creation_date_fr']) ?>
+            par <?= htmlspecialchars($post['username']) ?></small></i>
         </h3>
         </div>
         <div class="col-12 postdata">
         <p><br>
-            <?= $data['hat'] ?>
+            <?= $post['hat'] ?>
             <br>
 <br>
-            <em><a href="index.php?action=post&amp;idPost=<?= $data['idPost'] ?> "class="btn btn-primary">Lire ce post</a></em>
+            <em><a href="index.php?action=post&amp;idPost=<?= $post['idPost'] ?> "class="btn btn-primary">Lire ce post</a></em>
         </p>
 </div>
     </div>
@@ -58,6 +58,7 @@ while ($data = $posts->fetch())
 <?php
 }
 ?>
+
 <?php $content = ob_get_clean(); ?>
 
 <?php require('template.php'); ?>
