@@ -40,9 +40,9 @@ foreach ($posts as $post)
     <div class="row">
     <div class="col-12 posttitle text-center">
         <h3>
-            <strong><?= htmlspecialchars($post['title']) ?></strong>
-            <small><i> <?= htmlspecialchars($post['creation_date_fr']) ?>
-            par <?= htmlspecialchars($post['username']) ?></small></i>
+            <strong><?= $post['title'] ?></strong>
+            <small><i> <?= $post['creation_date_fr'] ?>
+            par <?= $post['username'] ?></small></i>
         </h3>
         </div>
         <div class="col-12 postdata">
