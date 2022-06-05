@@ -16,10 +16,10 @@ class CommentManager extends Manager
         $comments = $req;
         return $comments;
     }
-    public function postComment($datetime, $comment, $isValid, $id, $idPost)
+    public function postComment($datetime, $comment, $isValid, $idUser, $idPost)
     {
         $newComment = $this->db->prepare("INSERT INTO comment(idComment, comDate, comment, isvalid, id, idPost) VALUES (NULL, :datetime, :comment, :isValid, :id, :idPost)");
-        $newComment -> execute(array(':datetime' => $datetime, ':comment' => $comment, ':isValid' => $isValid, ':id' => $id, ':idPost' => $idPost ));
+        $newComment -> execute(array(':datetime' => $datetime, ':comment' => $comment, ':isValid' => $isValid, ':id' => $idUser, ':idPost' => $idPost ));
         return $newComment;
     }
     public function getAllCom()
@@ -32,10 +32,10 @@ class CommentManager extends Manager
         $req = $this->db->prepare("DELETE FROM comment WHERE idComment = ? ");
         $req->execute(array($idComment));
     }
-    public function getUserComments($id)
+    public function getUserComments($idUser)
     {
         $req = $this->db->prepare('SELECT comment.comment, comment.comDate, comment.id, comment.isValid, post.title FROM comment INNER JOIN post ON comment.idPost = post.idPost WHERE comment.id = ?');
-        $req->execute(array($id));
+        $req->execute(array($idUser));
         $usercom = $req;
         return $usercom;
     }

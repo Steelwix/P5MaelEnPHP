@@ -50,19 +50,19 @@ function post()
         }
 
             $_POST['comment']=$ncomment;
+        }    
     
-    }
 
     require('View/postView.php');
     
 }
 
 
-function addComment($comment, $isValid, $id, $idPost)
+function addComment($comment, $isValid, $idUser, $idPost)
 {
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $datetime = (new DateTime('now'))->format('Y-m-d H:i:s');
-    $newComment = $commentManager->postComment($datetime, $comment, $isValid, $id, $idPost);
+    $newComment = $commentManager->postComment($datetime, $comment, $isValid, $idUser, $idPost);
 
     if ($newComment === false) {
         throw new Exception('Impossible d\'ajouter le commentaire ! error HK3 ');
@@ -512,11 +512,11 @@ if(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"])))
     require('View/userSettingsAdmin.php');
     
 }
-function userUpdate($username, $email, $password, $id) 
+function userUpdate($username, $email, $password, $idUser) 
 {
     
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
-    $editUser = $userManager->userNewSettings($username, $email, $password, $id);
+    $editUser = $userManager->userNewSettings($username, $email, $password, $idUser);
     if($editUser === false) {
         throw new Exception('Impossible de modifier le profil ! error L1');
         
@@ -527,11 +527,11 @@ function userUpdate($username, $email, $password, $id)
         header("Location: index.php");
     } 
 }
-function userUpdateAdmin($username, $email, $password, $isAdmin, $id) 
+function userUpdateAdmin($username, $email, $password, $isAdmin, $idUser) 
 {
     
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
-    $editUser = $userManager->userNewSettingsAdmin($username, $email, $password, $isAdmin, $id);
+    $editUser = $userManager->userNewSettingsAdmin($username, $email, $password, $isAdmin, $idUser);
     if($editUser === false) {
         throw new Exception('Impossible de modifier le profil ! error L1');
         
