@@ -137,12 +137,12 @@ elseif (isset($_POST['username']) &&  isset($_POST['email']) && isset($_POST['pa
         { 
 
             $username_err = "Pseudo déjà utilisé";
-        } elseif($_POST['email']=== $donnees['email']) {
+        }
+        if($_POST['email']=== $donnees['email']) {
 
             $email_err = "email déjà utilisé";
            
-         }else{
-            $_SESSION['validRegister']='yes';
+         }
            $username = $_POST['username'];
            $email = $_POST['email'];
            $password = $_POST['password'];
@@ -150,7 +150,7 @@ elseif (isset($_POST['username']) &&  isset($_POST['email']) && isset($_POST['pa
         }
     }
     }
-}
+
     require 'View/register.php';
 
 }

@@ -97,7 +97,7 @@ try {
         if ($getAction == 'register'){
             registerSystem();}
         if($getAction == 'signin'){
-            if($postUsername=="" OR $postEmail=="" OR $postPassword=="" OR ($postPassword!==$postConfirmPassword)==true OR  !isset($sessionValidRegister)){
+            if($postUsername=="" OR $postEmail=="" OR $postPassword=="" OR ($postPassword!==$postConfirmPassword)==true){
                 registerSystem();
             }
             else {

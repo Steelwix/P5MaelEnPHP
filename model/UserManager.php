@@ -26,8 +26,8 @@ class UserManager extends Manager
     public function createUser($username, $email, $password, $datetime)
     {
 
-        $newUser = $this->db->query("INSERT INTO users(id, created_at, isAdmin, username, email, password) VALUES(NULL, :datetime, 0, :username, :email, :password)");
-        $newUser->execute(array(':datetime' => $datetime, ':username' => $username, ':email' => $email, ':password' => $password));
+        $newUser = $this->db->prepare("INSERT INTO users(id,isAdmin, created_at, username, email, password) VALUES(NULL, 0, :datetime,  :username, :email, :password)");
+        $newUser->execute(array(':datetime' => $datetime, ':username'=> $username, ':email' => $email, ':password' => $password));
         return $newUser;
     }
     public function deleteUser($idUser)
