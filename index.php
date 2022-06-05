@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require('controller/frontend.php');
+require 'controller/frontend.php';
 require_once 'vendor/autoload.php';
 //GET
 if(isset($_GET['idPost']))

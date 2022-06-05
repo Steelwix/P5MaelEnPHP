@@ -15,11 +15,11 @@
     </head>
      
     <body>
-    <?php require ('View/navbar.php'); ?> 
+    <?php require 'View/navbar.php'; ?> 
   
         <?= $content ?>
         
-        <?php require('View/footer.php'); ?>
+        <?php require 'View/footer.php'; ?>
         </body>
         
         

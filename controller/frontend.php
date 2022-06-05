@@ -31,7 +31,7 @@ function listPosts()
    $post['username'] = htmlspecialchars($post['username']);
    $post['idPost'] = htmlspecialchars($post['idPost']);
 }
-    require('View/ListPostView.php');
+    require 'View/ListPostView.php';
     
 }
 
@@ -53,7 +53,7 @@ function post()
         }    
     
 
-    require('View/postView.php');
+    require 'View/postView.php';
     
 }
 
@@ -112,7 +112,7 @@ function loginSystem()
         }
     }
     }
-    require('View/login.php');
+    require 'View/login.php';
 }
 function registerSystem()
 {
@@ -151,7 +151,7 @@ elseif (isset($_POST['username']) &&  isset($_POST['email']) && isset($_POST['pa
     }
     }
 }
-    require('View/register.php');
+    require 'View/register.php';
 
 }
 function createUser($username, $email, $password)
@@ -208,7 +208,7 @@ function sendMailCreateUser($username, $email, $password)
 
 function logOutSystem()
 {
-    require('View/logout.php');
+    require 'View/logout.php';
 }
 function adminSystem()
 {
@@ -218,7 +218,7 @@ function adminSystem()
     $posts = $postManager->getPosts();
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $comments = $commentManager->getAllCom(); 
-    require('View/admincell.php');
+    require 'View/admincell.php';
     
 }
 function deletePost()
@@ -228,7 +228,7 @@ function deletePost()
     $post = $postManager->getPost($_GET['idPost']);
     $comments = $commentManager->getComments($_GET['idPost']);
     $title = secureText($post['title']);
-    require('View/deletePost.php');
+    require 'View/deletePost.php';
 }
 function wipePost($idPost)
 {
@@ -256,7 +256,7 @@ function inspectUser()
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $userComs = $commentManager->getUserComments($_GET['id']);
 
-    require('View/deleteUser.php');
+    require 'View/deleteUser.php';
 }
 function inspectUserSelf()
 {
@@ -265,7 +265,7 @@ function inspectUserSelf()
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $userComs = $commentManager->getUserComments($_GET['id']);
 
-    require('View/deleteUserSelf.php');
+    require 'View/deleteUserSelf.php';
 }
 function wipeUser()
 {
@@ -306,7 +306,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $content = $_POST['content'];
     }
 }
-require('View/createPost.php');
+require 'View/createPost.php';
 }
 function newPost($title, $hat, $content, $author)
 {
@@ -352,7 +352,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
        
     }
 }
-   require("View/modifypost.php");
+   require 'View/modifypost.php';
 }
 function postEdit($title, $hat, $content, $author, $idPost)
 {   
@@ -396,7 +396,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     
 }
-require('View/contact.php');
+require 'View/contact.php';
 }
 function sendMailContact($email, $message)
 {
@@ -472,7 +472,7 @@ if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
     }
 }
 
-    require('View/userSettings.php');
+    require 'View/userSettings.php';
     
 }
 function editUserAdmin()
@@ -509,7 +509,7 @@ if(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"])))
         
     }}
 
-    require('View/userSettingsAdmin.php');
+    require 'View/userSettingsAdmin.php';
     
 }
 function userUpdate($username, $email, $password, $idUser) 
@@ -542,5 +542,5 @@ function userUpdateAdmin($username, $email, $password, $isAdmin, $idUser)
 }
 function welcome()
 {
-    require('View/welcome.php');
+    require 'View/welcome.php';
 }
