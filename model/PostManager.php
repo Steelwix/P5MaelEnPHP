@@ -3,7 +3,7 @@
 namespace OpenClassrooms\Blog\Model;
 use Manager;
 
-require_once("model/Manager.php");
+require_once "model/Manager.php";
 
 
 

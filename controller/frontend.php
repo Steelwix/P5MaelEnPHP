@@ -1,8 +1,8 @@
 <?php
 // Chargement des classes
-require_once('model/PostManager.php');
-require_once('model/CommentManager.php');
-require_once('model/UserManager.php');
+require_once 'model/PostManager.php';
+require_once 'model/CommentManager.php';
+require_once 'model/UserManager.php';
 require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require 'vendor/phpmailer/phpmailer/src/SMTP.php';
 require 'vendor/phpmailer/phpmailer/src/Exception.php';
