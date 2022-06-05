@@ -24,12 +24,12 @@ function listPosts()
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
     Foreach($posts as $post){
-   $post['title'] = htmlspecialchars ($post['title']);
-   $post['hat'] = htmlspecialchars ($post['hat']);
-   $post['content'] = htmlspecialchars ($post['content']);
-   $post['creation_date_fr'] = htmlspecialchars ($post['creation_date_fr']);
-   $post['username'] = htmlspecialchars ($post['username']);
-   $post['idPost'] = htmlspecialchars ($post['idPost']);
+   $post['title'] = htmlspecialchars($post['title']);
+   $post['hat'] = htmlspecialchars($post['hat']);
+   $post['content'] = htmlspecialchars($post['content']);
+   $post['creation_date_fr'] = htmlspecialchars($post['creation_date_fr']);
+   $post['username'] = htmlspecialchars($post['username']);
+   $post['idPost'] = htmlspecialchars($post['idPost']);
 }
     require('View/ListPostView.php');
     
@@ -48,9 +48,9 @@ function post()
         if(($_POST['comment'])==""){
             $ncomment_err = 'Vous devez écrire un commentaire';
         }
-        else{
+
             $_POST['comment']=$ncomment;
-        }    
+    
     }
 
     require('View/postView.php');
@@ -79,7 +79,6 @@ function loginSystem()
     $users = $userManager->getUsers();
     if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true){
         header("location: index.php");
-        exit;
     }
      
     
@@ -99,7 +98,7 @@ function loginSystem()
     while($donnees = $users->fetch())
     {
         if($_POST['username'] == $donnees['username'] AND $_POST['password']== $donnees['password'])
-        { echo "connexion validée";
+        { 
             $_SESSION['username'] = $donnees['username'];
             $_SESSION['id'] = $donnees['id'];
             $_SESSION['loggedin'] = true;
@@ -201,9 +200,9 @@ function sendMailCreateUser($username, $email, $password)
         $mail->AltBody = "Voici vos informations, ne les partagez pas. \r\n Votre email = '$email'\r\n Votre username = '$username'\r\n Votre mot de passe = '$password'" ;
     
         $mail->send();
-        echo 'Message has been sent';
+        
     } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        
     } 
 }
 
@@ -371,7 +370,6 @@ function postEdit($title, $hat, $content, $author, $idPost)
 }
 function contactForm()
 {
-    $emailok = $messageok = "";
     $email = $message = "";
     $email_err = $message_err = "";  
   
@@ -433,10 +431,10 @@ function sendMailContact($email, $message)
         $mail->AltBody = 'Message recu venant de '.$email.' : '.$message.' ';
     
         $mail->send();
-        echo 'Message has been sent';
+        
         header("Location: index.php");
     } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        
     } 
     
 }
