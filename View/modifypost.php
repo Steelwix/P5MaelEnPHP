@@ -8,7 +8,7 @@
         <div class="col-12"><br>
         <h2>Editer un post</h2>
         <p>Modifier les champs pour éditer le commentaire.</p>
-        <form action="index.php?action=postEdit&amp;idPost=<?= $_GET['idPost'] ?> " method="post">
+        <form action="index.php?action=postEdit&amp;idPost=<?= $gGet['idPost'] ?> " method="post">
             <div class="form-group">
                 <label>Titre</label>
                 <input type="text" name="title" class="form-control <?= (!empty($title_err)) ? 'is-invalid' : ''; ?>" value="<?= htmlspecialchars($title) ?>">

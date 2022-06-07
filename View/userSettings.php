@@ -16,7 +16,7 @@ ob_start();
             ?><div class="alert alert-danger"><?= htmlspecialchars($com_info) ?> </div>
             <?php
         }    ?>    
-        <form action="index.php?action=userUpdate&amp;id=<?= $_GET['id'] ?>" method="post">
+        <form action="index.php?action=userUpdate&amp;id=<?= $gGet['id'] ?>" method="post">
             <div class="form-group">
                 <label>Nom d'utilisateur</label>
                 <input type="text" name="username" class="form-control <?= (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?= htmlspecialchars($username) ?>">
