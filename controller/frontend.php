@@ -15,8 +15,11 @@ use OpenClassrooms\Blog\Globals\Globals;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-$globals=new Globals;
-$get = $globals->getGET();
+
+//$globals=new Globals;
+//$gGet = $globals->getGET();
+//$gPost = $globals->getPOST();
+//$gSession = $globals->getSESSION();
 function secureText($text)
 {
    $text = htmlspecialchars($text);
@@ -43,10 +46,12 @@ function listPosts()
 
 function post()
 {
+    $globals=new Globals;
+    $gGet = $globals->getGET();
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
-    $post = $postManager->getPost($_GET['idPost']);
-    $comments = $commentManager->getComments($_GET['idPost']); /*undefined index*/
+    $post = $postManager->getPost($gGet['idPost']);
+    $comments = $commentManager->getComments($gGet['idPost']); 
     $ncomment = $ncomment_err = "";
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
