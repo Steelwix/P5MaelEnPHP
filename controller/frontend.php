@@ -25,10 +25,6 @@ function secureText($text)
    $text = htmlspecialchars($text);
    return ($text);
 }
-function callPage($link)
-{
-    require $link;
-}
 function listPosts()
 {
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
