@@ -89,12 +89,12 @@ function addComment($comment, $isValid, $idUser, $idPost)
 function loginSystem()
 {
     $globals=new Globals;
-    $gSession = $globals->getSESSION();
+
     $gServer = $globals->getSERVER();
     $gPost = $globals->getPOST();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
-    if(isset($gSession['loggedin']) && $gSession['loggedin'] === true){
+    if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true){
         header("location: index.php");
     }
      
@@ -116,11 +116,11 @@ function loginSystem()
     {
         if($_POST['username'] == $donnees['username'] AND $_POST['password']== $donnees['password'])
         { 
-            $gSession['username'] = $donnees['username'];
-            $gSession['id'] = $donnees['id'];
-            $gSession['loggedin'] = true;
-            $gSession['isAdmin'] = $donnees['isAdmin'];
-            $gSession['email'] = $donnees['email'];
+            $_SESSION['username'] = $donnees['username'];
+            $_SESSION['id'] = $donnees['id'];
+            $_SESSION['loggedin'] = true;
+            $_SESSION['isAdmin'] = $donnees['isAdmin'];
+            $_SESSION['email'] = $donnees['email'];
             header("location: index.php");
         } else { 
             $errorMessage = sprintf('Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',
@@ -240,10 +240,12 @@ function adminSystem()
 }
 function deletePost()
 {
+    $globals=new Globals;
+    $gGet = $globals->getGET();
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
-    $post = $postManager->getPost($_GET['idPost']);
-    $comments = $commentManager->getComments($_GET['idPost']);
+    $post = $postManager->getPost($gGet['idPost']);
+    $comments = $commentManager->getComments($gGet['idPost']);
     $title = secureText($post['title']);
     require 'View/deletePost.php';
 }
@@ -268,33 +270,41 @@ function commentIsValid($idComment)
 }
 function inspectUser()
 {
+    $globals=new Globals;
+    $gGet = $globals->getGET();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
-    $users = $userManager->getUser($_GET['id']);
+    $users = $userManager->getUser($gGet['id']);
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
-    $userComs = $commentManager->getUserComments($_GET['id']);
+    $userComs = $commentManager->getUserComments($gGet['id']);
 
     require 'View/deleteUser.php';
 }
 function inspectUserSelf()
 {
+    $globals=new Globals;
+    $gGet = $globals->getGET();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
-    $users = $userManager->getUser($_GET['id']);
+    $users = $userManager->getUser($gGet['id']);
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
-    $userComs = $commentManager->getUserComments($_GET['id']);
+    $userComs = $commentManager->getUserComments($gGet['id']);
 
     require 'View/deleteUserSelf.php';
 }
 function wipeUser()
 {
+    $globals=new Globals;
+    $gGet = $globals->getGET();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
-    $userManager->deleteUser($_GET['id']);
+    $userManager->deleteUser($gGet['id']);
 
     header("Location: index.php?action=admincell");
 }
 function wipeUserSelf()
 {
+    $globals=new Globals;
+    $gGet = $globals->getGET();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
-    $userManager->deleteUser($_GET['id']);
+    $userManager->deleteUser($gGet['id']);
     header("Location: index.php?action=logout");
 }
 function createPost()
@@ -339,8 +349,10 @@ function newPost($title, $hat, $content, $author)
 }
 function modifyPost()
 {
+    $globals=new Globals;
+    $gGet = $globals->getGET();
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
-    $post = $postManager->getPost($_GET['idPost']);
+    $post = $postManager->getPost($gGet['idPost']);
     $title_err = $hat_err = $content_err = "";
 $title = $post['title'];
 $hat = $post['hat'];
@@ -457,14 +469,16 @@ function sendMailContact($email, $message)
 }
 function editUser()
 {
+    $globals=new Globals;
+    $gGet = $globals->getGET();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
-    $user = $userManager->getUser($_GET['id']);
+    $user = $userManager->getUser($gGet['id']);
     $username = $password = $email = $confirm_password = "";
 $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
 $username = $user['username'];
 $email = $user['email'];
 $password = $user['password'];
-if($_SESSION['id'] != $_GET['id'])
+if($_SESSION['id'] != $gGet['id'])
 {
     header("Location: index.php");
 }
@@ -495,7 +509,7 @@ if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
 function editUserAdmin()
 {
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
-    $user = $userManager->getUser($_GET['id']);
+    $user = $userManager->getUser($gGet['id']);
     $username = $password = $email = $confirm_password = "";
 $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
 $username = $user['username'];
