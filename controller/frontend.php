@@ -48,19 +48,21 @@ function post()
 {
     $globals=new Globals;
     $gGet = $globals->getGET();
+    $gPost = $globals->getPOST();
+    $gServer = $globals->getSERVER();
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $post = $postManager->getPost($gGet['idPost']);
     $comments = $commentManager->getComments($gGet['idPost']); 
     $ncomment = $ncomment_err = "";
 
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
+    if($gServer["REQUEST_METHOD"] == "POST"){
  
-        if(($_POST['comment'])==""){
+        if(($gPost['comment'])==""){
             $ncomment_err = 'Vous devez écrire un commentaire';
         }
 
-            $_POST['comment']=$ncomment;
+            $gPost['comment']=$ncomment;
         }    
     
 
@@ -86,40 +88,44 @@ function addComment($comment, $isValid, $idUser, $idPost)
 }
 function loginSystem()
 {
+    $globals=new Globals;
+    $gSession = $globals->getSESSION();
+    $gServer = $globals->getSERVER();
+    $gPost = $globals->getPOST();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
-    if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true){
+    if(isset($gSession['loggedin']) && $gSession['loggedin'] === true){
         header("location: index.php");
     }
      
     
     $username = $password = "";
     $username_err = $password_err = $login_err = "";
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
-    if(empty(trim($_POST['username']))){
+    if($gServer["REQUEST_METHOD"] == "POST"){
+    if(empty(trim($gPost['username']))){
         $username_err = "Vous devez entrer un pseudo.";
     } else {
-        $username = trim($_POST['username']);  
+        $username = trim($gPost['username']);  
     }
-    if(empty(trim($_POST['password']))){
+    if(empty(trim($gPost['password']))){
         $password_err = "Vous devez entrer un mot de passe.";
     } else {
-        $password = trim($_POST['password']);
+        $password = trim($gPost['password']);
     }
     while($donnees = $users->fetch())
     {
         if($_POST['username'] == $donnees['username'] AND $_POST['password']== $donnees['password'])
         { 
-            $_SESSION['username'] = $donnees['username'];
-            $_SESSION['id'] = $donnees['id'];
-            $_SESSION['loggedin'] = true;
-            $_SESSION['isAdmin'] = $donnees['isAdmin'];
-            $_SESSION['email'] = $donnees['email'];
+            $gSession['username'] = $donnees['username'];
+            $gSession['id'] = $donnees['id'];
+            $gSession['loggedin'] = true;
+            $gSession['isAdmin'] = $donnees['isAdmin'];
+            $gSession['email'] = $donnees['email'];
             header("location: index.php");
         } else { 
             $errorMessage = sprintf('Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',
-            $_POST['username'],
-            $_POST['password']);
+            $gPost['username'],
+            $gPost['password']);
         }
     }
     }

@@ -12,7 +12,8 @@ class Globals{
     {
         $this->GET = filter_input_array(INPUT_GET) ?? null;
         $this->POST = filter_input_array(INPUT_POST) ?? null;
-        $this->SESSION = filter_input_array(INPUT_POST) ?? null;
+        $this->SESSION = $_SESSION;
+        $this->SERVER = filter_input_array(INPUT_SERVER) ?? null;
     }
     public function getGET($key = null)
     {
@@ -34,5 +35,12 @@ class Globals{
             return $this->SESSION[$key] ?? null;
         }
         return $this->SESSION;
+    }
+    public function getSERVER($key = null)
+    {
+        if(null !== $key){
+            return $this->SERVER[$key] ?? null;
+        }
+        return $this->SERVER;
     }
 }
