@@ -9,6 +9,7 @@ $globals=new Globals;
 $gGet = $globals->getGET();
 $gPost = $globals->getPOST();
 $gServer = $globals->getSERVER();
+
 if(isset($_SESSION['id']))
 {
     $sessionId = $_SESSION['id'];
@@ -24,6 +25,10 @@ if(isset($_SESSION['username']))
 if(isset($_SESSION['isAdmin']))
 {
     $sessionIsAdmin = $_SESSION['isAdmin'];
+}
+if(isset($_SESSION['loggedIn']))
+{
+    $sessionLoggedIn;
 }
 try {
     if (isset($gGet['action'])) {
