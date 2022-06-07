@@ -70,6 +70,10 @@ if(isset($_SESSION['id']))
 {
     $sessionId = $_SESSION['id'];
 }
+if(isset($_SESSION['username']))
+{
+    $sessionUsername = $_SESSION['username'];
+}
 if(isset($_SESSION['email']))
 {
     $sessionEmail = $_SESSION['email'];

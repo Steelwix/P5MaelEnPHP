@@ -16,7 +16,6 @@
      
     <body>
     <?php require 'View/navbar.php'; ?> 
-  
         <?= $content ?>
         
         <?php require 'View/footer.php'; ?>

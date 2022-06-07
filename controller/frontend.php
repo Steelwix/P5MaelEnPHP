@@ -3,15 +3,20 @@
 require_once 'model/PostManager.php';
 require_once 'model/CommentManager.php';
 require_once 'model/UserManager.php';
+require_once 'vendor/autoload.php';
+require_once 'src/Globals/Globals.php';
 require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require 'vendor/phpmailer/phpmailer/src/SMTP.php';
 require 'vendor/phpmailer/phpmailer/src/Exception.php';
 //Import PHPMailer classes into the global namespace
 //These must be at the top of your script, not inside a function
+
+use OpenClassrooms\Blog\Globals\Globals;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-
+$globals=new Globals;
+$get = $globals->getGET();
 function secureText($text)
 {
    $text = htmlspecialchars($text);
@@ -31,6 +36,7 @@ function listPosts()
    $post['username'] = htmlspecialchars($post['username']);
    $post['idPost'] = htmlspecialchars($post['idPost']);
 }
+
     require 'View/ListPostView.php';
     
 }
