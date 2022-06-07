@@ -194,5 +194,5 @@ try {
     listPosts();
 }}
 catch(Exception $e) {
-    echo 'Erreur : ' . $e->getMessage();
+     'Erreur : ' . $e->getMessage();
 }

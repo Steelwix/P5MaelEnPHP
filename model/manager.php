@@ -12,7 +12,7 @@ class Manager
               $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
               $this->db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);}
             catch(PDOException $e) {
-              echo 'La base de donnée est indisponible';
+              $e = "Base de donnée introuvable";
             }
              
 
