@@ -3,244 +3,179 @@
 session_start();
 require 'controller/frontend.php';
 require_once 'vendor/autoload.php';
-//GET
-if(isset($_GET['idPost']))
-{
-    $getIdPost = $_GET['idPost'];
-} 
-if(isset($_GET['id']))
-{
-    $getId = $_GET['id'];
-}
-if(isset($_GET['idComment']))
-{
-    $getIdComment = $_GET['idComment'];
-}
-if(isset($_GET['action']))
-{
-    $getAction = $_GET['action'];
-}
-//POST
-if(isset($_POST['username']))
-{
-    $postUsername = $_POST['username'];
-}
-if(isset($_POST['email']))
-{
-    $postEmail = $_POST['email'];
-}
-if(isset($_POST['password']))
-{
-    $postPassword = $_POST['password'];
-}
-if(isset($_POST['title']))
-{
-    $postTitle = $_POST['title'];
-}
-if(isset($_POST['hat']))
-{
-    $postHat = $_POST['hat'];
-}
-if(isset($_POST['content']))
-{
-    $postContent = $_POST['content'];
-}
-if(isset($_POST['comment']))
-{
-    $postComment = $_POST['comment'];
-}
-if(isset($_POST['confirm_password']))
-{
-    $postConfirmPassword = $_POST['confirm_password'];
-}
-if(isset($_POST['isValid']))
-{
-    $postIsValid = $_POST['isValid'];
-}
-if(isset($_POST['message']))
-{
-    $postMessage = $_POST['message'];
-}
-if(isset($_POST['isAdmin']))
-{
-    $postIsAdmin = $_POST['isAdmin'];
-}
-//SESSION
+require_once 'src/Globals/Globals.php';
+use OpenClassrooms\Blog\Globals\Globals;
+$globals=new Globals;
+$gGet = $globals->getGET();
+$gPost = $globals->getPOST();
+$gServer = $globals->getSERVER();
 if(isset($_SESSION['id']))
 {
     $sessionId = $_SESSION['id'];
-}
-if(isset($_SESSION['username']))
-{
-    $sessionUsername = $_SESSION['username'];
 }
 if(isset($_SESSION['email']))
 {
     $sessionEmail = $_SESSION['email'];
 }
+if(isset($_SESSION['username']))
+{
+    $sessionEmail = $_SESSION['username'];
+}
 if(isset($_SESSION['isAdmin']))
 {
     $sessionIsAdmin = $_SESSION['isAdmin'];
 }
-if(isset($_SESSION['validRegister']))
-{
-    $sessionValidRegister = $_SESSION['validRegister'];
-}
-if(isset($_SESSION["loggedin"]))
-{
-    $sessionLoggedIn = $_SESSION["loggedin"];
-}
 try {
-    if (isset($getAction)) {
-        if ($getAction == 'listPosts') {
+    if (isset($gGet['action'])) {
+        if ($gGet['action'] == 'listPosts') {
             listPosts();
         }
-        if ($getAction == 'login'){
+        if ($gGet['action'] == 'login'){
             loginSystem();
         }
-        if ($getAction == 'register'){
+        if ($gGet['action'] == 'register'){
             registerSystem();}
-        if($getAction == 'signin'){
-            if($postUsername=="" OR $postEmail=="" OR $postPassword=="" OR ($postPassword!==$postConfirmPassword)==true){
+        if($gGet['action'] == 'signin'){
+            if($gPost['username']=="" OR $gPost['email']=="" OR $gpost['password']=="" OR ($gpost['password']!==$gpost['confirmPassword'])==true){
                 registerSystem();
             }
             else {
-                createUser($postUsername, $postEmail, $postPassword);
-                sendMailCreateUser($postUsername, $postEmail, $postPassword);
+                createUser($gPost['username'], $gPost['email'], $gpost['password']);
+                sendMailCreateUser($gPost['username'], $gPost['email'], $gpost['password']);
                 header("location: index.php?action=login");
 
             }
             
         }
-        if ($getAction == 'logout'){
+        if ($gGet['action'] == 'logout'){
             logOutSystem();
         }
 
-        if ($getAction == 'post') {
-            if (isset($getIdPost)) {
+        if ($gGet['action'] == 'post') {
+            if (isset($gGet['idPost'])) {
                 post();
             }
             elseif (isset($idPost)) {
                 post();
             }
         }
-        if ($getAction == 'addComment') {
-                if ($postComment=="") {
+        if ($gGet['action'] == 'addComment') {
+                if ($gPost['comment']=="") {
                     post();
                 }
                 elseif($sessionIsAdmin==1) {
-                    $postIsValid=1;      
+                    $gPost['isValid']=1;      
                 }
                 else {
-                    $postIsValid=0;      
+                    $gPost['isValid']=0;      
                 }
-                addComment($postComment, $postIsValid, $sessionId, $getIdPost);
+                addComment($gPost['comment'], $gPost['isValid'], $sessionId, $gGet['idPost']);
                 
             }
         
-        if($getAction == 'editUser') {
-            editUser($getId);
+        if($gGet['action'] == 'editUser') {
+            editUser($gGet['id']);
         }
-        if($getAction == 'userUpdate'){
-            if($postUsername== "" OR $postEmail== "" OR $postPassword== "")
+        if($gGet['action'] == 'userUpdate'){
+            if($gPost['username']== "" OR $gPost['email']== "" OR $gpost['password']== "")
             {
-                editUser($getId);
+                editUser($gGet['id']);
             }
             else {
 
-                userUpdate($postUsername, $postEmail, $postPassword, $getId);
+                userUpdate($gPost['username'], $gPost['email'], $gpost['password'], $gGet['id']);
             }}
-        if($getAction == 'welcome'){
+        if($gGet['action'] == 'welcome'){
             welcome();
          }
-         if($getAction == 'inspectUserSelf') {
-            inspectUserSelf($getId);
+         if($gGet['action'] == 'inspectUserSelf') {
+            inspectUserSelf($gGet['id']);
         }
-        if($getAction == 'wipeUserSelf') {
-            wipeUserSelf($getId);
+        if($gGet['action'] == 'wipeUserSelf') {
+            wipeUserSelf($gGet['id']);
         }
-        if($getAction == 'contact') {
+        if($gGet['action'] == 'contact') {
             contactForm();
         }
-        if($getAction == 'sendMessage') {
+        if($gGet['action'] == 'sendMessage') {
             if(isset($sessionEmail)){
-                $postEmail = $sessionEmail;
+                $gPost['email'] = $sessionEmail;
             }
-            if($postMessage=="" OR $postEmail=="")
+            if($gPost['message']=="" OR $gPost['email']=="")
             {
                 contactForm();
             }
             else {
-                sendMailContact($postEmail, $postMessage);
+                sendMailContact($gPost['email'], $gPost['message']);
             }
         }
          //ADMIN----------------------------------------------------
         if(isset($sessionIsAdmin) AND $sessionIsAdmin==1){
-        if($getAction == 'admincell')
+        if($gGet['action'] == 'admincell')
         { 
             adminSystem();
         }
-        if($getAction == 'deletePost')
+        if($gGet['action'] == 'deletePost')
             {
 
-                if (isset($getIdPost))
+                if (isset($gGet['idPost']))
                 {
                     
                     deletePost();      
                 }             
             }
 
-        if($getAction == 'wipePost') {
-            wipePost($getIdPost);
+        if($gGet['action'] == 'wipePost') {
+            wipePost($gGet['idPost']);
         }
-        if($getAction == 'deleteComment') {
-            deleteComment($getIdComment);
+        if($gGet['action'] == 'deleteComment') {
+            deleteComment($gGet['idComment']);
         }
-        if($getAction == 'commentIsValid') {
-            commentIsValid($getIdComment);
+        if($gGet['action'] == 'commentIsValid') {
+            commentIsValid($gGet['idComment']);
         }
-        if($getAction == 'inspectUser') {
-            inspectUser($getId);
+        if($gGet['action'] == 'inspectUser') {
+            inspectUser($gGet['id']);
         }
-        if($getAction == 'wipeUser') {
-            wipeUser($getId);
+        if($gGet['action'] == 'wipeUser') {
+            wipeUser($gGet['id']);
         }
-        if($getAction == 'createPost') {
+        if($gGet['action'] == 'createPost') {
             createPost();
         }
-        if($getAction == 'newPost') {
-            if($postTitle=="" OR $postHat=="" OR $postContent=="")
+        if($gGet['action'] == 'newPost') {
+            if($gPost['title']=="" OR $gPost['hat']=="" OR $gPost['content']=="")
             {createPost();}
             else {
                 
-                newPost($postTitle, $postHat, $postContent, $sessionId);
+                newPost($gPost['title'], $gPost['hat'], $gPost['content'], $sessionId);
             }
         }
-        if($getAction == 'modifyPost') {
+        if($gGet['action'] == 'modifyPost') {
             modifyPost();
         }
         
-        if($getAction == 'postEdit') {
-            if($postTitle=="" OR $postHat=="" OR $postContent=="" OR !isset($sessionId) OR !isset($getIdPost))
+        if($gGet['action'] == 'postEdit') {
+            if($gPost['title']=="" OR $gPost['hat']=="" OR $gPost['content']=="" OR !isset($sessionId) OR !isset($gGet['idPost']))
             {
                 modifyPost();
             }
             else { 
 
-                postEdit($postTitle, $postHat, $postContent, $sessionId, $getIdPost);
+                postEdit($gPost['title'], $gPost['hat'], $gPost['content'], $sessionId, $gGet['idPost']);
             }
         }
-        if($getAction == 'editUserAdmin') {
-            editUserAdmin($getId);
+        if($gGet['action'] == 'editUserAdmin') {
+            editUserAdmin($gGet['id']);
         }
-        if($getAction == 'userUpdateAdmin'){
-            if($postUsername== "" OR $postEmail== "" OR $postPassword== "" OR $postIsAdmin== "")
+        if($gGet['action'] == 'userUpdateAdmin'){
+            if($gPost['username']== "" OR $gPost['email']== "" OR $gpost['password']== "" OR $gPost['isAdmin']== "")
             {
-                editUserAdmin($getId);
+                editUserAdmin($gGet['id']);
             }
             else {
 
-                userUpdateAdmin($postUsername, $postEmail, $postPassword, $postIsAdmin, $getId);
+                userUpdateAdmin($gPost['username'], $gPost['email'], $gpost['password'], $gPost['isAdmin'], $gGet['id']);
             }
         }
 
