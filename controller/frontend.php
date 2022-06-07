@@ -25,6 +25,10 @@ function secureText($text)
    $text = htmlspecialchars($text);
    return ($text);
 }
+function callPage($link)
+{
+    require $link;
+}
 function listPosts()
 {
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
@@ -41,6 +45,7 @@ function listPosts()
 }
 
     require 'View/ListPostView.php';
+    
     
 }
 
@@ -124,9 +129,7 @@ function loginSystem()
             $_SESSION['email'] = $donnees['email'];
             header("location: index.php");
         } else { 
-            $errorMessage = sprintf('Les informations envoyées ne permettent pas de vous identifier : (%s/%s)',
-            $gPost['username'],
-            $gPost['password']);
+            $login_err = "Les informations ne correspondent pas.";
         }
     }
     }
@@ -144,13 +147,16 @@ function registerSystem()
 $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
 unset( $_SESSION['validRegister']);
 if($gServer["REQUEST_METHOD"] == "POST"){
-if(empty(trim($gPost['username'])) OR empty(trim($gPost['email']))){
+if(empty(trim($gPost['username'])) OR empty(trim($gPost['username']))){
     $email = "Please fill all blanks";
-}if(!preg_match('/^[a-zA-Z0-9_]+$/', trim($gPost["username"]))){
+    $login_err = "Veuillez corriger les erreurs";
+}if(!preg_match('/^[a-zA-Z0-9_]+$/', trim($gPost["email"]))){
     $username_err = "Username can only contain letters, numbers, and underscores.";
+    $login_err = "Veuillez corriger les erreurs";
 } 
 if(($gPost['password'] !== $gPost['confirm_password'])== true) {
     $password_err = "Mots de passe non identiques.";
+    $login_err = "Veuillez corriger les erreurs";
 }
 elseif (isset($gPost['username']) &&  isset($gPost['email']) && isset($gPost['password'])) {
     while($donnees = $users->fetch())
