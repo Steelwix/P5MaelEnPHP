@@ -46,6 +46,7 @@ function listPosts()
 
 function post()
 {
+
     $globals=new Globals;
     $gGet = $globals->getGET();
     $gPost = $globals->getPOST();
@@ -114,7 +115,7 @@ function loginSystem()
     }
     while($donnees = $users->fetch())
     {
-        if($_POST['username'] == $donnees['username'] AND $_POST['password']== $donnees['password'])
+        if($gPost['username'] == $donnees['username'] AND $gPost['password']== $donnees['password'])
         { 
             $_SESSION['username'] = $donnees['username'];
             $_SESSION['id'] = $donnees['id'];
@@ -133,36 +134,40 @@ function loginSystem()
 }
 function registerSystem()
 {
+
+    $globals=new Globals;
+    $gServer = $globals->getSERVER();
+    $gPost = $globals->getPOST();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
     $username = $password = $email = $confirm_password = "";
 $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
 unset( $_SESSION['validRegister']);
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
+if($gServer["REQUEST_METHOD"] == "POST"){
+if(empty(trim($gPost['username'])) OR empty(trim($gPost['email']))){
     $email = "Please fill all blanks";
-}if(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))){
+}if(!preg_match('/^[a-zA-Z0-9_]+$/', trim($gPost["username"]))){
     $username_err = "Username can only contain letters, numbers, and underscores.";
 } 
-if(($_POST['password'] !== $_POST['confirm_password'])== true) {
+if(($gPost['password'] !== $gPost['confirm_password'])== true) {
     $password_err = "Mots de passe non identiques.";
 }
-elseif (isset($_POST['username']) &&  isset($_POST['email']) && isset($_POST['password'])) {
+elseif (isset($gPost['username']) &&  isset($gPost['email']) && isset($gPost['password'])) {
     while($donnees = $users->fetch())
     {
-        if($_POST['username'] === $donnees['username'])
+        if($gPost['username'] === $donnees['username'])
         { 
 
             $username_err = "Pseudo déjà utilisé";
         }
-        if($_POST['email']=== $donnees['email']) {
+        if($gPost['email']=== $donnees['email']) {
 
             $email_err = "email déjà utilisé";
            
          }
-           $username = $_POST['username'];
-           $email = $_POST['email'];
-           $password = $_POST['password'];
+           $username = $gPost['username'];
+           $email = $gPost['email'];
+           $password = $gPost['password'];
            
         }
     }
@@ -309,28 +314,29 @@ function wipeUserSelf()
 }
 function createPost()
 {
-
+    $globals=new Globals;
+    $gServer = $globals->getSERVER();
     $title = $hat = $content = $author = "";
     $title_err = $hat_err = $content_err = "";
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    if(empty($_POST['title'])){
+if($gServer["REQUEST_METHOD"] == "POST"){
+    if(empty($gPost['title'])){
         $title_err = 'Please fill all blanks';
     }
     else {
-        $title = $_POST['title'];
+        $title = $gPost['title'];
     }
-    if(empty($_POST['hat'])){
+    if(empty($gPost['hat'])){
         $hat_err = 'Please fill all blanks';
     }
     else {
-        $hat = $_POST['hat'];
+        $hat = $gPost['hat'];
     }
-    if(empty($_POST['content'])){
+    if(empty($gPost['content'])){
         $content_err = 'Please fill all blanks';
     }
     else {
-        $content = $_POST['content'];
+        $content = $gPost['content'];
     }
 }
 require 'View/createPost.php';
@@ -351,6 +357,7 @@ function modifyPost()
 {
     $globals=new Globals;
     $gGet = $globals->getGET();
+    $gServer = $globals->getSERVER();
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $post = $postManager->getPost($gGet['idPost']);
     $title_err = $hat_err = $content_err = "";
@@ -358,26 +365,26 @@ $title = $post['title'];
 $hat = $post['hat'];
 $content = $post['content'];
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    if(empty($_POST['title'])){
+if($gServer["REQUEST_METHOD"] == "POST"){
+    if(empty($gPost['title'])){
         $title_err = 'Please fill all blanks';
     }
     else {
-        $title = $_POST['title'];
+        $title = $gPost['title'];
     }
-    if(empty($_POST['hat'])){
+    if(empty($gPost['hat'])){
         $hat_err = 'Please fill all blanks';
     }
     else {
-        $hat = $_POST['hat'];
+        $hat = $gPost['hat'];
     }
-    if(empty($_POST['content'])){
+    if(empty($gPost['content'])){
         $content_err = 'Please fill all blanks';
     }
     else {
-        $content = $_POST['content'];
+        $content = $gPost['content'];
     }
-    if(isset($_POST['title']) && isset($_POST['hat']) && isset($_POST['content']) && isset($_SESSION['id'])){
+    if(isset($gPost['title']) && isset($gPost['hat']) && isset($gPost['content']) && isset($_SESSION['id'])){
        
     }
 }
@@ -399,27 +406,29 @@ function postEdit($title, $hat, $content, $author, $idPost)
 }
 function contactForm()
 {
+    $globals=new Globals;
+    $gServer = $globals->getSERVER();
     $email = $message = "";
     $email_err = $message_err = "";  
   
 if(isset($_SESSION['email']))
 {
-    $_POST['email'] = $_SESSION['email'];
+    $gPost['email'] = $_SESSION['email'];
 }
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if($gServer["REQUEST_METHOD"] == "POST"){
  
-    if(empty(trim($_POST['email']))){
+    if(empty(trim($gPost['email']))){
         $email_err = 'Vous devez indiquer votre email';
     }
     else{
-        $email = $_POST['email'];
+        $email = $gPost['email'];
     }
 
     
-    if(empty($_POST['message'])){
+    if(empty($gPost['message'])){
         $message_err = "Vous devez entrer un message.";
     } else {
-        $message = $_POST['message'];
+        $message = $gPost['message'];
     
     }
 
@@ -471,6 +480,8 @@ function editUser()
 {
     $globals=new Globals;
     $gGet = $globals->getGET();
+    $gPost = $globals->getPOST();
+    $gServer = $globals->getSERVER();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $user = $userManager->getUser($gGet['id']);
     $username = $password = $email = $confirm_password = "";
@@ -482,21 +493,21 @@ if($_SESSION['id'] != $gGet['id'])
 {
     header("Location: index.php");
 }
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
+if($gServer["REQUEST_METHOD"] == "POST"){
+if(empty(trim($gPost['username'])) OR empty(trim($gPost['email']))){
     $username_err = "Please fill all blanks";
-} elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))){
+} elseif(!preg_match('/^[a-zA-Z0-9_]+$/', trim($gPost["username"]))){
     $username_err = "Username can only contain letters, numbers, and underscores.";
-} elseif (isset($_POST['username']) &&  isset($_POST['email']) && isset($_POST['password'])) {
+} elseif (isset($gPost['username']) &&  isset($gPost['email']) && isset($gPost['password'])) {
     while($donnees = $user->fetch())
     {
-        if($_POST['username'] == $donnees['username'] AND $_POST['email']== $donnees['email'])
+        if($gPost['username'] == $donnees['username'] AND $gPost['email']== $donnees['email'])
         { 
             throw new Exception('Ces informations appartiennent a un autre utilisateur');
         } else { 
-           $username = $_POST['username'];
-           $email = $_POST['email'];
-           $password = $_POST['password'];
+           $username = $gPost['username'];
+           $email = $gPost['email'];
+           $password = $gPost['password'];
 
         }
     }
@@ -508,6 +519,10 @@ if(empty(trim($_POST['username'])) OR empty(trim($_POST['email']))){
 }
 function editUserAdmin()
 {
+    $globals=new Globals;
+    $gPost = $globals->getPOST();
+    $gGet = $globals->getGET();
+    $gServer = $globals->getSERVER();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $user = $userManager->getUser($gGet['id']);
     $username = $password = $email = $confirm_password = "";
@@ -517,23 +532,23 @@ $email = $user['email'];
 $password = $confirm_password = $user['password'];
 $isAdmin = $user['isAdmin'];
 $adaptedAction = "editUserAdmin";
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-if(empty(trim($_POST['username'])) OR empty(trim($_POST['email'])))
+if($gServer["REQUEST_METHOD"] == "POST"){
+if(empty(trim($gPost['username'])) OR empty(trim($gPost['email'])))
 {
     $username_err = "Please fill all blanks";
 } 
-if(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"])))
+if(!preg_match('/^[a-zA-Z0-9_]+$/', trim($gPost["username"])))
 {
     $username_err = "Username can only contain letters, numbers, and underscores.";
 }
 
 
-    elseif (isset($_POST['username']) &&  isset($_POST['email']) && isset($_POST['password'])) {
+    elseif (isset($gPost['username']) &&  isset($gPost['email']) && isset($gPost['password'])) {
 
-           $username = $_POST['username'];
-           $email = $_POST['email'];
-           $password = $_POST['password'];
-           $isAdmin = $_POST['isAdmin'];
+           $username = $gPost['username'];
+           $email = $gPost['email'];
+           $password = $gPost['password'];
+           $isAdmin = $gPost['isAdmin'];
            $login_ok = "Les informations ne sont pas valides";
         }
     else {
@@ -545,7 +560,8 @@ if(!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"])))
 }
 function userUpdate($username, $email, $password, $idUser) 
 {
-    
+    $globals=new Globals;
+    $gPost = $globals->getPOST();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $editUser = $userManager->userNewSettings($username, $email, $password, $idUser);
     if($editUser === false) {
@@ -553,8 +569,8 @@ function userUpdate($username, $email, $password, $idUser)
         
     }
     else {
-        $_SESSION['username'] = $_POST['username'];
-        $_SESSION['email'] = $_POST['email'];
+        $_SESSION['username'] = $gPost['username'];
+        $_SESSION['email'] = $gPost['email'];
         header("Location: index.php");
     } 
 }
