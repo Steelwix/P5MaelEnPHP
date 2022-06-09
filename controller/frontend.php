@@ -91,7 +91,6 @@ function addComment($comment, $isValid, $idUser, $idPost)
 function loginSystem()
 {
     $globals=new Globals;
-
     $gServer = $globals->getSERVER();
     $gPost = $globals->getPOST();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
