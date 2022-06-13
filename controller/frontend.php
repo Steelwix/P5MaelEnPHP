@@ -5,6 +5,7 @@ require_once 'model/CommentManager.php';
 require_once 'model/UserManager.php';
 require_once 'vendor/autoload.php';
 require_once 'src/Globals/Globals.php';
+require_once 'src/Globals/Session.php';
 require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require 'vendor/phpmailer/phpmailer/src/SMTP.php';
 require 'vendor/phpmailer/phpmailer/src/Exception.php';
@@ -12,6 +13,7 @@ require 'vendor/phpmailer/phpmailer/src/Exception.php';
 //These must be at the top of your script, not inside a function
 
 use OpenClassrooms\Blog\Globals\Globals;
+use OpenClassrooms\Blog\Session\Session;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -20,13 +22,11 @@ use PHPMailer\PHPMailer\Exception;
 //$gGet = $globals->getGET();
 //$gPost = $globals->getPOST();
 //$gSession = $globals->getSESSION();
-function secureText($text)
-{
-    $text = htmlspecialchars($text);
-    return ($text);
-}
+
 function listPosts()
 {
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $posts = $postManager->getPosts()->fetchAll();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
@@ -40,12 +40,13 @@ function listPosts()
         $post['idPost'] = htmlspecialchars($post['idPost']);
     }
 
-    include 'View/ListPostView.php';
+    require 'View/ListPostView.php';
 }
 
 function post()
 {
-
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $globals = new Globals;
     $gGet = $globals->getGET();
     $gPost = $globals->getPOST();
@@ -72,6 +73,8 @@ function post()
 
 function addComment($comment, $isValid, $idUser, $idPost)
 {
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $datetime = (new DateTime('now'))->format('Y-m-d H:i:s');
     $newComment = $commentManager->postComment($datetime, $comment, $isValid, $idUser, $idPost);
@@ -83,12 +86,14 @@ function addComment($comment, $isValid, $idUser, $idPost)
 }
 function loginSystem()
 {
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $globals = new Globals;
     $gServer = $globals->getSERVER();
     $gPost = $globals->getPOST();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
-    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+    if (isset($gSession['loggedin']) && $gSession['loggedin'] === true) {
         header("location: index.php");
     }
 
@@ -107,11 +112,11 @@ function loginSystem()
         }
         while ($donnees = $users->fetch()) {
             if ($gPost['username'] == $donnees['username'] and $gPost['password'] == $donnees['password']) {
-                $_SESSION['username'] = $donnees['username'];
-                $_SESSION['id'] = $donnees['id'];
-                $_SESSION['loggedin'] = true;
-                $_SESSION['isAdmin'] = $donnees['isAdmin'];
-                $_SESSION['email'] = $donnees['email'];
+                $gSession['username'] = $donnees['username'];
+                $gSession['id'] = $donnees['id'];
+                $gSession['loggedin'] = true;
+                $gSession['isAdmin'] = $donnees['isAdmin'];
+                $gSession['email'] = $donnees['email'];
                 header("location: index.php");
             } else {
                 $login_err = "Les informations ne correspondent pas.";
@@ -122,7 +127,8 @@ function loginSystem()
 }
 function registerSystem()
 {
-
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $globals = new Globals;
     $gServer = $globals->getSERVER();
     $gPost = $globals->getPOST();
@@ -130,7 +136,7 @@ function registerSystem()
     $users = $userManager->getUsers();
     $username = $password = $email = $confirm_password = "";
     $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
-    unset($_SESSION['validRegister']);
+    unset($gSession['validRegister']);
     if ($gServer["REQUEST_METHOD"] == "POST") {
         if (empty(trim($gPost['username'])) or empty(trim($gPost['username']))) {
             $email = "Please fill all blanks";
@@ -164,6 +170,8 @@ function registerSystem()
 }
 function createUser($username, $email, $password)
 {
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $datetime = (new DateTime('now'))->format('Y-m-d H:i:s');
     $newUser = $userManager->createUser($username, $email, $password, $datetime);
@@ -212,11 +220,15 @@ function sendMailCreateUser($username, $email, $password)
 
 function logOutSystem()
 {
-    require 'View/logout.php';
-    header("location:index.php");
+
+    $gSession = array();
+    session_destroy();
+    header("Location: index.php");
 }
 function adminSystem()
 {
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
@@ -227,35 +239,44 @@ function adminSystem()
 }
 function deletePost()
 {
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $globals = new Globals;
     $gGet = $globals->getGET();
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $post = $postManager->getPost($gGet['idPost']);
     $comments = $commentManager->getComments($gGet['idPost']);
-    $title = secureText($post['title']);
     require 'View/deletePost.php';
 }
 function wipePost($idPost)
 {
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $postManager->deletePost($idPost);
     header("Location: index.php?action=admincell");
 }
 function deleteComment($idComment)
 {
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $commentManager->deleteComment($idComment);
     header("Location: index.php?action=admincell");
 }
 function commentIsValid($idComment)
 {
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $commentManager->commentIsValid($idComment);
     header("Location: index.php?action=admincell");
 }
 function inspectUser()
 {
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $globals = new Globals;
     $gGet = $globals->getGET();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
@@ -267,6 +288,8 @@ function inspectUser()
 }
 function inspectUserSelf()
 {
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $globals = new Globals;
     $gGet = $globals->getGET();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
@@ -278,6 +301,8 @@ function inspectUserSelf()
 }
 function wipeUser()
 {
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $globals = new Globals;
     $gGet = $globals->getGET();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
@@ -287,6 +312,8 @@ function wipeUser()
 }
 function wipeUserSelf()
 {
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $globals = new Globals;
     $gGet = $globals->getGET();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
@@ -295,6 +322,8 @@ function wipeUserSelf()
 }
 function createPost()
 {
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $globals = new Globals;
     $gServer = $globals->getSERVER();
     $title = $hat = $content = $author = "";
@@ -321,6 +350,8 @@ function createPost()
 }
 function newPost($title, $hat, $content, $author)
 {
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $datetime = (new DateTime('now'))->format('Y-m-d H:i:s');
     $newPost = $postManager->newPost($datetime, $title, $hat, $content, $author);
@@ -332,6 +363,8 @@ function newPost($title, $hat, $content, $author)
 }
 function modifyPost()
 {
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $globals = new Globals;
     $gGet = $globals->getGET();
     $gServer = $globals->getSERVER();
@@ -358,13 +391,15 @@ function modifyPost()
         } else {
             $content = $gPost['content'];
         }
-        if (isset($gPost['title']) && isset($gPost['hat']) && isset($gPost['content']) && isset($_SESSION['id'])) {
+        if (isset($gPost['title']) && isset($gPost['hat']) && isset($gPost['content']) && isset($gSession['id'])) {
         }
     }
     require 'View/modifypost.php';
 }
 function postEdit($title, $hat, $content, $author, $idPost)
 {
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $datetime = (new DateTime('now'))->format('Y-m-d H:i:s');
     $editPost = $postManager->editPost($datetime, $title, $hat, $content, $author, $idPost);
@@ -376,13 +411,15 @@ function postEdit($title, $hat, $content, $author, $idPost)
 }
 function contactForm()
 {
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $globals = new Globals;
     $gServer = $globals->getSERVER();
     $email = $message = "";
     $email_err = $message_err = "";
 
-    if (isset($_SESSION['email'])) {
-        $gPost['email'] = $_SESSION['email'];
+    if (isset($gSession['email'])) {
+        $gPost['email'] = $gSession['email'];
     }
     if ($gServer["REQUEST_METHOD"] == "POST") {
 
@@ -441,6 +478,8 @@ function sendMailContact($email, $message)
 }
 function editUser()
 {
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $globals = new Globals;
     $gGet = $globals->getGET();
     $gPost = $globals->getPOST();
@@ -452,7 +491,7 @@ function editUser()
     $username = $user['username'];
     $email = $user['email'];
     $password = $user['password'];
-    if ($_SESSION['id'] != $gGet['id']) {
+    if ($gSession['id'] != $gGet['id']) {
         header("Location: index.php");
     }
     if ($gServer["REQUEST_METHOD"] == "POST") {
@@ -477,6 +516,8 @@ function editUser()
 }
 function editUserAdmin()
 {
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $globals = new Globals;
     $gPost = $globals->getPOST();
     $gGet = $globals->getGET();
@@ -511,6 +552,8 @@ function editUserAdmin()
 }
 function userUpdate($username, $email, $password, $idUser)
 {
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $globals = new Globals;
     $gPost = $globals->getPOST();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
@@ -518,14 +561,15 @@ function userUpdate($username, $email, $password, $idUser)
     if ($editUser === false) {
         throw new Exception('Impossible de modifier le profil ! error L1');
     } else {
-        $_SESSION['username'] = $gPost['username'];
-        $_SESSION['email'] = $gPost['email'];
+        $gSession['username'] = $gPost['username'];
+        $gSession['email'] = $gPost['email'];
         header("Location: index.php");
     }
 }
 function userUpdateAdmin($username, $email, $password, $isAdmin, $idUser)
 {
-
+    $globals = new Session;
+    $gSession = $globals->getSESSION();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $editUser = $userManager->userNewSettingsAdmin($username, $email, $password, $isAdmin, $idUser);
     if ($editUser === false) {

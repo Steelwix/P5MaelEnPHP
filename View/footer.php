@@ -23,7 +23,7 @@
     <div class="row">
       <div class="col-12 text-center">
         <ul class="navbar-nav me-auto">
-          <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+          <?php if (isset($gSession['loggedin']) && $gSession['loggedin'] === true) {
           ?>
             <li class="nav-item">
               <a class="nav-link" href="index.php">Accueil
@@ -35,7 +35,7 @@
             <li class="nav-item">
               <a class="nav-link" href="index.php">A propos</a>
             </li>
-            <?php if ($_SESSION['isAdmin'] == 1) { ?>
+            <?php if ($gSession['isAdmin'] == 1) { ?>
               <li class="nav-item">
                 <a class="nav-link" href="index.php?action=admincell">Tableau d'administration</a>
               </li>

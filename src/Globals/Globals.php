@@ -3,7 +3,8 @@
 
 namespace OpenClassrooms\Blog\Globals;
 
-class Globals{
+class Globals
+{
     private $GET;
     private $POST;
     private $SERVER;
@@ -17,21 +18,21 @@ class Globals{
     }
     public function getGET($key = null)
     {
-        if(null !== $key){
+        if (null !== $key) {
             return $this->GET[$key] ?? null;
         }
         return $this->GET;
     }
     public function getPOST($key = null)
     {
-        if(null !== $key){
+        if (null !== $key) {
             return $this->POST[$key] ?? null;
         }
         return $this->POST;
     }
     public function getSERVER($key = null)
     {
-        if(null !== $key){
+        if (null !== $key) {
             return $this->SERVER[$key] ?? null;
         }
         return $this->SERVER;

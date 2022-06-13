@@ -4,29 +4,18 @@ session_start();
 require 'controller/frontend.php';
 require_once 'vendor/autoload.php';
 require_once 'src/Globals/Globals.php';
+require_once 'src/Globals/Session.php';
 
 use OpenClassrooms\Blog\Globals\Globals;
+use OpenClassrooms\Blog\Session\Session;
 
 $globals = new Globals;
 $gGet = $globals->getGET();
 $gPost = $globals->getPOST();
 $gServer = $globals->getSERVER();
+$globals = new Session;
+$gSession = $globals->getSESSION();
 
-if (isset($_SESSION['id'])) {
-    $sessionId = $_SESSION['id'];
-}
-if (isset($_SESSION['email'])) {
-    $sessionEmail = $_SESSION['email'];
-}
-if (isset($_SESSION['username'])) {
-    $sessionEmail = $_SESSION['username'];
-}
-if (isset($_SESSION['isAdmin'])) {
-    $sessionIsAdmin = $_SESSION['isAdmin'];
-}
-if (isset($_SESSION['loggedIn'])) {
-    $sessionLoggedIn;
-}
 try {
     if (isset($gGet['action'])) {
         if ($gGet['action'] == 'listPosts') {
@@ -61,12 +50,12 @@ try {
         if ($gGet['action'] == 'addComment') {
             if ($gPost['comment'] == "") {
                 post();
-            } elseif ($sessionIsAdmin == 1) {
+            } elseif ($gSession['isAdmin'] == 1) {
                 $gPost['isValid'] = 1;
             } else {
                 $gPost['isValid'] = 0;
             }
-            addComment($gPost['comment'], $gPost['isValid'], $sessionId, $gGet['idPost']);
+            addComment($gPost['comment'], $gPost['isValid'], $gSession['id'], $gGet['idPost']);
         }
 
         if ($gGet['action'] == 'editUser') {
@@ -93,8 +82,8 @@ try {
             contactForm();
         }
         if ($gGet['action'] == 'sendMessage') {
-            if (isset($sessionEmail)) {
-                $gPost['email'] = $sessionEmail;
+            if (isset($gSession['email'])) {
+                $gPost['email'] = $gSession['email'];
             }
             if ($gPost['message'] == "" or $gPost['email'] == "") {
                 contactForm();
@@ -103,7 +92,7 @@ try {
             }
         }
         //ADMIN----------------------------------------------------
-        if (isset($sessionIsAdmin) and $sessionIsAdmin == 1) {
+        if (isset($gSession['isAdmin']) and $gSession['isAdmin'] == 1) {
             if ($gGet['action'] == 'admincell') {
                 adminSystem();
             }
@@ -138,7 +127,7 @@ try {
                     createPost();
                 } else {
 
-                    newPost($gPost['title'], $gPost['hat'], $gPost['content'], $sessionId);
+                    newPost($gPost['title'], $gPost['hat'], $gPost['content'], $gSession['id']);
                 }
             }
             if ($gGet['action'] == 'modifyPost') {
@@ -146,11 +135,11 @@ try {
             }
 
             if ($gGet['action'] == 'postEdit') {
-                if ($gPost['title'] == "" or $gPost['hat'] == "" or $gPost['content'] == "" or !isset($sessionId) or !isset($gGet['idPost'])) {
+                if ($gPost['title'] == "" or $gPost['hat'] == "" or $gPost['content'] == "" or !isset($gSession['id']) or !isset($gGet['idPost'])) {
                     modifyPost();
                 } else {
 
-                    postEdit($gPost['title'], $gPost['hat'], $gPost['content'], $sessionId, $gGet['idPost']);
+                    postEdit($gPost['title'], $gPost['hat'], $gPost['content'], $gSession['id'], $gGet['idPost']);
                 }
             }
             if ($gGet['action'] == 'editUserAdmin') {
@@ -165,7 +154,6 @@ try {
                 }
             }
         }
-        listPosts();
     } else {
         listPosts();
     }
