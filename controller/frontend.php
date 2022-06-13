@@ -213,6 +213,7 @@ function sendMailCreateUser($username, $email, $password)
 function logOutSystem()
 {
     require 'View/logout.php';
+    header("location:index.php");
 }
 function adminSystem()
 {
