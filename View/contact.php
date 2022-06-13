@@ -22,8 +22,8 @@ ob_start(); ?>
             <textarea type="text" name="message" class="form-control <?= (!empty($message_err)) ? 'is-invalid' : ''; ?>" value="<?= $message; ?>"></textarea>
             <span class="invalid-feedback"><?= $message_err; ?></span>
             <div class="form-group"><br>
-               <input type="submit" class="btn btn-primary" value="Submit">
-               <input type="reset" class="btn btn-secondary ml-2" value="Reset">
+               <input type="submit" class="btn btn-primary" value="Contacter">
+               <input type="reset" class="btn btn-secondary ml-2" value="Effacer">
             </div>
             </div>
          </form>

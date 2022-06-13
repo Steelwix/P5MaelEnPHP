@@ -153,6 +153,8 @@ try {
                     userUpdateAdmin($gPost['username'], $gPost['email'], $gpost['password'], $gPost['isAdmin'], $gGet['id']);
                 }
             }
+        } else {
+            NotFound();
         }
     } else {
         listPosts();

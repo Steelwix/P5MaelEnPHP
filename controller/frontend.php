@@ -582,3 +582,7 @@ function welcome()
 {
     require 'View/welcome.php';
 }
+function NotFound()
+{
+    print_r("404 Not Found");
+}
