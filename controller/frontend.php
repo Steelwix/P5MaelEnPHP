@@ -40,7 +40,7 @@ function listPosts()
         $post['idPost'] = htmlspecialchars($post['idPost']);
     }
 
-    require 'View/ListPostView.php';
+    include 'View/ListPostView.php';
 }
 
 function post()
