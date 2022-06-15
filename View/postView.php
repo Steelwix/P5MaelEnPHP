@@ -31,7 +31,7 @@
 
             <h2>Commentaires</h2>
             <?php
-            if (isset($_SESSION['loggedin'])) {
+            if (isset($gSession['loggedin'])) {
 
 
                 if (!empty($com_info)) {

@@ -492,7 +492,7 @@ function editUser()
     $email = $user['email'];
     $password = $user['password'];
     if ($_SESSION['id'] != $gGet['id']) {
-        header("Location: index.php");
+        NotFound();
     }
     if ($gServer["REQUEST_METHOD"] == "POST") {
         if (empty(trim($gPost['username'])) or empty(trim($gPost['email']))) {
@@ -580,9 +580,13 @@ function userUpdateAdmin($username, $email, $password, $isAdmin, $idUser)
 }
 function welcome()
 {
+    $session = new Session;
+    $gSession = $session->getSESSION();
+    $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     require 'View/welcome.php';
 }
 function NotFound()
 {
     print_r("404 Not Found");
+    die;
 }
