@@ -8,7 +8,7 @@ ob_start(); ?>
          <form action="index.php?action=sendMessage" method="post">
             <div class="form-group">
                <?php
-               if (isset($gSession['email'])) {
+               if (isset($_SESSION['email'])) {
                } else { ?>
 
                   <label>Email</label>

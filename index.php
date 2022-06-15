@@ -13,9 +13,8 @@ $globals = new Globals;
 $gGet = $globals->getGET();
 $gPost = $globals->getPOST();
 $gServer = $globals->getSERVER();
-$globals = new Session;
-$gSession = $globals->getSESSION();
-
+$session = new Session;
+$gSession = $session->getSESSION();
 try {
     if (isset($gGet['action'])) {
         if ($gGet['action'] == 'listPosts') {
@@ -50,12 +49,12 @@ try {
         if ($gGet['action'] == 'addComment') {
             if ($gPost['comment'] == "") {
                 post();
-            } elseif ($gSession['isAdmin'] == 1) {
+            } elseif ($_SESSION['isAdmin'] == 1) {
                 $gPost['isValid'] = 1;
             } else {
                 $gPost['isValid'] = 0;
             }
-            addComment($gPost['comment'], $gPost['isValid'], $gSession['id'], $gGet['idPost']);
+            addComment($gPost['comment'], $gPost['isValid'], $_SESSION['id'], $gGet['idPost']);
         }
 
         if ($gGet['action'] == 'editUser') {
@@ -82,8 +81,8 @@ try {
             contactForm();
         }
         if ($gGet['action'] == 'sendMessage') {
-            if (isset($gSession['email'])) {
-                $gPost['email'] = $gSession['email'];
+            if (isset($_SESSION['email'])) {
+                $gPost['email'] = $_SESSION['email'];
             }
             if ($gPost['message'] == "" or $gPost['email'] == "") {
                 contactForm();
@@ -92,7 +91,7 @@ try {
             }
         }
         //ADMIN----------------------------------------------------
-        if (isset($gSession['isAdmin']) and $gSession['isAdmin'] == 1) {
+        if (isset($_SESSION['isAdmin']) and $_SESSION['isAdmin'] == 1) {
             if ($gGet['action'] == 'admincell') {
                 adminSystem();
             }
@@ -127,7 +126,7 @@ try {
                     createPost();
                 } else {
 
-                    newPost($gPost['title'], $gPost['hat'], $gPost['content'], $gSession['id']);
+                    newPost($gPost['title'], $gPost['hat'], $gPost['content'], $_SESSION['id']);
                 }
             }
             if ($gGet['action'] == 'modifyPost') {
@@ -135,11 +134,11 @@ try {
             }
 
             if ($gGet['action'] == 'postEdit') {
-                if ($gPost['title'] == "" or $gPost['hat'] == "" or $gPost['content'] == "" or !isset($gSession['id']) or !isset($gGet['idPost'])) {
+                if ($gPost['title'] == "" or $gPost['hat'] == "" or $gPost['content'] == "" or !isset($_SESSION['id']) or !isset($gGet['idPost'])) {
                     modifyPost();
                 } else {
 
-                    postEdit($gPost['title'], $gPost['hat'], $gPost['content'], $gSession['id'], $gGet['idPost']);
+                    postEdit($gPost['title'], $gPost['hat'], $gPost['content'], $_SESSION['id'], $gGet['idPost']);
                 }
             }
             if ($gGet['action'] == 'editUserAdmin') {
