@@ -9,6 +9,7 @@ require_once 'src/Globals/Session.php';
 require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require 'vendor/phpmailer/phpmailer/src/SMTP.php';
 require 'vendor/phpmailer/phpmailer/src/Exception.php';
+
 //Import PHPMailer classes into the global namespace
 //These must be at the top of your script, not inside a function
 

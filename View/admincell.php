@@ -1,148 +1,147 @@
 <?php $pagetitle = htmlspecialchars('Administration - Mael En PHP');
 
- ob_start(); ?>
+ob_start(); ?>
 <div class="container">
-    <div class="row">
-        <div class="col-12">
-          <br>
-<h1>Maël En PHP, la partie administrateur</h1>
-<h2>Edition des posts</h2><br>
-<em><a href="index.php?action=createPost" class="btn btn-success">Créer un post</a></em>
-</div>
+  <div class="row">
+    <div class="col-12">
+      <br>
+      <h1>Maël En PHP, la partie administrateur</h1>
+      <h2>Edition des posts</h2><br>
+      <em><a href="index.php?action=createPost" class="btn btn-success">Créer un post</a></em>
     </div>
+  </div>
 </div>
-<br><div class="container">
-    <div class="row justify-content-center">
-        <div class="col-12">
-    <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Titre</th>
-      <th scope="col">Chapo</th>
-      <th scope="col">Date de publication</th>
-      <th scope="col">Auteur</th>
-      <th scope="col">Options</th>
-    </tr>
-  </thead>
-<?php
-while ($data = $posts->fetch())
-{ 
-    ?> <tbody>
-    <tr>
-      <td><?= htmlspecialchars($data['title']) ?></td>
-      <td><?= htmlspecialchars($data['hat']) ?></td>
-      <td><?= htmlspecialchars($data['creation_date_fr']) ?></td>
-      <td><?= htmlspecialchars($data['username']) ?></td>
-      <td><a href="index.php?action=modifyPost&amp;idPost=<?= $data['idPost'] ?>" class="btn btn-primary">Modifier</a><br><br>
-      <a href="index.php?action=deletePost&amp;idPost=<?= $data['idPost'] ?>" class="btn btn-danger">Effacer</a>   </td>
-<?php
-} ?>
-    </tr>
-  </tbody>
-</table>
-</div>
-    </div>
-</div>
-
+<br>
 <div class="container">
-    <div class="row">
-        <div class="col-12">
-<h2>Edition des commentaires</h2>
-</div>
-    </div> 
-    </div>
-    <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-12">
-    <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Contenu</th>
-      <th scope="col">Date du commentaire</th>
-      <th scope="col">Ecrit par</th>
-      <th scope="col">Sur le post</th>
-      <th scope="col">Options</th>
-    </tr>
-  </thead>
-    <?php
-while ($com = $comments->fetch()){ ?>
- <tbody>
-    <tr>
-      <td><?= htmlspecialchars($com['comment']) ?></td>
-      <td><?= htmlspecialchars($com['comDate']) ?></td>
-      <td><?= htmlspecialchars($com['username']) ?></td>
-      <td><?= htmlspecialchars($com['title']) ?></td>
-      <td> 
-      <?php if($com['isValid'] == 0) 
- {
-       ?>   
-        <a href="index.php?action=commentIsValid&amp;idComment=<?= $com['idComment'] ?>"class="btn btn-success">Valider</a> 
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Titre</th>
+            <th scope="col">Chapo</th>
+            <th scope="col">Date de publication</th>
+            <th scope="col">Auteur</th>
+            <th scope="col">Options</th>
+          </tr>
+        </thead>
         <?php
-    }
-    else {
-
-    } ?>
-    <a href="index.php?action=deleteComment&amp;idComment=<?= $com['idComment'] ?>"class="btn btn-danger">Effacer</a></td>
-    <?php } ?>
-    </tr>
-  </tbody>
-</table>
-</div>
-    </div> 
+        while ($data = $posts->fetch()) {
+        ?> <tbody>
+            <tr>
+              <td><?= htmlspecialchars($data['title']) ?></td>
+              <td><?= htmlspecialchars($data['hat']) ?></td>
+              <td><?= htmlspecialchars($data['creation_date_fr']) ?></td>
+              <td><?= htmlspecialchars($data['username']) ?></td>
+              <td><a href="index.php?action=modifyPost&amp;idPost=<?= $data['idPost'] ?>" class="btn btn-primary">Modifier</a><br><br>
+                <a href="index.php?action=deletePost&amp;idPost=<?= $data['idPost'] ?>" class="btn btn-danger">Effacer</a>
+              </td>
+            <?php
+          } ?>
+            </tr>
+          </tbody>
+      </table>
     </div>
-
- 
-        <div class="container">
-    <div class="row">
-        <div class="col-12">
-<h2>Edition des utilisateurs</h2>
+  </div>
 </div>
-    </div> 
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h2>Edition des commentaires</h2>
     </div>
-    <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-12">
-    <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Pseudo</th>
-      <th scope="col">Email</th>
-      <th scope="col">Création du compte</th>
-      <th scope="col">Droits</th>
-      <th scope="col">Options</th>
-    </tr>
-  </thead>
-  <?php
-while ($com = $users->fetch()){
-    if ($com['isAdmin']==1){
-        $com['isAdmin'] = "administrateur";
-    } 
-    else { $com['isAdmin'] = "utilisateur";
-    }?>
-  <tbody>
-    <tr>
-      <td><?= htmlspecialchars($com['username']) ?></td>
-      <td><?= htmlspecialchars($com['email']) ?></td>
-      <td><?= htmlspecialchars($com['created_at']) ?></td>
-      <td><?= htmlspecialchars($com['isAdmin']) ?></td>
-      <td><a href="index.php?action=editUserAdmin&amp;id=<?= $com['id'] ?>" class="btn btn-primary">Editer</a>
-      <a href="index.php?action=inspectUser&amp;id=<?= $com['id'] ?>" class="btn btn-danger">Effacer</a>
-      
-    </td>
-    <?php } ?>
-    </tr>
-  </tbody>
-</table>
+  </div>
 </div>
-    </div> 
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Contenu</th>
+            <th scope="col">Date du commentaire</th>
+            <th scope="col">Ecrit par</th>
+            <th scope="col">Sur le post</th>
+            <th scope="col">Options</th>
+          </tr>
+        </thead>
+        <?php
+        while ($com = $comments->fetch()) { ?>
+          <tbody>
+            <tr>
+              <td><?= htmlspecialchars($com['comment']) ?></td>
+              <td><?= htmlspecialchars($com['comDate']) ?></td>
+              <td><?= htmlspecialchars($com['username']) ?></td>
+              <td><?= htmlspecialchars($com['title']) ?></td>
+              <td>
+                <?php if ($com['isValid'] == 0) {
+                ?>
+                  <a href="index.php?action=commentIsValid&amp;idComment=<?= $com['idComment'] ?>" class="btn btn-success">Valider</a>
+                <?php
+                } else {
+                } ?>
+                <a href="index.php?action=deleteComment&amp;idComment=<?= $com['idComment'] ?>" class="btn btn-danger">Effacer</a>
+              </td>
+            <?php } ?>
+            </tr>
+          </tbody>
+      </table>
     </div>
+  </div>
+</div>
 
 
-   
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h2>Edition des utilisateurs</h2>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Pseudo</th>
+            <th scope="col">Email</th>
+            <th scope="col">Création du compte</th>
+            <th scope="col">Droits</th>
+            <th scope="col">Options</th>
+          </tr>
+        </thead>
+        <?php
+        while ($com = $users->fetch()) {
+          if ($com['isAdmin'] == 1) {
+            $com['isAdmin'] = "administrateur";
+          } else {
+            $com['isAdmin'] = "utilisateur";
+          } ?>
+          <tbody>
+            <tr>
+              <td><?= htmlspecialchars($com['username']) ?></td>
+              <td><?= htmlspecialchars($com['email']) ?></td>
+              <td><?= htmlspecialchars($com['created_at']) ?></td>
+              <td><?= htmlspecialchars($com['isAdmin']) ?></td>
+              <td><a href="index.php?action=editUserAdmin&amp;id=<?= $com['id'] ?>" class="btn btn-primary">Editer</a>
+                <a href="index.php?action=inspectUser&amp;id=<?= $com['id'] ?>" class="btn btn-danger">Effacer</a>
 
-    
+              </td>
+            <?php } ?>
+            </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+
 <?php
-$content = ob_get_clean();?>
+$content = ob_get_clean(); ?>
 
 
 
