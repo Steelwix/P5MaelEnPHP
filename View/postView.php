@@ -21,7 +21,8 @@
         </div>
         <div class="col-12 postdata">
             <p>
-                <?= htmlspecialchars($post['content']) ?>
+                <?= htmlspecialchars($post['hat']) ?> </p>
+            <p> <?= htmlspecialchars($post['content']) ?>
             </p>
         </div>
     </div>

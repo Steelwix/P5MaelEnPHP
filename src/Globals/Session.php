@@ -10,7 +10,7 @@ class Session
 
     public function __construct()
     {
-        $this->vars = &$_SESSION;
+        $this->vars = $_SESSION;
     }
     public function getSESSION($key = null)
     {
@@ -18,5 +18,17 @@ class Session
             return $this->vars[$key] ?? null;
         }
         return $this->vars;
+    }
+}
+class MakeSession
+{
+
+    public function setSession($username, $id, $logged, $isAdmin, $email)
+    {
+        $_SESSION['username'] = $username;
+        $_SESSION['id'] = $id;
+        $_SESSION['loggedin'] = $logged;
+        $_SESSION['isAdmin'] = $isAdmin;
+        $_SESSION['email'] = $email;
     }
 }

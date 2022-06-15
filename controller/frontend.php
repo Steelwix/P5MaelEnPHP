@@ -14,6 +14,7 @@ require 'vendor/phpmailer/phpmailer/src/Exception.php';
 
 use OpenClassrooms\Blog\Globals\Globals;
 use OpenClassrooms\Blog\Session\Session;
+use OpenClassrooms\Blog\Session\MakeSession;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -21,7 +22,7 @@ use PHPMailer\PHPMailer\Exception;
 //$globals=new Globals;
 //$gGet = $globals->getGET();
 //$gPost = $globals->getPOST();
-//$_SESSION = $globals->getSESSION();
+//$gSession = $globals->getSESSION();
 
 function listPosts()
 {
@@ -88,12 +89,13 @@ function loginSystem()
 {
     $session = new Session;
     $gSession = $session->getSESSION();
+    $makeSessionManager = new MakeSession;
     $globals = new Globals;
     $gServer = $globals->getSERVER();
     $gPost = $globals->getPOST();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
-    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+    if (isset($gSession['loggedin']) && $gSession['loggedin'] === true) {
         header("location: index.php");
     }
 
@@ -112,11 +114,12 @@ function loginSystem()
         }
         while ($donnees = $users->fetch()) {
             if ($gPost['username'] == $donnees['username'] and $gPost['password'] == $donnees['password']) {
-                $_SESSION['username'] = $donnees['username'];
-                $_SESSION['id'] = $donnees['id'];
-                $_SESSION['loggedin'] = true;
-                $_SESSION['isAdmin'] = $donnees['isAdmin'];
-                $_SESSION['email'] = $donnees['email'];
+                $theSession['username'] = $donnees['username'];
+                $theSession['id'] = $donnees['id'];
+                $theSession['loggedin'] = true;
+                $theSession['isAdmin'] = $donnees['isAdmin'];
+                $TheSession['email'] = $donnees['email'];
+                $makeSessionManager->setSession($theSession['username'], $theSession['id'], $theSession['loggedin'], $theSession['isAdmin'], $TheSession['email']);
                 header("location: index.php");
             } else {
                 $login_err = "Les informations ne correspondent pas.";
@@ -136,7 +139,7 @@ function registerSystem()
     $users = $userManager->getUsers();
     $username = $password = $email = $confirm_password = "";
     $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
-    unset($_SESSION['validRegister']);
+    unset($gSession['validRegister']);
     if ($gServer["REQUEST_METHOD"] == "POST") {
         if (empty(trim($gPost['username'])) or empty(trim($gPost['username']))) {
             $email = "Please fill all blanks";
@@ -221,7 +224,7 @@ function sendMailCreateUser($username, $email, $password)
 function logOutSystem()
 {
 
-    $_SESSION = array();
+    $gSession = array();
     session_destroy();
     header("Location: index.php");
 }
@@ -331,17 +334,17 @@ function createPost()
 
     if ($gServer["REQUEST_METHOD"] == "POST") {
         if (empty($gPost['title'])) {
-            $title_err = 'Please fill all blanks';
+            $title_err = 'Entrez un titre';
         } else {
             $title = $gPost['title'];
         }
         if (empty($gPost['hat'])) {
-            $hat_err = 'Please fill all blanks';
+            $hat_err = 'Ecrivez un chapo';
         } else {
             $hat = $gPost['hat'];
         }
         if (empty($gPost['content'])) {
-            $content_err = 'Please fill all blanks';
+            $content_err = 'Rédigez le contenu du post';
         } else {
             $content = $gPost['content'];
         }
@@ -391,7 +394,7 @@ function modifyPost()
         } else {
             $content = $gPost['content'];
         }
-        if (isset($gPost['title']) && isset($gPost['hat']) && isset($gPost['content']) && isset($_SESSION['id'])) {
+        if (isset($gPost['title']) && isset($gPost['hat']) && isset($gPost['content']) && isset($gSession['id'])) {
         }
     }
     require 'View/modifypost.php';
@@ -418,8 +421,8 @@ function contactForm()
     $email = $message = "";
     $email_err = $message_err = "";
 
-    if (isset($_SESSION['email'])) {
-        $gPost['email'] = $_SESSION['email'];
+    if (isset($gSession['email'])) {
+        $gPost['email'] = $gSession['email'];
     }
     if ($gServer["REQUEST_METHOD"] == "POST") {
 
@@ -491,28 +494,30 @@ function editUser()
     $username = $user['username'];
     $email = $user['email'];
     $password = $user['password'];
-    if ($_SESSION['id'] != $gGet['id']) {
+    if ($gSession['id'] != $gGet['id']) {
         NotFound();
-    }
-    if ($gServer["REQUEST_METHOD"] == "POST") {
-        if (empty(trim($gPost['username'])) or empty(trim($gPost['email']))) {
-            $username_err = "Please fill all blanks";
-        } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($gPost["username"]))) {
-            $username_err = "Username can only contain letters, numbers, and underscores.";
-        } elseif (isset($gPost['username']) &&  isset($gPost['email']) && isset($gPost['password'])) {
-            while ($donnees = $user->fetch()) {
-                if ($gPost['username'] == $donnees['username'] and $gPost['email'] == $donnees['email']) {
-                    throw new Exception('Ces informations appartiennent a un autre utilisateur');
-                } else {
-                    $username = $gPost['username'];
-                    $email = $gPost['email'];
-                    $password = $gPost['password'];
+    } else {
+        if ($gServer["REQUEST_METHOD"] == "POST") {
+            if (empty(trim($gPost['username'])) or empty(trim($gPost['email']))) {
+                $username_err = "Please fill all blanks";
+            } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($gPost["username"]))) {
+                $username_err = "Username can only contain letters, numbers, and underscores.";
+            } elseif (isset($gPost['username']) &&  isset($gPost['email']) && isset($gPost['password'])) {
+                while ($donnees = $user->fetch()) {
+                    if ($gPost['username'] == $donnees['username'] and $gPost['email'] == $donnees['email']) {
+                        throw new Exception('Ces informations appartiennent a un autre utilisateur');
+                    } else {
+                        $username = $gPost['username'];
+                        $email = $gPost['email'];
+                        $password = $gPost['password'];
+                    }
                 }
             }
         }
-    }
 
-    require 'View/userSettings.php';
+
+        require 'View/userSettings.php';
+    }
 }
 function editUserAdmin()
 {
@@ -561,8 +566,8 @@ function userUpdate($username, $email, $password, $idUser)
     if ($editUser === false) {
         throw new Exception('Impossible de modifier le profil ! error L1');
     } else {
-        $_SESSION['username'] = $gPost['username'];
-        $_SESSION['email'] = $gPost['email'];
+        $gSession['username'] = $gPost['username'];
+        $gSession['email'] = $gPost['email'];
         header("Location: index.php");
     }
 }
@@ -587,6 +592,5 @@ function welcome()
 }
 function NotFound()
 {
-    print_r("404 Not Found");
-    die;
+    require 'View/error.php';
 }
