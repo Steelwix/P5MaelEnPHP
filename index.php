@@ -27,11 +27,11 @@ try {
             registerSystem();
         }
         if ($gGet['action'] == 'signin') {
-            if ($gPost['username'] == "" or $gPost['email'] == "" or $gpost['password'] == "" or ($gpost['password'] !== $gpost['confirmPassword']) == true) {
+            if ($gPost['username'] == "" or $gPost['email'] == "" or $gPost['password'] == "" or ($gPost['password'] !== $gPost['confirm_password']) == true) {
                 registerSystem();
             } else {
-                createUser($gPost['username'], $gPost['email'], $gpost['password']);
-                sendMailCreateUser($gPost['username'], $gPost['email'], $gpost['password']);
+                createUser($gPost['username'], $gPost['email'], $gPost['password']);
+                sendMailCreateUser($gPost['username'], $gPost['email'], $gPost['password']);
                 header("location: index.php?action=login");
             }
         }

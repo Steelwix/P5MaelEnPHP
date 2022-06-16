@@ -33,7 +33,6 @@ function requestTemplate($content, $pagetitle)
 function listPosts()
 {
     $session = new Session;
-    $makeSessionManager = new MakeSession;
     $gSession = $session->getSESSION();
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $posts = $postManager->getPosts()->fetchAll();
@@ -122,7 +121,7 @@ function loginSystem()
             $password = trim($gPost['password']);
         }
         while ($donnees = $users->fetch()) {
-            if ($gPost['username'] == $donnees['username'] and $gPost['password'] == $donnees['password']) {
+            if ($username == $donnees['username'] and $password == $donnees['password']) {
                 $theSession['username'] = $donnees['username'];
                 $theSession['id'] = $donnees['id'];
                 $theSession['loggedin'] = true;
@@ -152,12 +151,16 @@ function registerSystem()
     unset($gSession['validRegister']);
     if ($gServer["REQUEST_METHOD"] == "POST") {
         if (empty(trim($gPost['username'])) or empty(trim($gPost['username']))) {
-            $email = "Please fill all blanks";
+            $username_err = "Indiquez un pseudo";
             $login_err = "Veuillez corriger les erreurs";
         }
-        if (!preg_match('/^[a-zA-Z0-9_]+$/', trim($gPost["email"]))) {
-            $username_err = "Username can only contain letters, numbers, and underscores.";
+        if (filter_var($gPost['email'], FILTER_VALIDATE_EMAIL)) {
+        } else {
+            $email_err = "Respectez le format des emails";
             $login_err = "Veuillez corriger les erreurs";
+        }
+        if ($gPost['password'] == "") {
+            $password_err = "Veuillez définir un mot de passe";
         }
         if (($gPost['password'] !== $gPost['confirm_password']) == true) {
             $password_err = "Mots de passe non identiques.";
@@ -172,9 +175,9 @@ function registerSystem()
 
                     $email_err = "email déjà utilisé";
                 }
-                $username = $gPost['username'];
-                $email = $gPost['email'];
-                $password = $gPost['password'];
+                $gPost['username'] = $username;
+                $gPost['email'] = $email;
+                $gPost['password'] = $password;
             }
         }
     }
