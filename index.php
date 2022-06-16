@@ -32,7 +32,6 @@ try {
             } else {
                 createUser($gPost['username'], $gPost['email'], $gPost['password']);
                 sendMailCreateUser($gPost['username'], $gPost['email'], $gPost['password']);
-                header("location: index.php?action=login");
             }
         }
         if ($gGet['action'] == 'logout') {

@@ -242,6 +242,8 @@ function sendMailCreateUser($username, $email, $password)
         $mail->AltBody = "Voici vos informations, ne les partagez pas. \r\n Votre email = '$email'\r\n Votre username = '$username'\r\n Votre mot de passe = '$password'";
 
         $mail->send();
+        $location = "location: index.php?action=login";
+        requestMain($location);
     } catch (Exception $e) {
     }
 }
@@ -531,7 +533,7 @@ function editUser()
     $user = $userManager->getUser($gGet['id']);
     $users = $userManager->getUsers();
     $username = $password = $email = $confirm_password = "";
-    $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
+    $username_err = $password_err = $login_ok = $email_err = $confirm_password_err = "";
     $username = $user['username'];
     $email = $user['email'];
     $password = $user['password'];
@@ -541,28 +543,31 @@ function editUser()
         if ($gServer["REQUEST_METHOD"] == "POST") {
             if (empty(trim($gPost['username'])) or empty(trim($gPost['username']))) {
                 $username_err = "Indiquez un pseudo";
-                $login_err = "Veuillez corriger les erreurs";
+                $login_ok = "Veuillez corriger les erreurs";
             }
             if (filter_var($gPost['email'], FILTER_VALIDATE_EMAIL)) {
             } else {
                 $email_err = "Respectez le format des emails";
-                $login_err = "Veuillez corriger les erreurs";
+                $login_ok = "Veuillez corriger les erreurs";
             }
             if ($gPost['password'] == "") {
                 $password_err = "Veuillez définir un mot de passe";
+                $login_ok = "Veuillez corriger les erreurs";
             }
             if (($gPost['password'] !== $gPost['confirm_password']) == true) {
                 $password_err = "Mots de passe non identiques.";
-                $login_err = "Veuillez corriger les erreurs";
+                $login_ok = "Veuillez corriger les erreurs";
             } elseif (isset($gPost['username']) &&  isset($gPost['email']) && isset($gPost['password'])) {
                 while ($donnees = $users->fetch()) {
                     if ($gPost['username'] === $donnees['username']) {
 
                         $username_err = "Pseudo déjà utilisé";
+                        $login_ok = "Veuillez corriger les erreurs";
                     }
                     if ($gPost['email'] === $donnees['email']) {
 
                         $email_err = "email déjà utilisé";
+                        $login_ok = "Veuillez corriger les erreurs";
                     }
                     $gPost['username'] = $username;
                     $gPost['email'] = $email;
@@ -598,28 +603,31 @@ function editUserAdmin()
     if ($gServer["REQUEST_METHOD"] == "POST") {
         if (empty(trim($gPost['username'])) or empty(trim($gPost['username']))) {
             $username_err = "Indiquez un pseudo";
-            $login_err = "Veuillez corriger les erreurs";
+            $login_ok = "Veuillez corriger les erreurs";
         }
         if (filter_var($gPost['email'], FILTER_VALIDATE_EMAIL)) {
         } else {
             $email_err = "Respectez le format des emails";
-            $login_err = "Veuillez corriger les erreurs";
+            $login_ok = "Veuillez corriger les erreurs";
         }
         if ($gPost['password'] == "") {
             $password_err = "Veuillez définir un mot de passe";
+            $login_ok = "Veuillez corriger les erreurs";
         }
         if (($gPost['password'] !== $gPost['confirm_password']) == true) {
             $password_err = "Mots de passe non identiques.";
-            $login_err = "Veuillez corriger les erreurs";
+            $login_ok = "Veuillez corriger les erreurs";
         } elseif (isset($gPost['username']) &&  isset($gPost['email']) && isset($gPost['password'])) {
             while ($donnees = $users->fetch()) {
                 if ($gPost['username'] === $donnees['username']) {
 
                     $username_err = "Pseudo déjà utilisé";
+                    $login_ok = "Veuillez corriger les erreurs";
                 }
                 if ($gPost['email'] === $donnees['email']) {
 
                     $email_err = "email déjà utilisé";
+                    $login_ok = "Veuillez corriger les erreurs";
                 }
                 $gPost['username'] = $username;
                 $gPost['email'] = $email;
