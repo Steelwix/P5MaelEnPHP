@@ -24,6 +24,12 @@ use PHPMailer\PHPMailer\Exception;
 //$gGet = $globals->getGET();
 //$gPost = $globals->getPOST();
 //$gSession = $globals->getSESSION();
+function requestMain($location)
+{
+
+    header($location);
+}
+
 function requestTemplate($content, $pagetitle)
 {
     $session = new Session;
@@ -65,6 +71,7 @@ function post()
     $comments = $commentManager->getComments($gGet['idPost']);
     $ncomment = $ncomment_err = "";
 
+
     if ($gServer["REQUEST_METHOD"] == "POST") {
 
         if (($gPost['comment']) == "") {
@@ -91,7 +98,8 @@ function addComment($comment, $isValid, $idUser, $idPost)
     if ($newComment === false) {
         throw new Exception('Impossible d\'ajouter le commentaire ! error HK3 ');
     }
-    header("Location: index.php?action=post&idPost=" . $idPost);
+    $location = "Location: index.php?action=post&idPost=" . $idPost;
+    requestMain($location);
 }
 function loginSystem()
 {
@@ -104,7 +112,8 @@ function loginSystem()
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
     if (isset($gSession['loggedin']) && $gSession['loggedin'] === true) {
-        header("location: index.php");
+        $location = "Location: index.php";
+        requestMain($location);
     }
 
 
@@ -128,7 +137,8 @@ function loginSystem()
                 $theSession['isAdmin'] = $donnees['isAdmin'];
                 $TheSession['email'] = $donnees['email'];
                 $makeSessionManager->setSession($theSession['username'], $theSession['id'], $theSession['loggedin'], $theSession['isAdmin'], $TheSession['email']);
-                header("location: index.php");
+                $location = "Location: index.php";
+                requestMain($location);
             } else {
                 $login_err = "Les informations ne correspondent pas.";
             }
@@ -195,7 +205,8 @@ function createUser($username, $email, $password)
     if ($newUser === false) {
         throw new Exception('Impossible d\'ajouter l\'utilisateur ! error Z1 ');
     } else {
-        header("Location: index.php?action=login");
+        $location = "Location: index.php?action=login";
+        requestMain($location);
     }
 }
 function sendMailCreateUser($username, $email, $password)
@@ -238,9 +249,9 @@ function sendMailCreateUser($username, $email, $password)
 function logOutSystem()
 {
 
-    $gSession = array();
     session_destroy();
-    header("Location: index.php");
+    $location = "Location: index.php";
+    requestMain($location);
 }
 function adminSystem()
 {
@@ -274,7 +285,8 @@ function wipePost($idPost)
     $gSession = $session->getSESSION();
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $postManager->deletePost($idPost);
-    header("Location: index.php?action=admincell");
+    $location = "Location: index.php?action=admincell";
+    requestMain($location);
 }
 function deleteComment($idComment)
 {
@@ -282,7 +294,8 @@ function deleteComment($idComment)
     $gSession = $session->getSESSION();
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $commentManager->deleteComment($idComment);
-    header("Location: index.php?action=admincell");
+    $location = "Location: index.php?action=admincell";
+    requestMain($location);
 }
 function commentIsValid($idComment)
 {
@@ -290,7 +303,8 @@ function commentIsValid($idComment)
     $gSession = $session->getSESSION();
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $commentManager->commentIsValid($idComment);
-    header("Location: index.php?action=admincell");
+    $location = "Location: index.php?action=admincell";
+    requestMain($location);
 }
 function inspectUser()
 {
@@ -329,7 +343,8 @@ function wipeUser()
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $userManager->deleteUser($gGet['id']);
 
-    header("Location: index.php?action=admincell");
+    $location = "Location: index.php?action=admincell";
+    requestMain($location);
 }
 function wipeUserSelf()
 {
@@ -339,7 +354,8 @@ function wipeUserSelf()
     $gGet = $globals->getGET();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $userManager->deleteUser($gGet['id']);
-    header("Location: index.php?action=logout");
+    $location = "Location: index.php?action=logout";
+    requestMain($location);
 }
 function createPost()
 {
@@ -380,7 +396,8 @@ function newPost($title, $hat, $content, $author)
     if ($newPost === false) {
         throw new Exception('Impossible de créer un post ! error HK43 ');
     } else {
-        header("Location: index.php?action=listPosts");
+        $location = "Location: index.php?action=listPosts";
+        requestMain($location);
     }
 }
 function modifyPost()
@@ -429,7 +446,8 @@ function postEdit($title, $hat, $content, $author, $idPost)
     if ($editPost === false) {
         throw new Exception('Impossible de créer un post ! error T99');
     } else {
-        header("Location: index.php?action=admincell");
+        $location = "Location: index.php?action=admincell";
+        requestMain($location);
     }
 }
 function contactForm()
@@ -496,7 +514,8 @@ function sendMailContact($email, $message)
 
         $mail->send();
 
-        header("Location: index.php");
+        $location = "Location: index.php";
+        requestMain($location);
     } catch (Exception $e) {
     }
 }
@@ -591,7 +610,8 @@ function userUpdate($username, $email, $password, $idUser)
     } else {
         $gSession['username'] = $gPost['username'];
         $gSession['email'] = $gPost['email'];
-        header("Location: index.php");
+        $location = "Location: index.php";
+        requestMain($location);
     }
 }
 function userUpdateAdmin($username, $email, $password, $isAdmin, $idUser)
@@ -603,7 +623,8 @@ function userUpdateAdmin($username, $email, $password, $isAdmin, $idUser)
     if ($editUser === false) {
         throw new Exception('Impossible de modifier le profil ! error L1');
     } else {
-        header("Location: index.php?action=admincell");
+        $location = "Location: index.php?action=admincell";
+        requestMain($location);
     }
 }
 function welcome()
