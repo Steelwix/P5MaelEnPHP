@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-12 posttitle">
             <h3>
-                <?= $title ?>
+                <?= htmlspecialchars($post['title']) ?>
                 <em>le <?= htmlspecialchars($post['creation_date_fr']) ?></em>
                 <em>par <?= htmlspecialchars($post['username']) ?></em>
             </h3>
