@@ -24,10 +24,16 @@ use PHPMailer\PHPMailer\Exception;
 //$gGet = $globals->getGET();
 //$gPost = $globals->getPOST();
 //$gSession = $globals->getSESSION();
-
+function requestTemplate($content, $pagetitle)
+{
+    $session = new Session;
+    $gSession = $session->getSESSION();
+    require 'View/template.php';
+}
 function listPosts()
 {
     $session = new Session;
+    $makeSessionManager = new MakeSession;
     $gSession = $session->getSESSION();
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $posts = $postManager->getPosts()->fetchAll();
@@ -43,6 +49,7 @@ function listPosts()
     }
 
     require 'View/ListPostView.php';
+    requestTemplate($content, $pagetitle);
 }
 
 function post()
@@ -70,6 +77,7 @@ function post()
 
 
     require 'View/postView.php';
+    requestTemplate($content, $pagetitle);
 }
 
 
@@ -128,6 +136,7 @@ function loginSystem()
         }
     }
     require 'View/login.php';
+    requestTemplate($content, $pagetitle);
 }
 function registerSystem()
 {
@@ -171,6 +180,7 @@ function registerSystem()
     }
 
     require 'View/register.php';
+    requestTemplate($content, $pagetitle);
 }
 function createUser($username, $email, $password)
 {
@@ -240,6 +250,7 @@ function adminSystem()
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $comments = $commentManager->getAllCom();
     require 'View/admincell.php';
+    requestTemplate($content, $pagetitle);
 }
 function deletePost()
 {
@@ -252,6 +263,7 @@ function deletePost()
     $post = $postManager->getPost($gGet['idPost']);
     $comments = $commentManager->getComments($gGet['idPost']);
     require 'View/deletePost.php';
+    requestTemplate($content, $pagetitle);
 }
 function wipePost($idPost)
 {
@@ -289,6 +301,7 @@ function inspectUser()
     $userComs = $commentManager->getUserComments($gGet['id']);
 
     require 'View/deleteUser.php';
+    requestTemplate($content, $pagetitle);
 }
 function inspectUserSelf()
 {
@@ -302,6 +315,7 @@ function inspectUserSelf()
     $userComs = $commentManager->getUserComments($gGet['id']);
 
     require 'View/deleteUserSelf.php';
+    requestTemplate($content, $pagetitle);
 }
 function wipeUser()
 {
@@ -351,6 +365,7 @@ function createPost()
         }
     }
     require 'View/createPost.php';
+    requestTemplate($content, $pagetitle);
 }
 function newPost($title, $hat, $content, $author)
 {
@@ -399,6 +414,7 @@ function modifyPost()
         }
     }
     require 'View/modifypost.php';
+    requestTemplate($content, $pagetitle);
 }
 function postEdit($title, $hat, $content, $author, $idPost)
 {
@@ -441,6 +457,7 @@ function contactForm()
         }
     }
     require 'View/contact.php';
+    requestTemplate($content, $pagetitle);
 }
 function sendMailContact($email, $message)
 {
@@ -518,6 +535,7 @@ function editUser()
 
 
         require 'View/userSettings.php';
+        requestTemplate($content, $pagetitle);
     }
 }
 function editUserAdmin()
@@ -555,6 +573,7 @@ function editUserAdmin()
     }
 
     require 'View/userSettingsAdmin.php';
+    requestTemplate($content, $pagetitle);
 }
 function userUpdate($username, $email, $password, $idUser)
 {
@@ -590,6 +609,7 @@ function welcome()
     $gSession = $session->getSESSION();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     require 'View/welcome.php';
+    requestTemplate($content, $pagetitle);
 }
 function NotFound()
 {

@@ -26,5 +26,3 @@ if (!isset($gSession['loggedin']) || $gSession['loggedin'] !== true) {
 </div>
 
 <?php $content = ob_get_clean(); ?>
-
-<?php require 'template.php'; ?>
