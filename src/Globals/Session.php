@@ -23,10 +23,10 @@ class Session
 class MakeSession
 {
 
-    public function setSession($username, $id, $logged, $isAdmin, $email)
+    public function setSession($username, $idUser, $logged, $isAdmin, $email)
     {
         $_SESSION['username'] = $username;
-        $_SESSION['id'] = $id;
+        $_SESSION['id'] = $idUser;
         $_SESSION['loggedin'] = $logged;
         $_SESSION['isAdmin'] = $isAdmin;
         $_SESSION['email'] = $email;
