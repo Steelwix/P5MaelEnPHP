@@ -61,11 +61,11 @@ try {
             editUser($gGet['id']);
         }
         if ($gGet['action'] == 'userUpdate') {
-            if ($gPost['username'] == "" or $gPost['email'] == "" or $gpost['password'] == "") {
+            if ($gPost['username'] == "" or $gPost['email'] == "" or $gPost['password'] == "" or ($gPost['password'] !== $gPost['confirm_password']) == true) {
                 editUser($gGet['id']);
             } else {
 
-                userUpdate($gPost['username'], $gPost['email'], $gpost['password'], $gGet['id']);
+                userUpdate($gPost['username'], $gPost['email'], $gPost['password'], $gGet['id']);
             }
         }
         if ($gGet['action'] == 'overallSetting') {
@@ -185,11 +185,11 @@ try {
             if ($gSession['isAdmin'] !== 1) {
                 NotFound();
             }
-            if ($gPost['username'] == "" or $gPost['email'] == "" or $gpost['password'] == "" or $gPost['isAdmin'] == "") {
+            if ($gPost['username'] == "" or $gPost['email'] == "" or $gPost['password'] == "" or $gPost['isAdmin'] == "" or ($gPost['password'] !== $gPost['confirm_password']) == true) {
                 editUserAdmin($gGet['id']);
             } else {
 
-                userUpdateAdmin($gPost['username'], $gPost['email'], $gpost['password'], $gPost['isAdmin'], $gGet['id']);
+                userUpdateAdmin($gPost['username'], $gPost['email'], $gPost['password'], $gPost['isAdmin'], $gGet['id']);
             }
         }
     } else {

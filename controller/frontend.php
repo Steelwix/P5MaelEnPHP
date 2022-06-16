@@ -121,14 +121,14 @@ function loginSystem()
     $username_err = $password_err = $login_err = "";
     if ($gServer["REQUEST_METHOD"] == "POST") {
         if (empty(trim($gPost['username']))) {
-            $username_err = "Vous devez entrer un pseudo.";
+            $username_err = "Vous devez entrer votre pseudo.";
         }
         $username = trim($gPost['username']);
         if (empty(trim($gPost['password']))) {
-            $password_err = "Vous devez entrer un mot de passe.";
-        } else {
-            $password = trim($gPost['password']);
+            $password_err = "Vous devez entrer votre mot de passe.";
         }
+        $password = trim($gPost['password']);
+
         while ($donnees = $users->fetch()) {
             if ($username == $donnees['username'] and $password == $donnees['password']) {
                 $theSession['username'] = $donnees['username'];
@@ -529,6 +529,7 @@ function editUser()
     $gServer = $globals->getSERVER();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $user = $userManager->getUser($gGet['id']);
+    $users = $userManager->getUsers();
     $username = $password = $email = $confirm_password = "";
     $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
     $username = $user['username'];
@@ -538,28 +539,44 @@ function editUser()
         NotFound();
     } else {
         if ($gServer["REQUEST_METHOD"] == "POST") {
-            if (empty(trim($gPost['username'])) or empty(trim($gPost['email']))) {
-                $username_err = "Please fill all blanks";
-            } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($gPost["username"]))) {
-                $username_err = "Username can only contain letters, numbers, and underscores.";
+            if (empty(trim($gPost['username'])) or empty(trim($gPost['username']))) {
+                $username_err = "Indiquez un pseudo";
+                $login_err = "Veuillez corriger les erreurs";
+            }
+            if (filter_var($gPost['email'], FILTER_VALIDATE_EMAIL)) {
+            } else {
+                $email_err = "Respectez le format des emails";
+                $login_err = "Veuillez corriger les erreurs";
+            }
+            if ($gPost['password'] == "") {
+                $password_err = "Veuillez définir un mot de passe";
+            }
+            if (($gPost['password'] !== $gPost['confirm_password']) == true) {
+                $password_err = "Mots de passe non identiques.";
+                $login_err = "Veuillez corriger les erreurs";
             } elseif (isset($gPost['username']) &&  isset($gPost['email']) && isset($gPost['password'])) {
-                while ($donnees = $user->fetch()) {
-                    if ($gPost['username'] == $donnees['username'] and $gPost['email'] == $donnees['email']) {
-                        throw new Exception('Ces informations appartiennent a un autre utilisateur');
-                    } else {
-                        $username = $gPost['username'];
-                        $email = $gPost['email'];
-                        $password = $gPost['password'];
+                while ($donnees = $users->fetch()) {
+                    if ($gPost['username'] === $donnees['username']) {
+
+                        $username_err = "Pseudo déjà utilisé";
                     }
+                    if ($gPost['email'] === $donnees['email']) {
+
+                        $email_err = "email déjà utilisé";
+                    }
+                    $gPost['username'] = $username;
+                    $gPost['email'] = $email;
+                    $gPost['password'] = $password;
                 }
             }
         }
-
-
-        require 'View/userSettings.php';
-        requestTemplate($content, $pagetitle);
     }
+
+
+    require 'View/userSettings.php';
+    requestTemplate($content, $pagetitle);
 }
+
 function editUserAdmin()
 {
     $session = new Session;
@@ -570,6 +587,7 @@ function editUserAdmin()
     $gServer = $globals->getSERVER();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $user = $userManager->getUser($gGet['id']);
+    $users = $userManager->getUsers();
     $username = $password = $email = $confirm_password = "";
     $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
     $username = $user['username'];
@@ -578,19 +596,35 @@ function editUserAdmin()
     $isAdmin = $user['isAdmin'];
     $adaptedAction = "editUserAdmin";
     if ($gServer["REQUEST_METHOD"] == "POST") {
-        if (empty(trim($gPost['username'])) or empty(trim($gPost['email']))) {
-            $username_err = "Please fill all blanks";
+        if (empty(trim($gPost['username'])) or empty(trim($gPost['username']))) {
+            $username_err = "Indiquez un pseudo";
+            $login_err = "Veuillez corriger les erreurs";
         }
-        if (!preg_match('/^[a-zA-Z0-9_]+$/', trim($gPost["username"]))) {
-            $username_err = "Username can only contain letters, numbers, and underscores.";
-        } elseif (isset($gPost['username']) &&  isset($gPost['email']) && isset($gPost['password'])) {
-
-            $username = $gPost['username'];
-            $email = $gPost['email'];
-            $password = $gPost['password'];
-            $isAdmin = $gPost['isAdmin'];
-            $login_ok = "Les informations ne sont pas valides";
+        if (filter_var($gPost['email'], FILTER_VALIDATE_EMAIL)) {
         } else {
+            $email_err = "Respectez le format des emails";
+            $login_err = "Veuillez corriger les erreurs";
+        }
+        if ($gPost['password'] == "") {
+            $password_err = "Veuillez définir un mot de passe";
+        }
+        if (($gPost['password'] !== $gPost['confirm_password']) == true) {
+            $password_err = "Mots de passe non identiques.";
+            $login_err = "Veuillez corriger les erreurs";
+        } elseif (isset($gPost['username']) &&  isset($gPost['email']) && isset($gPost['password'])) {
+            while ($donnees = $users->fetch()) {
+                if ($gPost['username'] === $donnees['username']) {
+
+                    $username_err = "Pseudo déjà utilisé";
+                }
+                if ($gPost['email'] === $donnees['email']) {
+
+                    $email_err = "email déjà utilisé";
+                }
+                $gPost['username'] = $username;
+                $gPost['email'] = $email;
+                $gPost['password'] = $password;
+            }
         }
     }
 
