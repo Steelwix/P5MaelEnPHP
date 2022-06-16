@@ -14,10 +14,10 @@
 </head>
 
 <body>
-    <?php require 'View/navbar.php'; ?>
+    <?php navbar(); ?>
     <?= $content ?>
 
-    <?php require 'View/footer.php'; ?>
+    <?php footer(); ?>
 </body>
 
 

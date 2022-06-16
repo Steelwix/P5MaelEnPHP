@@ -36,6 +36,18 @@ function requestTemplate($content, $pagetitle)
     $gSession = $session->getSESSION();
     require 'View/template.php';
 }
+function navbar()
+{
+    $session = new Session;
+    $gSession = $session->getSESSION();
+    require 'View/navbar.php';
+}
+function footer()
+{
+    $session = new Session;
+    $gSession = $session->getSESSION();
+    require 'View/footer.php';
+}
 function listPosts()
 {
     $session = new Session;
