@@ -3,9 +3,7 @@
 $pagetitle = htmlspecialchars('Paramètres d\'utilisateur');
 ob_start();
 
-if (!isset($gSession['loggedin']) || $gSession['loggedin'] !== true) {
-    header("location: index.php");
-}
+
 ?>
 
 <div class="container">

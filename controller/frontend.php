@@ -634,6 +634,10 @@ function welcome()
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     require 'View/welcome.php';
     requestTemplate($content, $pagetitle);
+    if (!isset($gSession['loggedin']) || $gSession['loggedin'] !== true) {
+        $location = "Location: index.php";
+        requestMain($location);
+    }
 }
 function NotFound()
 {

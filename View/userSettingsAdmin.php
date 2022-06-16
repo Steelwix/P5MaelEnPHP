@@ -54,7 +54,7 @@ ob_start();
                     </div>
                     <div class="form-group"><br>
                         <input type="submit" class="btn btn-primary" value="Valider">
-                        <input type="reset" class="btn btn-secondary ml-2" value="Reset">
+                        <input type="reset" class="btn btn-secondary ml-2" value="Réinitialiser">
                     </div>
                 </form>
             </div>

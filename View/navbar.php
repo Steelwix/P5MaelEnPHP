@@ -28,7 +28,7 @@
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><b><?= htmlspecialchars($currentUser) ?></b></a>
             <div class="dropdown-menu">
               <a class="dropdown-item" href="index.php?action=logout&amp;">Se déconnecter</a>
-              <a class="dropdown-item" href="index.php?action=editUser&amp;id=<?= $gSession['id'] ?>">Paramètres</a>
+              <a class="dropdown-item" href="index.php?action=overallSetting">Paramètres</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="index.php?action=inspectUserSelf&amp;id=<?= $gSession['id'] ?>">Supprimer le compte</a>
             </div>
