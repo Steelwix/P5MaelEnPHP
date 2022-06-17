@@ -30,7 +30,7 @@
               <a class="dropdown-item" href="index.php?action=logout&amp;">Se déconnecter</a>
               <a class="dropdown-item" href="index.php?action=overallSetting">Paramètres</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="index.php?action=inspectUserSelf&amp;id=<?= $gSession['id'] ?>">Supprimer le compte</a>
+              <a class="dropdown-item" href="index.php?action=inspectUser&amp;id=<?= $gSession['id'] ?>">Supprimer le compte</a>
             </div>
           </li>
         <?php } else { ?>

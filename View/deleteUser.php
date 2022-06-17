@@ -50,9 +50,12 @@
           <p><?= nl2br(htmlspecialchars($ucom['comment'])) ?></p>
         </strong>
 
-    </div>
-  <?php
+
+      <?php
       }
-  ?>
-  <br>
-  <?php $content = ob_get_clean(); ?>
+      ?>
+      <br>
+    </div>
+  </div>
+</div>
+<?php $content = ob_get_clean(); ?>

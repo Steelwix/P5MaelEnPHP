@@ -48,16 +48,7 @@ function footer()
     $gSession = $session->getSESSION();
     require 'View/footer.php';
 }
-function requestGlobal()
-{
-    $session = new Session;
-    $gSession = $session->getSESSION();
-    $makeSessionManager = new MakeSession;
-    $globals = new Globals;
-    $gGet = $globals->getGET();
-    $gPost = $globals->getPOST();
-    $gServer = $globals->getSERVER();
-}
+
 function listPosts()
 {
     $session = new Session;
@@ -343,20 +334,6 @@ function inspectUser()
     $userComs = $commentManager->getUserComments($gGet['id']);
 
     require 'View/deleteUser.php';
-    requestTemplate($content, $pagetitle);
-}
-function inspectUserSelf()
-{
-    $session = new Session;
-    $gSession = $session->getSESSION();
-    $globals = new Globals;
-    $gGet = $globals->getGET();
-    $userManager = new \OpenClassrooms\Blog\Model\UserManager();
-    $users = $userManager->getUser($gGet['id']);
-    $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
-    $userComs = $commentManager->getUserComments($gGet['id']);
-
-    require 'View/deleteUserSelf.php';
     requestTemplate($content, $pagetitle);
 }
 function wipeUser()
