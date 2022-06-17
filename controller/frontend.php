@@ -1,5 +1,4 @@
 <?php
-// Chargement des classes
 require_once 'model/PostManager.php';
 require_once 'model/CommentManager.php';
 require_once 'model/UserManager.php';
@@ -10,9 +9,6 @@ require 'vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require 'vendor/phpmailer/phpmailer/src/SMTP.php';
 require 'vendor/phpmailer/phpmailer/src/Exception.php';
 
-//Import PHPMailer classes into the global namespace
-//These must be at the top of your script, not inside a function
-
 use OpenClassrooms\Blog\Globals\Globals;
 use OpenClassrooms\Blog\Session\Session;
 use OpenClassrooms\Blog\Session\MakeSession;
@@ -20,28 +16,23 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-//$globals=new Globals;
-//$gGet = $globals->getGET();
-//$gPost = $globals->getPOST();
-//$gSession = $globals->getSESSION();
 function requestMain($location)
 {
-
     header($location);
 }
 
 function requestTemplate($content, $pagetitle)
 {
-    $session = new Session;
-    $gSession = $session->getSESSION();
     require 'View/template.php';
 }
+
 function navbar()
 {
     $session = new Session;
     $gSession = $session->getSESSION();
     require 'View/navbar.php';
 }
+
 function footer()
 {
     $session = new Session;
@@ -51,8 +42,6 @@ function footer()
 
 function listPosts()
 {
-    $session = new Session;
-    $gSession = $session->getSESSION();
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $posts = $postManager->getPosts()->fetchAll();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
@@ -83,8 +72,6 @@ function post()
     $post = $postManager->getPost($gGet['idPost']);
     $comments = $commentManager->getComments($gGet['idPost']);
     $ncomment = $ncomment_err = "";
-
-
     if ($gServer["REQUEST_METHOD"] == "POST") {
 
         if (($gPost['comment']) == "") {
@@ -93,8 +80,6 @@ function post()
 
         $gPost['comment'] = $ncomment;
     }
-
-
     require 'View/postView.php';
     requestTemplate($content, $pagetitle);
 }
@@ -107,7 +92,6 @@ function addComment($comment, $isValid, $idUser, $idPost)
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $datetime = (new DateTime('now'))->format('Y-m-d H:i:s');
     $newComment = $commentManager->postComment($datetime, $comment, $isValid, $idUser, $idPost);
-
     if ($newComment === false) {
         throw new Exception('Impossible d\'ajouter le commentaire ! error HK3 ');
     }
@@ -128,8 +112,6 @@ function loginSystem()
         $location = "Location: index.php";
         requestMain($location);
     }
-
-
     $username = $password = "";
     $username_err = $password_err = $login_err = "";
     if ($gServer["REQUEST_METHOD"] == "POST") {
@@ -162,15 +144,12 @@ function loginSystem()
 }
 function registerSystem()
 {
-    $session = new Session;
-    $gSession = $session->getSESSION();
     $globals = new Globals;
     $gServer = $globals->getSERVER();
     $gPost = $globals->getPOST();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
     $username = $password = $email = $confirm_password = $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
-    unset($gSession['validRegister']);
     if ($gServer["REQUEST_METHOD"] == "POST") {
         if (empty(trim($gPost['username'])) or empty(trim($gPost['username']))) {
             $username_err = "Indiquez un pseudo";
@@ -203,7 +182,6 @@ function registerSystem()
             }
         }
     }
-
     require 'View/register.php';
     requestTemplate($content, $pagetitle);
 }
@@ -224,7 +202,6 @@ function createUser($username, $email, $password)
 function sendMailCreateUser($username, $email, $password)
 {
     $mail = new PHPMailer(true);
-
     try {
         //Server settings
         $mail->SMTPDebug = 1;                      //Enable verbose debug output
@@ -269,8 +246,6 @@ function logOutSystem()
 }
 function adminSystem()
 {
-    $session = new Session;
-    $gSession = $session->getSESSION();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
@@ -280,6 +255,7 @@ function adminSystem()
     require 'View/admincell.php';
     requestTemplate($content, $pagetitle);
 }
+
 function deletePost()
 {
     $session = new Session;
@@ -304,8 +280,7 @@ function wipePost($idPost)
 }
 function deleteComment($idComment)
 {
-    $session = new Session;
-    $gSession = $session->getSESSION();
+
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $commentManager->deleteComment($idComment);
     $location = "Location: index.php?action=admincell";
@@ -313,8 +288,7 @@ function deleteComment($idComment)
 }
 function commentIsValid($idComment)
 {
-    $session = new Session;
-    $gSession = $session->getSESSION();
+
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $commentManager->commentIsValid($idComment);
     $location = "Location: index.php?action=admincell";
@@ -401,8 +375,6 @@ function newPost($title, $hat, $content, $author)
 }
 function modifyPost()
 {
-    $session = new Session;
-    $gSession = $session->getSESSION();
     $globals = new Globals;
     $gGet = $globals->getGET();
     $gServer = $globals->getSERVER();
