@@ -82,8 +82,7 @@ function post()
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $post = $postManager->getPost($gGet['idPost']);
     $comments = $commentManager->getComments($gGet['idPost']);
-    $ncomment = "";
-    $ncomment_err = "";
+    $ncomment = $ncomment_err = "";
 
 
     if ($gServer["REQUEST_METHOD"] == "POST") {
@@ -170,8 +169,7 @@ function registerSystem()
     $gPost = $globals->getPOST();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
-    $username = $password = $email = $confirm_password = "";
-    $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
+    $username = $password = $email = $confirm_password = $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
     unset($gSession['validRegister']);
     if ($gServer["REQUEST_METHOD"] == "POST") {
         if (empty(trim($gPost['username'])) or empty(trim($gPost['username']))) {
@@ -365,8 +363,7 @@ function createPost()
     $gSession = $session->getSESSION();;
     $globals = new Globals;
     $gServer = $globals->getSERVER();
-    $title = $hat = $content = $author = "";
-    $title_err = $hat_err = $content_err = "";
+    $title = $hat = $content = $author = $title_err = $hat_err = $content_err = "";
 
     if ($gServer["REQUEST_METHOD"] == "POST") {
         if (empty($gPost['title'])) {
@@ -458,8 +455,7 @@ function contactForm()
     $gSession = $session->getSESSION();
     $globals = new Globals;
     $gServer = $globals->getSERVER();
-    $email = $message = "";
-    $email_err = $message_err = "";
+    $email = $message = $email_err = $message_err = "";
 
     if (isset($gSession['email'])) {
         $gPost['email'] = $gSession['email'];
@@ -533,7 +529,6 @@ function editUserAdmin()
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $user = $userManager->getUser($gGet['id']);
     $users = $userManager->getUsers();
-    $username = $password = $email = $confirm_password = "";
     $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
     $username = $user['username'];
     $email = $user['email'];
@@ -614,7 +609,6 @@ function welcome()
 {
     $session = new Session;
     $gSession = $session->getSESSION();
-    $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     require 'View/welcome.php';
     requestTemplate($content, $pagetitle);
     if (!isset($gSession['loggedin']) || $gSession['loggedin'] !== true) {
