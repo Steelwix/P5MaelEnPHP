@@ -90,104 +90,63 @@ try {
             }
         }
         //ADMIN----------------------------------------------------
-
-        if ($gGet['action'] == 'admincell') {
-            if (isset($gSession['isAdmin']) or $gSession['isAdmin'] == 1) {
+        if (isset($gSession['isAdmin']) and $gSession['isAdmin'] == 1) {
+            if ($gGet['action'] == 'admincell') {
                 adminSystem();
             }
-            NotFound();
-        }
-        if ($gGet['action'] == 'deletePost') {
 
-            if ((isset($gGet['idPost']) or $gSession['isAdmin'] !== 1)) {
-
+            if ($gGet['action'] == 'deletePost') {
                 deletePost();
-            } else {
-                NotFound();
             }
-        }
-
-
-
-
-        if ($gGet['action'] == 'wipePost') {
-            if ($gSession['isAdmin'] !== 1) {
-                NotFound();
+            if ($gGet['action'] == 'wipePost') {
+                wipePost($gGet['idPost']);
             }
-            wipePost($gGet['idPost']);
-        }
-        if ($gGet['action'] == 'deleteComment') {
-            if ($gSession['isAdmin'] !== 1) {
-                NotFound();
+            if ($gGet['action'] == 'deleteComment') {
+                deleteComment($gGet['idComment']);
             }
-            deleteComment($gGet['idComment']);
-        }
-        if ($gGet['action'] == 'commentIsValid') {
-            if ($gSession['isAdmin'] !== 1) {
-                NotFound();
+            if ($gGet['action'] == 'commentIsValid') {
+                commentIsValid($gGet['idComment']);
             }
-            commentIsValid($gGet['idComment']);
-        }
-        if ($gGet['action'] == 'inspectUser') {
-            if ($gSession['isAdmin'] !== 1) {
-                NotFound();
+            if ($gGet['action'] == 'inspectUser') {
+                inspectUser($gGet['id']);
             }
-            inspectUser($gGet['id']);
-        }
-        if ($gGet['action'] == 'wipeUser') {
-            if ($gSession['isAdmin'] !== 1) {
-                NotFound();
+            if ($gGet['action'] == 'wipeUser') {
+                wipeUser($gGet['id']);
             }
-            wipeUser($gGet['id']);
-        }
-        if ($gGet['action'] == 'createPost') {
-            if ($gSession['isAdmin'] !== 1) {
-                NotFound();
-            }
-            createPost();
-        }
-        if ($gGet['action'] == 'newPost') {
-            if ($gSession['isAdmin'] !== 1) {
-                NotFound();
-            }
-            if ($gPost['title'] == "" or $gPost['hat'] == "" or $gPost['content'] == "") {
+            if ($gGet['action'] == 'createPost') {
                 createPost();
-            } else {
-                newPost($gPost['title'], $gPost['hat'], $gPost['content'], $gSession['id']);
             }
-        }
-        if ($gGet['action'] == 'modifyPost') {
-            if ($gSession['isAdmin'] !== 1) {
-                NotFound();
+            if ($gGet['action'] == 'newPost') {
+                if ($gPost['title'] == "" or $gPost['hat'] == "" or $gPost['content'] == "") {
+                    createPost();
+                } else {
+                    newPost($gPost['title'], $gPost['hat'], $gPost['content'], $gSession['id']);
+                }
             }
-            modifyPost();
-        }
-
-        if ($gGet['action'] == 'postEdit') {
-            if ($gSession['isAdmin'] !== 1) {
-                NotFound();
-            }
-            if ($gPost['title'] == "" or $gPost['hat'] == "" or $gPost['content'] == "" or !isset($gSession['id']) or !isset($gGet['idPost'])) {
+            if ($gGet['action'] == 'modifyPost') {
                 modifyPost();
-            } else {
-
-                postEdit($gPost['title'], $gPost['hat'], $gPost['content'], $gSession['id'], $gGet['idPost']);
             }
-        }
-        if ($gGet['action'] == 'editUserAdmin') {
-            if ($gSession['isAdmin'] !== 1) {
-                NotFound();
-            }
-            editUserAdmin($gGet['id']);
-        }
-        if ($gGet['action'] == 'userUpdateAdmin') {
 
-            if ($gPost['username'] == "" or $gPost['email'] == "" or $gPost['password'] == "" or $gPost['isAdmin'] == "" or ($gPost['password'] !== $gPost['confirm_password']) == true) {
+            if ($gGet['action'] == 'postEdit') {
+                if ($gPost['title'] == "" or $gPost['hat'] == "" or $gPost['content'] == "" or !isset($gSession['id']) or !isset($gGet['idPost'])) {
+                    modifyPost();
+                } else {
+
+                    postEdit($gPost['title'], $gPost['hat'], $gPost['content'], $gSession['id'], $gGet['idPost']);
+                }
+            }
+            if ($gGet['action'] == 'editUserAdmin') {
                 editUserAdmin($gGet['id']);
-            } else {
-
-                userUpdateAdmin($gPost['username'], $gPost['email'], $gPost['password'], $gPost['isAdmin'], $gGet['id']);
             }
+            if ($gGet['action'] == 'userUpdateAdmin') {
+                if ($gPost['username'] == "" or $gPost['email'] == "" or $gPost['password'] == "" or $gPost['isAdmin'] == "" or ($gPost['password'] !== $gPost['confirm_password']) == true) {
+                    editUserAdmin($gGet['id']);
+                } else {
+                    userUpdateAdmin($gPost['username'], $gPost['email'], $gPost['password'], $gPost['isAdmin'], $gGet['id']);
+                }
+            }
+        } else {
+            NotFound();
         }
     } else {
         listPosts();

@@ -48,6 +48,16 @@ function footer()
     $gSession = $session->getSESSION();
     require 'View/footer.php';
 }
+function requestGlobal()
+{
+    $session = new Session;
+    $gSession = $session->getSESSION();
+    $makeSessionManager = new MakeSession;
+    $globals = new Globals;
+    $gGet = $globals->getGET();
+    $gPost = $globals->getPOST();
+    $gServer = $globals->getSERVER();
+}
 function listPosts()
 {
     $session = new Session;
@@ -170,11 +180,7 @@ function registerSystem()
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
     $username = $password = $email = $confirm_password = "";
-    $username_err = "";
-    $password_err = "";
-    $login_err = "";
-    $email_err = "";
-    $confirm_password_err = "";
+    $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
     unset($gSession['validRegister']);
     if ($gServer["REQUEST_METHOD"] == "POST") {
         if (empty(trim($gPost['username'])) or empty(trim($gPost['username']))) {

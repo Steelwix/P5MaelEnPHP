@@ -1,6 +1,6 @@
-<?php $pagetitle = htmlspecialchars('Page inexistante');
+<?php $pagetitle = htmlspecialchars('Page inexistante'); ?>
 
-ob_start(); ?>
+
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -11,4 +11,3 @@ ob_start(); ?>
         </div>
     </div>
 </div>
-<?php $content = ob_get_clean(); ?>
