@@ -5,18 +5,18 @@ ob_start();
 
 
 ?>
-
 <div class="container">
     <div class="row">
         <div class="col-12">
+
             <div class="wrapper">
-                <h2><?= $user['username'] ?>,</h2>
-                <p>Editez votre profil ci dessous</p>
+                <h2>Editer le profil de l'utilisateur <?= $user['username'] ?></h2>
+                <p>Modifiez les paramètres de l'utilisateur.</p>
                 <?php if (!empty($login_ok)) {
-                ?><div class="alert alert-danger"><?= htmlspecialchars($com_info) ?> </div>
+                ?><div class="alert alert-danger"><?= htmlspecialchars($login_ok) ?> </div>
                 <?php
                 }    ?>
-                <form action="index.php?action=userUpdate&amp;id=<?= $gGet['id'] ?>" method="post">
+                <form action="index.php?action=<?= $adaptedAction ?>&amp;id=<?= $gGet['id'] ?>" method="post">
                     <div class="form-group">
                         <label>Nom d'utilisateur</label>
                         <input type="text" name="username" class="form-control <?= (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?= htmlspecialchars($username) ?>">
@@ -39,11 +39,37 @@ ob_start();
 
                     </div>
                     <br>
+                    <?php if ($gSession['isAdmin'] == 1) {
 
-                    <div class="form-group"><br>
-                        <input type="submit" class="btn btn-primary" value="Valider">
-                        <input type="reset" class="btn btn-secondary ml-2" value="Réinitialiser">
-                    </div>
+                    ?>
+                        <div class="form-group">
+                            <label>Rôle:</label>
+                            <select name="isAdmin">
+                                <?php if ($isAdmin == 1) { ?>
+                                    <option value="1"">Administrateur</option>
+                    <option value=" 0">Utilisateur</option>
+                                <?php } else { ?> <option value="0"">Utilisateur</option>
+                        <option value=" 1">Administrateur</option>
+                                <?php } ?>
+
+
+                            </select>
+                        </div>
+                    <?php   } else {
+                    ?>
+                        <div class="form-group">
+                            <label>Rôle:</label>
+                            <select name="isAdmin">
+                                <option value=" 0">Utilisateur</option>
+
+                            <?php
+                        } ?>
+                            </select>
+                        </div>
+                        <div class="form-group"><br>
+                            <input type="submit" class="btn btn-primary" value="Valider">
+                            <input type="reset" class="btn btn-secondary ml-2" value="Réinitialiser">
+                        </div>
                 </form>
             </div>
         </div>

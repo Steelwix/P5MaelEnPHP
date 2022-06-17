@@ -81,7 +81,8 @@ function post()
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $post = $postManager->getPost($gGet['idPost']);
     $comments = $commentManager->getComments($gGet['idPost']);
-    $ncomment = $ncomment_err = "";
+    $ncomment = "";
+    $ncomment_err = "";
 
 
     if ($gServer["REQUEST_METHOD"] == "POST") {
@@ -169,7 +170,11 @@ function registerSystem()
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
     $username = $password = $email = $confirm_password = "";
-    $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
+    $username_err = "";
+    $password_err = "";
+    $login_err = "";
+    $email_err = "";
+    $confirm_password_err = "";
     unset($gSession['validRegister']);
     if ($gServer["REQUEST_METHOD"] == "POST") {
         if (empty(trim($gPost['username'])) or empty(trim($gPost['username']))) {
@@ -533,66 +538,6 @@ function sendMailContact($email, $message)
     } catch (Exception $e) {
     }
 }
-function editUser()
-{
-    $session = new Session;
-    $gSession = $session->getSESSION();
-    $globals = new Globals;
-    $gGet = $globals->getGET();
-    $gPost = $globals->getPOST();
-    $gServer = $globals->getSERVER();
-    $userManager = new \OpenClassrooms\Blog\Model\UserManager();
-    $user = $userManager->getUser($gGet['id']);
-    $users = $userManager->getUsers();
-    $username = $password = $email = $confirm_password = "";
-    $username_err = $password_err = $login_ok = $email_err = $confirm_password_err = "";
-    $username = $user['username'];
-    $email = $user['email'];
-    $password = $user['password'];
-    if ($gSession['id'] != $gGet['id']) {
-        NotFound();
-    } else {
-        if ($gServer["REQUEST_METHOD"] == "POST") {
-            if (empty(trim($gPost['username'])) or empty(trim($gPost['username']))) {
-                $username_err = "Indiquez un pseudo";
-                $login_ok = "Veuillez corriger les erreurs";
-            }
-            if (filter_var($gPost['email'], FILTER_VALIDATE_EMAIL)) {
-            } else {
-                $email_err = "Respectez le format des emails";
-                $login_ok = "Veuillez corriger les erreurs";
-            }
-            if ($gPost['password'] == "") {
-                $password_err = "Veuillez définir un mot de passe";
-                $login_ok = "Veuillez corriger les erreurs";
-            }
-            if (($gPost['password'] !== $gPost['confirm_password']) == true) {
-                $password_err = "Mots de passe non identiques.";
-                $login_ok = "Veuillez corriger les erreurs";
-            } elseif (isset($gPost['username']) &&  isset($gPost['email']) && isset($gPost['password'])) {
-                while ($donnees = $users->fetch()) {
-                    if ($gPost['username'] === $donnees['username']) {
-
-                        $username_err = "Pseudo déjà utilisé";
-                        $login_ok = "Veuillez corriger les erreurs";
-                    }
-                    if ($gPost['email'] === $donnees['email']) {
-
-                        $email_err = "email déjà utilisé";
-                        $login_ok = "Veuillez corriger les erreurs";
-                    }
-                    $gPost['username'] = $username;
-                    $gPost['email'] = $email;
-                    $gPost['password'] = $password;
-                }
-            }
-        }
-    }
-
-
-    require 'View/userSettings.php';
-    requestTemplate($content, $pagetitle);
-}
 
 function editUserAdmin()
 {
@@ -640,6 +585,7 @@ function editUserAdmin()
 
                     $email_err = "email déjà utilisé";
                     $login_ok = "Veuillez corriger les erreurs";
+                    $adaptedAction = "userUpdateAdmin";
                 }
                 $gPost['username'] = $username;
                 $gPost['email'] = $email;
@@ -648,7 +594,7 @@ function editUserAdmin()
         }
     }
 
-    require 'View/userSettingsAdmin.php';
+    require 'View/userSettings.php';
     requestTemplate($content, $pagetitle);
 }
 function userUpdate($username, $email, $password, $idUser)
@@ -677,7 +623,7 @@ function userUpdateAdmin($username, $email, $password, $isAdmin, $idUser)
     if ($editUser === false) {
         throw new Exception('Impossible de modifier le profil ! error L1');
     } else {
-        $location = "Location: index.php?action=admincell";
+        $location = "Location: index.php";
         requestMain($location);
     }
 }

@@ -18,7 +18,7 @@ ob_start();
             <form action="index.php?action=signin&amp;" method="post">
                 <div class="form-group">
                     <label>Nom d'utilisateur</label>
-                    <input type="text" name="username" class="form-control <?= (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?= ($username) ?>">
+                    <input type="text" name="username" class="form-control <?= (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?= htmlspecialchars($username) ?>">
                     <span class="invalid-feedback"><?= $username_err; ?></span>
                 </div>
                 <div class="form-group">

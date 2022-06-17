@@ -12,14 +12,14 @@ ob_start(); ?>
                } else { ?>
 
                   <label>Email</label>
-                  <input type="text" name="email" class="form-control <?= (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?= $email; ?>">
+                  <input type="text" name="email" class="form-control <?= (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?= htmlspecialchars($email); ?>">
                   <span class="invalid-feedback"><?= $email_err; ?></span>
             </div>
             <div class="form-group">
             <?php
                }
             ?> <label>Votre message</label>
-            <textarea type="text" name="message" class="form-control <?= (!empty($message_err)) ? 'is-invalid' : ''; ?>" value="<?= $message; ?>"></textarea>
+            <textarea type="text" name="message" class="form-control <?= (!empty($message_err)) ? 'is-invalid' : ''; ?>" value="<?= htmlspecialchars($message); ?>"></textarea>
             <span class="invalid-feedback"><?= $message_err; ?></span>
             <div class="form-group"><br>
                <input type="submit" class="btn btn-primary" value="Contacter">
