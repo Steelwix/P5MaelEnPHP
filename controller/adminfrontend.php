@@ -68,7 +68,7 @@ function wipeUser()
 function createPost()
 {
     $session = new Session;
-    $gSession = $session->getSESSION();;
+    $gSession = $session->getSESSION();
     $globals = new Globals;
     $gServer = $globals->getSERVER();
     $title = $hat = $content = $author = $title_err = $hat_err = $content_err = "";
