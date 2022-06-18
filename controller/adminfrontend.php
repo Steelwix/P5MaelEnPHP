@@ -168,3 +168,18 @@ function userUpdateAdmin($username, $email, $password, $isAdmin, $idUser)
         requestMain($location);
     }
 }
+function welcome()
+{
+    $session = new Session;
+    $gSession = $session->getSESSION();
+    require 'View/welcome.php';
+    requestTemplate($content, $pagetitle);
+    if (!isset($gSession['loggedin']) || $gSession['loggedin'] !== true) {
+        $location = "Location: index.php";
+        requestMain($location);
+    }
+}
+function NotFound()
+{
+    require 'View/error.php';
+}

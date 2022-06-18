@@ -79,8 +79,6 @@ function post()
     require 'View/postView.php';
     requestTemplate($content, $pagetitle);
 }
-
-
 function addComment($comment, $isValid, $idUser, $idPost)
 {
     $session = new Session;
@@ -137,73 +135,12 @@ function loginSystem()
     require 'View/login.php';
     requestTemplate($content, $pagetitle);
 }
-function registerSystem()
-{
-    $globals = new Globals;
-    $gServer = $globals->getSERVER();
-    $gPost = $globals->getPOST();
-    $userManager = new \OpenClassrooms\Blog\Model\UserManager();
-    $users = $userManager->getUsers();
-    $username = $password = $email = $confirm_password = $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
-    if ($gServer["REQUEST_METHOD"] == "POST") {
-        if (empty(trim($gPost['username'])) or empty(trim($gPost['username']))) {
-            $username_err = "Indiquez un pseudo";
-            $login_err = "Veuillez corriger les erreurs";
-        }
-        if (filter_var($gPost['email'], FILTER_VALIDATE_EMAIL)) {
-        } else {
-            $email_err = "Respectez le format des emails";
-            $login_err = "Veuillez corriger les erreurs";
-        }
-        if ($gPost['password'] == "") {
-            $password_err = "Veuillez définir un mot de passe";
-        }
-        if (($gPost['password'] !== $gPost['confirm_password']) == true) {
-            $password_err = "Mots de passe non identiques.";
-            $login_err = "Veuillez corriger les erreurs";
-        } elseif (isset($gPost['username']) &&  isset($gPost['email']) && isset($gPost['password'])) {
-            while ($donnees = $users->fetch()) {
-                if ($gPost['username'] === $donnees['username']) {
-
-                    $username_err = "Pseudo déjà utilisé";
-                }
-                if ($gPost['email'] === $donnees['email']) {
-
-                    $email_err = "email déjà utilisé";
-                }
-                $gPost['username'] = $username;
-                $gPost['email'] = $email;
-                $gPost['password'] = $password;
-            }
-        }
-    }
-    require 'View/register.php';
-    requestTemplate($content, $pagetitle);
-}
-function createUser($username, $email, $password)
-{
-    $session = new Session;
-    $gSession = $session->getSESSION();
-    $userManager = new \OpenClassrooms\Blog\Model\UserManager();
-    $datetime = (new DateTime('now'))->format('Y-m-d H:i:s');
-    $newUser = $userManager->createUser($username, $email, $password, $datetime);
-    if ($newUser === false) {
-        throw new Exception('Impossible d\'ajouter l\'utilisateur ! error Z1 ');
-    } else {
-        $location = "Location: index.php?action=login";
-        requestMain($location);
-    }
-}
-
 function logOutSystem()
 {
-
     session_destroy();
     $location = "Location: index.php";
     requestMain($location);
 }
-
-
 function inspectUser()
 {
     $session = new Session;
@@ -230,38 +167,6 @@ function wipeUserSelf()
     $location = "Location: index.php?action=logout";
     requestMain($location);
 }
-
-function contactForm()
-{
-    $session = new Session;
-    $gSession = $session->getSESSION();
-    $globals = new Globals;
-    $gServer = $globals->getSERVER();
-    $email = $message = $email_err = $message_err = "";
-
-    if (isset($gSession['email'])) {
-        $gPost['email'] = $gSession['email'];
-    }
-    if ($gServer["REQUEST_METHOD"] == "POST") {
-
-        if (empty(trim($gPost['email']))) {
-            $email_err = 'Vous devez indiquer votre email';
-        } else {
-            $email = $gPost['email'];
-        }
-
-
-        if (empty($gPost['message'])) {
-            $message_err = "Vous devez entrer un message.";
-        } else {
-            $message = $gPost['message'];
-        }
-    }
-    require 'View/contact.php';
-    requestTemplate($content, $pagetitle);
-}
-
-
 function editUserAdmin()
 {
     $session = new Session;
@@ -321,7 +226,6 @@ function editUserAdmin()
             }
         }
     }
-
     require 'View/userSettings.php';
     requestTemplate($content, $pagetitle);
 }
@@ -341,20 +245,4 @@ function userUpdate($username, $email, $password, $idUser)
         $location = "Location: index.php";
         requestMain($location);
     }
-}
-
-function welcome()
-{
-    $session = new Session;
-    $gSession = $session->getSESSION();
-    require 'View/welcome.php';
-    requestTemplate($content, $pagetitle);
-    if (!isset($gSession['loggedin']) || $gSession['loggedin'] !== true) {
-        $location = "Location: index.php";
-        requestMain($location);
-    }
-}
-function NotFound()
-{
-    require 'View/error.php';
 }
