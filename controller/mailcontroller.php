@@ -57,8 +57,6 @@ function registerSystem()
 }
 function createUser($username, $email, $password)
 {
-    $session = new Session;
-    $gSession = $session->getSESSION();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $datetime = (new DateTime('now'))->format('Y-m-d H:i:s');
     $newUser = $userManager->createUser($username, $email, $password, $datetime);
