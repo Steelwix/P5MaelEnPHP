@@ -5,7 +5,7 @@ ob_start();
 
 
 ?>
-<div class="container">
+<section class="container">
     <div class="row">
         <div class="col-12">
 
@@ -75,7 +75,7 @@ ob_start();
             </div>
         </div>
     </div>
-</div>
+</section>
 
 
 <?php $content = ob_get_clean(); ?>

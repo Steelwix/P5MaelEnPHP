@@ -3,7 +3,7 @@
 
 <?php ob_start(); ?>
 <br>
-<div class="container">
+<section class="container">
     <div class="row">
         <div class="col-12 posttitle">
             <h3>
@@ -34,5 +34,5 @@
             ?>
         </div>
     </div>
-</div>
+</section>
 <?php $content = ob_get_clean(); ?>

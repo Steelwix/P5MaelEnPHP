@@ -2,7 +2,7 @@
 
 <?php ob_start(); ?>
 <br><br>
-<div class="container">
+<article class="container">
     <div class="row">
         <div class="col-lg-3 col-md-12 text-center">
             <p><a href="index.php" class="btn btn-primary">
@@ -66,5 +66,5 @@
             ?>
         </div>
     </div>
-</div>
+</article>
 <?php $content = ob_get_clean(); ?>

@@ -6,7 +6,7 @@ ob_start();
 
 ?>
 
-<div class="container">
+<header class="container">
     <div class="row">
         <div class="col-12 text-center"><br>
             <h1>Bonjour <b><?= htmlspecialchars($gSession["username"]); ?></b>.</h1>
@@ -21,6 +21,6 @@ ob_start();
             <br>
         </div>
     </div>
-</div>
+</header>
 
 <?php $content = ob_get_clean(); ?>

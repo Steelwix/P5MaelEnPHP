@@ -4,7 +4,7 @@ $pagetitle = htmlspecialchars('Se connecter - Mael En PHP');
 
 
 ?>
-<div class="container formpage">
+<section class="container formpage">
     <div class="row">
         <div class="col-6">
             <h2>Se connecter</h2>
@@ -35,5 +35,5 @@ $pagetitle = htmlspecialchars('Se connecter - Mael En PHP');
             </form>
         </div>
     </div>
-</div>
+</section>
 <?php $content = ob_get_clean(); ?>

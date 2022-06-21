@@ -2,7 +2,7 @@
 
 <?php ob_start(); ?>
 
-<div class="container">
+<section class="container">
     <div class="row">
         <div class="col-12"><br>
             <h2>Editer un post</h2>
@@ -30,5 +30,5 @@
             </form>
         </div>
     </div>
-</div>
+</section>
 <?php $content = ob_get_clean(); ?>

@@ -4,7 +4,7 @@ ob_start();
 
 ?>
 
-<div class="container formpage">
+<section class="container formpage">
     <div class="row">
         <div class="col-6">
             <h2>S'inscrire</h2>
@@ -44,6 +44,6 @@ ob_start();
             </form>
         </div>
     </div>
-</div>
+</section>
 
 <?php $content = ob_get_clean(); ?>

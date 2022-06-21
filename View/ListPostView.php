@@ -2,7 +2,7 @@
 
 <?php ob_start(); ?>
 <br><br>
-<section class="container">
+<header class="container">
     <div class="row">
         <div class="col-lg-8 postdata">
             <h3>Maël Mhun, développeur et prometteur</h3>
@@ -22,10 +22,10 @@
             <a href="public/images/CVoct.pdf" download="maelmhunCV" class="btn btn-primary">Voir mon CV</a>
         </div>
     </div>
-</section>
+</header>
 
 <br><br>
-<div class="container">
+<section class="container">
     <div class="row">
         <div class="col-lg-3 col-md-12 text-center">
             <h1>Maël En PHP</h1>
@@ -33,11 +33,11 @@
             <p>Derniers articles du blog :</p>
         </div>
     </div>
-</div>
+</section>
 <?php
 foreach ($posts as $post) {
 ?>
-    <div class="container">
+    <article class="container">
         <div class="row">
             <div class="col-12 posttitle text-center">
                 <h3>
@@ -55,7 +55,7 @@ foreach ($posts as $post) {
                 </p>
             </div>
         </div>
-    </div>
+    </article>
 <?php
 }
 ?>

@@ -2,7 +2,7 @@
 ?>
 
 <?php ob_start(); ?>
-<div class="container">
+<section class="container">
   <div class="row justify-content-center">
     <div class="col-12">
       <table class="table">
@@ -57,5 +57,5 @@
       <br>
     </div>
   </div>
-</div>
+</section>
 <?php $content = ob_get_clean(); ?>

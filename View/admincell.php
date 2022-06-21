@@ -1,7 +1,7 @@
 <?php $pagetitle = htmlspecialchars('Administration - Mael En PHP');
 
 ob_start(); ?>
-<div class="container">
+<section class="container">
   <div class="row">
     <div class="col-12">
       <br>
@@ -10,9 +10,9 @@ ob_start(); ?>
       <em><a href="index.php?action=createPost" class="btn btn-success">Créer un post</a></em>
     </div>
   </div>
-</div>
+</section>
 <br>
-<div class="container">
+<section class="container">
   <div class="row justify-content-center">
     <div class="col-12">
       <table class="table">
@@ -43,16 +43,16 @@ ob_start(); ?>
       </table>
     </div>
   </div>
-</div>
+</section>
 
-<div class="container">
+<section class="container">
   <div class="row">
     <div class="col-12">
       <h2>Edition des commentaires</h2>
     </div>
   </div>
-</div>
-<div class="container">
+</section>
+<section class="container">
   <div class="row justify-content-center">
     <div class="col-12">
       <table class="table">
@@ -88,17 +88,17 @@ ob_start(); ?>
       </table>
     </div>
   </div>
-</div>
+</section>
 
 
-<div class="container">
+<section class="container">
   <div class="row">
     <div class="col-12">
       <h2>Edition des utilisateurs</h2>
     </div>
   </div>
-</div>
-<div class="container">
+</section>
+<section class="container">
   <div class="row justify-content-center">
     <div class="col-12">
       <table class="table">
@@ -134,7 +134,7 @@ ob_start(); ?>
       </table>
     </div>
   </div>
-</div>
+</section>
 
 
 

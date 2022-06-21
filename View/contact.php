@@ -1,6 +1,6 @@
 <?php $pagetitle = htmlspecialchars('Contact');
 ob_start(); ?>
-<div class="container formpage">
+<section class="container formpage">
    <div class="row">
       <div class="col-12">
          <h2>Contact</h2>
@@ -29,5 +29,5 @@ ob_start(); ?>
          </form>
       </div>
    </div>
-</div>
+</section>
 <?php $content = ob_get_clean(); ?>
