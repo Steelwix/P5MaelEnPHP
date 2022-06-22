@@ -167,6 +167,7 @@ function wipeUserSelf()
     $location = "Location: index.php?action=logout";
     requestMain($location);
 }
+
 function editUserAdmin()
 {
     $session = new Session;
@@ -183,7 +184,7 @@ function editUserAdmin()
     $email = $user['email'];
     $password = $confirm_password = $user['password'];
     $isAdmin = $user['isAdmin'];
-    $adaptedAction = "editUserAdmin";
+    $adaptedAction = 'editUserAdmin';
     if ($gServer["REQUEST_METHOD"] == "POST") {
         if (empty(trim($gPost['username'])) or empty(trim($gPost['username']))) {
             $username_err = "Indiquez un pseudo";
@@ -205,27 +206,30 @@ function editUserAdmin()
         if (isset($gPost['username']) &&  isset($gPost['email']) && isset($gPost['password'])) {
             while ($donnees = $users->fetch()) {
                 if ($gPost['username'] === $donnees['username'] and $gGet['id'] != $donnees['id']) {
-
+                    $adaptedAction = 'editUserAdmin';
                     $username_err = "Pseudo déjà utilisé";
                     $login_ok = "Veuillez corriger les erreurs";
-                } elseif ($gPost['email'] === $donnees['email'] and $gGet['id'] != $donnees['id']) {
+                }
+                if ($gPost['email'] === $donnees['email'] and $gGet['id'] != $donnees['id']) {
 
                     $email_err = "email déjà utilisé";
                     $login_ok = "Veuillez corriger les erreurs";
-                } elseif ($gSession['isAdmin'] == 1) {
+                    $adaptedAction = 'editUserAdmin';
+                }
+                if ($gPost['username'] === $donnees['username'] and $gGet['id'] == $donnees['id'] and $gPost['email'] === $donnees['email'] and $gGet['id'] == $donnees['id']) {
                     $gPost['username'] = $username;
                     $gPost['email'] = $email;
                     $gPost['password'] = $password;
-                    $adaptedAction = "userUpdateAdmin";
-                } else {
-                    $gPost['username'] = $username;
-                    $gPost['email'] = $email;
-                    $gPost['password'] = $password;
-                    $adaptedAction = "userUpdate";
+                    if (($gSession['isAdmin'] == 1)) {
+                        $adaptedAction = 'userUpdateAdmin';
+                    } else {
+                        $adaptedAction = 'userUpdate';
+                    }
                 }
             }
         }
     }
+
     require 'View/userSettings.php';
     requestTemplate($content, $pagetitle);
 }

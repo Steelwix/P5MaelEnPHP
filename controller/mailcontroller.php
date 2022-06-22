@@ -41,14 +41,14 @@ function registerSystem()
                 if ($gPost['username'] === $donnees['username']) {
 
                     $username_err = "Pseudo déjà utilisé";
-                }
-                if ($gPost['email'] === $donnees['email']) {
+                } elseif ($gPost['email'] === $donnees['email']) {
 
                     $email_err = "email déjà utilisé";
+                } else {
+                    $gPost['username'] = $username;
+                    $gPost['email'] = $email;
+                    $gPost['password'] = $password;
                 }
-                $gPost['username'] = $username;
-                $gPost['email'] = $email;
-                $gPost['password'] = $password;
             }
         }
     }
@@ -63,8 +63,7 @@ function createUser($username, $email, $password)
     if ($newUser === false) {
         throw new Exception('Impossible d\'ajouter l\'utilisateur ! error Z1 ');
     } else {
-        $location = "Location: index.php?action=login";
-        requestMain($location);
+        sendMailCreateUser($username, $email, $password);
     }
 }
 function sendMailCreateUser($username, $email, $password)

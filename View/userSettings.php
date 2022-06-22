@@ -69,7 +69,7 @@ ob_start();
                         <div class="form-group"><br>
                             <input type="submit" class="btn btn-primary" value="Valider">
                             <input type="reset" class="btn btn-secondary ml-2" value="Réinitialiser">
-
+                            <?php var_dump($adaptedAction); ?>
                         </div>
                 </form>
             </div>

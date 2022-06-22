@@ -31,7 +31,6 @@ try {
                 registerSystem();
             } else {
                 createUser($gPost['username'], $gPost['email'], $gPost['password']);
-                sendMailCreateUser($gPost['username'], $gPost['email'], $gPost['password']);
             }
         }
         if ($gGet['action'] == 'logout') {
