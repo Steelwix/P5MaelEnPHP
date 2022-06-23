@@ -185,6 +185,7 @@ function editUserAdmin()
     $password = $confirm_password = $user['password'];
     $isAdmin = $user['isAdmin'];
     $adaptedAction = 'editUserAdmin';
+    $buttonValue = 'Vérifier';
     if ($gServer["REQUEST_METHOD"] == "POST") {
         if (empty(trim($gPost['username'])) or empty(trim($gPost['username']))) {
             $username_err = "Indiquez un pseudo";
@@ -220,6 +221,7 @@ function editUserAdmin()
                     $gPost['username'] = $username;
                     $gPost['email'] = $email;
                     $gPost['password'] = $password;
+                    $buttonValue = 'Valider';
                     if (($gSession['isAdmin'] == 1)) {
                         $adaptedAction = 'userUpdateAdmin';
                     } else {
