@@ -1,4 +1,4 @@
-<?php $pagetitle = htmlspecialchars($post['title']);
+<?php $pagetitle;
 ?>
 
 <?php ob_start(); ?>

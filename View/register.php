@@ -1,5 +1,5 @@
 <?php
-$pagetitle = htmlspecialchars('Inscription - Mael En PHP');
+$pagetitle;
 ob_start();
 
 ?>

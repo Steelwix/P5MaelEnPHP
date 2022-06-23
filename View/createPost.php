@@ -1,6 +1,6 @@
-<?php $pagetitle = htmlspecialchars('Créer un post'); ?>
+<?php $pagetitle;
 
-<?php ob_start(); ?>
+ob_start(); ?>
 
 
 <section class="container">

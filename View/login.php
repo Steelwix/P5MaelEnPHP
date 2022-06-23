@@ -1,6 +1,6 @@
-<?php
+<?php $pagetitle = htmlspecialchars('Se connecter - Mael En PHP');
 ob_start();
-$pagetitle = htmlspecialchars('Se connecter - Mael En PHP');
+
 
 
 ?>

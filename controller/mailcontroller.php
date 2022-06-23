@@ -72,6 +72,7 @@ function registerSystem()
         $password = $gPost['password'];
         $confirm_password = $gPost['confirm_password'];
     }
+    $pagetitle = htmlspecialchars('Inscription - Mael En PHP');
     require 'View/register.php';
     requestTemplate($content, $pagetitle);
 }
@@ -125,6 +126,7 @@ function sendMailCreateUser($username, $email, $password)
 }
 function contactForm()
 {
+    $pagetitle = htmlspecialchars('Contact');
     $session = new Session;
     $gSession = $session->getSESSION();
     $globals = new Globals;

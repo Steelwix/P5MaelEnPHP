@@ -1,4 +1,4 @@
-<?php $pagetitle = htmlspecialchars('Administration - Mael En PHP');
+<?php $pagetitle;
 
 ob_start(); ?>
 <section class="container">

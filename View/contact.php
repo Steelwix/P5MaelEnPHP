@@ -1,4 +1,4 @@
-<?php $pagetitle = htmlspecialchars('Contact');
+<?php $pagetitle;
 ob_start(); ?>
 <section class="container formpage">
    <div class="row">

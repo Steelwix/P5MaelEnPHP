@@ -49,7 +49,7 @@ function listPosts()
         $post['creation_date_fr'] = htmlspecialchars($post['creation_date_fr']);
         $post['username'] = htmlspecialchars($post['username']);
     }
-
+    $pagetitle = htmlspecialchars('MaelEnPHP - Le blog des dev PHP juniors - Accueil');
     require 'View/ListPostView.php';
     requestTemplate($content, $pagetitle);
 }
@@ -80,6 +80,7 @@ function post()
 
         $gPost['comment'] = $ncomment;
     }
+    $pagetitle = htmlspecialchars($post['title']);
     require 'View/postView.php';
     requestTemplate($content, $pagetitle);
 }
@@ -136,6 +137,7 @@ function loginSystem()
             $login_err = "Les informations ne correspondent pas.";
         }
     }
+    $pagetitle = htmlspecialchars('Se connecter - Mael En PHP');
     require 'View/login.php';
     requestTemplate($content, $pagetitle);
 }
@@ -165,6 +167,7 @@ function inspectUser()
         $userCom['username'] = htmlspecialchars($userCom['username']);
         $userCom['title'] = htmlspecialchars($userCom['title']);
     }
+    $pagetitle = htmlspecialchars($user['username']);
     require 'View/deleteUser.php';
     requestTemplate($content, $pagetitle);
 }
@@ -244,7 +247,7 @@ function editUserAdmin()
             }
         }
     }
-
+    $pagetitle = htmlspecialchars('Paramètres d\'utilisateur');
     require 'View/userSettings.php';
     requestTemplate($content, $pagetitle);
 }

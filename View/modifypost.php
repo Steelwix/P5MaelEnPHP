@@ -1,4 +1,4 @@
-<?php $pagetitle = htmlspecialchars('Modifier un post - Mael En PHP'); ?>
+<?php $pagetitle; ?>
 
 <?php ob_start(); ?>
 

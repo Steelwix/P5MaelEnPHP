@@ -1,4 +1,4 @@
-<?php $pagetitle = htmlspecialchars('MaelEnPHP - Le blog des dev PHP juniors - Accueil'); ?>
+<?php $pagetitle; ?>
 
 <?php ob_start(); ?>
 <br><br>

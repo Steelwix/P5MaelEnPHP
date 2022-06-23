@@ -1,4 +1,4 @@
-<?php $pagetitle = htmlspecialchars($user['username']);
+<?php $pagetitle;
 ?>
 
 <?php ob_start(); ?>

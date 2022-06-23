@@ -1,6 +1,6 @@
 <?php
 
-$pagetitle = htmlspecialchars('Paramètres d\'utilisateur');
+$pagetitle;
 ob_start();
 
 

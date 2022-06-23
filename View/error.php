@@ -1,4 +1,4 @@
-<?php $pagetitle = htmlspecialchars('Page inexistante'); ?>
+<?php $pagetitle; ?>
 
 
 <section class="container">

@@ -31,6 +31,7 @@ function adminSystem()
         $user['email'] = htmlspecialchars($user['email']);
         $user['created_at'] = htmlspecialchars($user['created_at']);
     }
+    $pagetitle = htmlspecialchars('Administration - Mael En PHP');
     require 'View/admincell.php';
     requestTemplate($content, $pagetitle);
 }
@@ -49,6 +50,7 @@ function deletePost()
         $comment['comDate'] = htmlspecialchars($comment['comDate']);
         $comment['username'] = htmlspecialchars($comment['username']);
     }
+    $pagetitle = htmlspecialchars($post['title']);
     require 'View/deletePost.php';
     requestTemplate($content, $pagetitle);
 }
@@ -114,6 +116,7 @@ function createPost()
             $content = $gPost['content'];
         }
     }
+    $pagetitle = htmlspecialchars('Créer un post');
     require 'View/createPost.php';
     requestTemplate($content, $pagetitle);
 }
@@ -196,6 +199,7 @@ function welcome()
 {
     $session = new Session;
     $gSession = $session->getSESSION();
+    $pagetitle = $gSession["username"];
     require 'View/welcome.php';
     requestTemplate($content, $pagetitle);
     if (!isset($gSession['loggedin']) || $gSession['loggedin'] !== true) {
@@ -205,5 +209,6 @@ function welcome()
 }
 function NotFound()
 {
+    $pagetitle = htmlspecialchars('Page inexistante');
     require 'View/error.php';
 }
