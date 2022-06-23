@@ -48,7 +48,6 @@ function listPosts()
         $post['content'] = htmlspecialchars($post['content']);
         $post['creation_date_fr'] = htmlspecialchars($post['creation_date_fr']);
         $post['username'] = htmlspecialchars($post['username']);
-        $post['idPost'] = htmlspecialchars($post['idPost']);
     }
 
     require 'View/ListPostView.php';
@@ -66,7 +65,12 @@ function post()
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $post = $postManager->getPost($gGet['idPost']);
-    $comments = $commentManager->getComments($gGet['idPost']);
+    $comments = $commentManager->getComments($gGet['idPost'])->fetchAll();
+    foreach ($comments as $comment) {
+        $comment['comment'] = htmlspecialchars($comment['comment']);
+        $comment['comDate'] = htmlspecialchars($comment['comDate']);
+        $comment['username'] = htmlspecialchars($comment['username']);
+    }
     $ncomment = $ncomment_err = "";
     if ($gServer["REQUEST_METHOD"] == "POST") {
 
@@ -148,10 +152,19 @@ function inspectUser()
     $globals = new Globals;
     $gGet = $globals->getGET();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
-    $users = $userManager->getUser($gGet['id']);
-    $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
-    $userComs = $commentManager->getUserComments($gGet['id']);
+    $user = $userManager->getUser($gGet['id']);
+    $user['username'] = htmlspecialchars($user['username']);
+    $user['email'] = htmlspecialchars($user['email']);
+    $user['created_at'] = htmlspecialchars($user['created_at']);
 
+    $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
+    $userComs = $commentManager->getUserComments($gGet['id'])->fetchAll();
+    foreach ($userComs as $userCom) {
+        $userCom['comment'] = htmlspecialchars($userCom['comment']);
+        $userCom['comDate'] = htmlspecialchars($userCom['comDate']);
+        $userCom['username'] = htmlspecialchars($userCom['username']);
+        $userCom['title'] = htmlspecialchars($userCom['title']);
+    }
     require 'View/deleteUser.php';
     requestTemplate($content, $pagetitle);
 }

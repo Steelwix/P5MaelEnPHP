@@ -54,12 +54,12 @@
 
 
             <?php }
-            while ($comment = $comments->fetch()) {
+            foreach ($comments as $comment) {
             ?>
 
 
-                <p><strong><?= htmlspecialchars($comment['username']) ?></strong> le <small> <?= htmlspecialchars($comment['comDate']) ?> </small>
-                <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
+                <p><strong><?= $comment['username'] ?></strong> le <small> <?= $comment['comDate'] ?> </small>
+                <p><?= $comment['comment'] ?></p>
                 <br><br>
             <?php
             }

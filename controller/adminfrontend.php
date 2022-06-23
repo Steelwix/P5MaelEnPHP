@@ -7,11 +7,30 @@ use PHPMailer\PHPMailer\Exception;
 function adminSystem()
 {
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
-    $users = $userManager->getUsers();
+    $users = $userManager->getUsers()->fetchAll();
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
-    $posts = $postManager->getPosts();
+    $posts = $postManager->getPosts()->fetchAll();
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
-    $comments = $commentManager->getAllCom();
+    $comments = $commentManager->getAllCom()->fetchAll();
+    foreach ($posts as $post) {
+        $post['title'] = htmlspecialchars($post['title']);
+        $post['hat'] = htmlspecialchars($post['hat']);
+        $post['content'] = htmlspecialchars($post['content']);
+        $post['creation_date_fr'] = htmlspecialchars($post['creation_date_fr']);
+        $post['username'] = htmlspecialchars($post['username']);
+    }
+    foreach ($comments as $comment) {
+        $comment['comment'] = htmlspecialchars($comment['comment']);
+        $comment['comDate'] = htmlspecialchars($comment['comDate']);
+        $comment['username'] = htmlspecialchars($comment['username']);
+        $comment['title'] = htmlspecialchars($comment['title']);
+    }
+    foreach ($users as $user) {
+
+        $user['username'] = htmlspecialchars($user['username']);
+        $user['email'] = htmlspecialchars($user['email']);
+        $user['created_at'] = htmlspecialchars($user['created_at']);
+    }
     require 'View/admincell.php';
     requestTemplate($content, $pagetitle);
 }
@@ -24,7 +43,12 @@ function deletePost()
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $commentManager = new \OpenClassrooms\Blog\Model\CommentManager();
     $post = $postManager->getPost($gGet['idPost']);
-    $comments = $commentManager->getComments($gGet['idPost']);
+    $comments = $commentManager->getComments($gGet['idPost'])->fetchAll();
+    foreach ($comments as $comment) {
+        $comment['comment'] = htmlspecialchars($comment['comment']);
+        $comment['comDate'] = htmlspecialchars($comment['comDate']);
+        $comment['username'] = htmlspecialchars($comment['username']);
+    }
     require 'View/deletePost.php';
     requestTemplate($content, $pagetitle);
 }

@@ -1,4 +1,4 @@
-<?php $pagetitle = htmlspecialchars($users['username']);
+<?php $pagetitle = htmlspecialchars($user['username']);
 ?>
 
 <?php ob_start(); ?>
@@ -16,17 +16,18 @@
           </tr>
         </thead>
         <?php
-        if ($users['isAdmin'] == 1) {
-          $users['isAdmin'] = "administrateur";
+        if ($user['isAdmin'] == 1) {
+          $user['isAdmin'] = "administrateur";
         } else {
-          $users['isAdmin'] = "utilisateur";
-        } ?>
+          $user['isAdmin'] = "utilisateur";
+        }
+        $user['isAdmin'] = htmlspecialchars($user['isAdmin']); ?>
         <tbody>
           <tr>
-            <td><?= htmlspecialchars($users['username']) ?></td>
-            <td><?= htmlspecialchars($users['email']) ?></td>
-            <td><?= htmlspecialchars($users['created_at']) ?></td>
-            <td><?= htmlspecialchars($users['isAdmin']) ?></td>
+            <td><?= $user['username'] ?></td>
+            <td><?= $user['email'] ?></td>
+            <td><?= $user['created_at'] ?></td>
+            <td><?= $user['isAdmin'] ?></td>
 
 
             </td>
@@ -35,7 +36,7 @@
       </table>
       <br><br>
       <p>Voulez vous vraiment effacer cet utilisateur? <strong>Ceci est une action irréversible.</strong></p>
-      <a href="index.php?action=wipeUser&amp;id=<?= $users['id'] ?>" class="btn btn-danger">Oui, Supprimer cet utilisateur</a>
+      <a href="index.php?action=wipeUser&amp;id=<?= $user['id'] ?>" class="btn btn-danger">Oui, Supprimer cet utilisateur</a>
 
     </div>
     <div class="col-12">
@@ -43,11 +44,11 @@
       <h2>Commentaires de l'utilisateur</h2>
       <br>
       <?php
-      while ($ucom = $userComs->fetch()) {
+      foreach ($userComs as $userCom) {
       ?>
-        <p><small>le <?= htmlspecialchars($ucom['comDate']) ?> Sur le post <?= htmlspecialchars($ucom['title']) ?></small></p>
+        <p><small>le <?= $userCom['comDate'] ?> Sur le post <?= $userCom['title'] ?></small></p>
         <strong>
-          <p><?= nl2br(htmlspecialchars($ucom['comment'])) ?></p>
+          <p><?= $userCom['comment'] ?></p>
         </strong>
 
 
