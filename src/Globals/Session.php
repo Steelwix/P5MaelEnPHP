@@ -29,10 +29,10 @@ class MakeSession
     {
         //$session = new Session;
         //$zSession = $session->getSESSION();
-        $_SESSION['username'] = $username;
-        $_SESSION['id'] = $idUser;
-        $_SESSION['loggedin'] = $logged;
-        $_SESSION['isAdmin'] = $isAdmin;
-        $_SESSION['email'] = $email;
+        $_SESSION['username'] = htmlspecialchars($username);
+        $_SESSION['id'] = htmlspecialchars($idUser);
+        $_SESSION['loggedin'] = htmlspecialchars($logged);
+        $_SESSION['isAdmin'] = htmlspecialchars($isAdmin);
+        $_SESSION['email'] = htmlspecialchars($email);
     }
 }

@@ -36,8 +36,8 @@ class PostManager extends Manager
     }
     public function editPost($datetime, $title, $hat, $content, $author, $idPost)
     {
-        $req = $this->dataBase->prepare("UPDATE post SET  title = '$title', hat = '$hat', content = '$content', updateDate = '$datetime', id = '$author' WHERE idPost = ? ");
-        $req->execute(array($idPost));
+        $req = $this->dataBase->prepare("UPDATE post SET  title = :title, hat = :hat, content = :content, updateDate = :datetime, id = :author WHERE idPost = :idPost ");
+        $req->execute(array(':title' => $title, ':datetime' => $datetime, ':hat' => $hat, ':content' => $content, ':author' => $author, ':idPost' => $idPost,));
         return $req;
     }
 }

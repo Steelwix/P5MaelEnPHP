@@ -20,8 +20,9 @@
                 </div>
                 <div class="form-group">
                     <label>Contenu</label>
-                    <textarea type="text" name="content" class="form-control <?= (!empty($content_err)) ? 'is-invalid' : ''; ?>" value="<?= htmlspecialchars($content) ?>"></textarea>
+                    <textarea type="text" name="content" class="form-control <?= (!empty($content_err)) ? 'is-invalid' : ''; ?>"><?= htmlspecialchars($content) ?></textarea>
                     <span class="invalid-feedback"><?= $content_err; ?></span>
+                    </textarea>
                 </div>
                 <div class="form-group"><br>
                     <input type="submit" class="btn btn-primary" value="Submit">

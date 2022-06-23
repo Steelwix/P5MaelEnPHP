@@ -41,7 +41,6 @@ ob_start();
                     <input type="reset" class="btn btn-secondary ml-2" value="Réinitialiser">
                 </div><br>
                 <p>Déjà un compte? <a href="index.php?action=login&amp;" class="btn btn-success">Connectez vous</a></p>
-                <?php var_dump($adaptedAction); ?>
             </form>
         </div>
     </div>

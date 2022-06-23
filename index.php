@@ -169,7 +169,7 @@ try {
 
         if ($gGet['action'] == 'postEdit') {
             if (isset($gSession['isAdmin']) and $gSession['isAdmin'] == 1) {
-                if ($gPost['title'] == "" or $gPost['hat'] == "" or $gPost['content'] == "" or !isset($gSession['id']) or !isset($gGet['idPost'])) {
+                if ($gPost['title'] == "" or $gPost['hat'] == "" or $gPost['content'] == "") {
                     modifyPost();
                 } else {
 

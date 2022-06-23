@@ -138,6 +138,7 @@ function modifyPost()
 {
     $globals = new Globals;
     $gGet = $globals->getGET();
+    $gPost  = $globals->getPOST();
     $gServer = $globals->getSERVER();
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $post = $postManager->getPost($gGet['idPost']);
@@ -147,24 +148,20 @@ function modifyPost()
     $content = $post['content'];
 
     if ($gServer["REQUEST_METHOD"] == "POST") {
-        if (empty($gPost['title'])) {
-            $title_err = 'Please fill all blanks';
-        } else {
-            $title = $gPost['title'];
+        if ($gPost['title'] == "") {
+            $title_err = 'Le post doit avoir un titre';
         }
-        if (empty($gPost['hat'])) {
-            $hat_err = 'Please fill all blanks';
-        } else {
-            $hat = $gPost['hat'];
+        $title = $gPost['title'];
+        if ($gPost['hat']  == "") {
+            $hat_err = 'Le post doit avoir un petit texte d\'accroche';
         }
-        if (empty($gPost['content'])) {
-            $content_err = 'Please fill all blanks';
-        } else {
-            $content = $gPost['content'];
+        $hat = $gPost['hat'];
+        if ($gPost['content']  == "") {
+            $content_err = 'Le post doit posseder un contenu';
         }
-        if (isset($gPost['title']) && isset($gPost['hat']) && isset($gPost['content']) && isset($gSession['id'])) {
-        }
+        $content = $gPost['content'];
     }
+    $pagetitle = htmlspecialchars($post['title']);
     require 'View/modifypost.php';
     requestTemplate($content, $pagetitle);
 }
