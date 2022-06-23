@@ -15,7 +15,7 @@ ob_start();
             <?php
             }
             ?>
-            <form action="index.php?action=signin&amp;" method="post">
+            <form action="index.php?action=<?= $adaptedAction ?>&amp;" method="post">
                 <div class="form-group">
                     <label>Nom d'utilisateur</label>
                     <input type="text" name="username" class="form-control <?= (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?= htmlspecialchars($username) ?>">
@@ -37,10 +37,11 @@ ob_start();
                     <span class="invalid-feedback"><?= $confirm_password_err; ?></span>
                 </div><br>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="Confirmer">
+                    <input type="submit" class="btn btn-primary" value="<?= $buttonValue ?>">
                     <input type="reset" class="btn btn-secondary ml-2" value="Réinitialiser">
                 </div><br>
                 <p>Déjà un compte? <a href="index.php?action=login&amp;" class="btn btn-success">Connectez vous</a></p>
+                <?php var_dump($adaptedAction); ?>
             </form>
         </div>
     </div>

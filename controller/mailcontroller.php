@@ -20,37 +20,57 @@ function registerSystem()
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();
     $users = $userManager->getUsers();
     $username = $password = $email = $confirm_password = $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
+    $adaptedAction = 'register';
+    $buttonValue = 'Vérifier';
     if ($gServer["REQUEST_METHOD"] == "POST") {
         if (empty(trim($gPost['username'])) or empty(trim($gPost['username']))) {
             $username_err = "Indiquez un pseudo";
             $login_err = "Veuillez corriger les erreurs";
+            $adaptedAction = 'register';
+            $buttonValue = 'Vérifier';
+            $valueError = true;
         }
         if (filter_var($gPost['email'], FILTER_VALIDATE_EMAIL)) {
         } else {
             $email_err = "Respectez le format des emails";
             $login_err = "Veuillez corriger les erreurs";
+            $adaptedAction = 'register';
+            $buttonValue = 'Vérifier';
+            $valueError = true;
         }
         if ($gPost['password'] == "") {
             $password_err = "Veuillez définir un mot de passe";
+            $adaptedAction = 'register';
+            $buttonValue = 'Vérifier';
+            $valueError = true;
         }
-        if (($gPost['password'] !== $gPost['confirm_password']) == true) {
+        if (($gPost['password'] !== $gPost['confirm_password']) == true or $gPost['confirm_password'] == "") {
             $password_err = "Mots de passe non identiques.";
+            $confirm_password_err = "Mots de passe non identiques.";
             $login_err = "Veuillez corriger les erreurs";
-        } elseif (isset($gPost['username']) &&  isset($gPost['email']) && isset($gPost['password'])) {
-            while ($donnees = $users->fetch()) {
-                if ($gPost['username'] === $donnees['username']) {
-
-                    $username_err = "Pseudo déjà utilisé";
-                } elseif ($gPost['email'] === $donnees['email']) {
-
-                    $email_err = "email déjà utilisé";
-                } else {
-                    $gPost['username'] = $username;
-                    $gPost['email'] = $email;
-                    $gPost['password'] = $password;
-                }
+            $adaptedAction = 'register';
+            $buttonValue = 'Vérifier';
+        }
+        while ($donnees = $users->fetch()) {
+            if ($gPost['username'] === $donnees['username']) {
+                $login_err = "Un utilisateur utilise déjà ces informations";
+                $username_err = "Un utilisateur utilise déjà ce pseudo";
+                $valueError = true;
+            }
+            if ($gPost['email'] === $donnees['email']) {
+                $login_err = "Un utilisateur utilise déjà ces informations";
+                $username_err = "Un utilisateur utilise déjà ce pseudo";
+                $valueError = true;
             }
         }
+        if (!isset($valueError)) {
+            $adaptedAction = 'signin';
+            $buttonValue = 'Valider';
+        }
+        $username = $gPost['username'];
+        $email = $gPost['email'];
+        $password = $gPost['password'];
+        $confirm_password = $gPost['confirm_password'];
     }
     require 'View/register.php';
     requestTemplate($content, $pagetitle);
