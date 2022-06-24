@@ -14,7 +14,7 @@
 
         </div>
         <div class="col-lg-4 ">
-            <img src="public/images/portrait.jpg" class="mx-auto d-table img-fluid" width="auto" alt="Site logo">
+            <img src="public/images/portrait.jpg" class="mx-auto d-table img-fluid posttitle" width="auto" alt="Site logo">
         </div>
 
         <div class="col-lg-12">
