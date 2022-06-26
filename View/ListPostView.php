@@ -1,6 +1,9 @@
-<?php $pagetitle; ?>
+<?php $pagetitle;
 
-<?php ob_start(); ?>
+ob_start();
+
+
+?>
 <br><br>
 <header class="container">
     <div class="row">

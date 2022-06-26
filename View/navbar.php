@@ -6,7 +6,8 @@
     </button>
 
 
-    <?php if (isset($gSession["loggedin"]) && $gSession["loggedin"] === true) {
+    <?php
+    if ($gSession["loggedin"] == true) {
       $currentUser = $gSession['username']; ?>
       <!-- ONLINE NAVBAR -->
 

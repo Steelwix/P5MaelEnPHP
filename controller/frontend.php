@@ -38,6 +38,8 @@ function footer()
 
 function listPosts()
 {
+    $session = new Session;
+    $gSession = $session->getSESSION();
     $postManager = new \OpenClassrooms\Blog\Model\PostManager();
     $posts = $postManager->getPosts()->fetchAll();
     $userManager = new \OpenClassrooms\Blog\Model\UserManager();

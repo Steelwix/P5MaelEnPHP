@@ -47,6 +47,10 @@
                     </div>
                     <br>
                     <div class="form-group">
+                        <?php if ($gSession['isAdmin'] == 0) {
+                        ?> <p><small>Votre message sera soumis à modération avant d'être publié</small></p>
+                        <?php
+                        } ?>
                         <input type="submit" class="btn btn-primary" value="Publier">
                     </div>
                 </form><br>
