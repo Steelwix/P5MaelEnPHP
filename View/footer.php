@@ -23,7 +23,7 @@
     <div class="row">
       <div class="col-12 text-center">
         <ul class="navbar-nav me-auto">
-          <?php if (isset($gSession['loggedin']) && $gSession['loggedin'] === true) {
+          <?php if ($gSession['loggedin'] == true) {
           ?>
             <li class="nav-item">
               <a class="nav-link" href="index.php">Accueil
