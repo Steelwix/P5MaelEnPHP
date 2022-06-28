@@ -1,12 +1,7 @@
 <?php
-require_once 'model/PostManager.php';
-require_once 'model/CommentManager.php';
-require_once 'model/UserManager.php';
-require_once 'vendor/autoload.php';
-require_once 'src/Globals/Globals.php';
-require_once 'src/Globals/Session.php';
-require_once 'controller/adminfrontend.php';
-require_once 'controller/mailcontroller.php';
+
+
+
 
 use OpenClassrooms\Blog\Globals\Globals;
 use OpenClassrooms\Blog\Session\Session;

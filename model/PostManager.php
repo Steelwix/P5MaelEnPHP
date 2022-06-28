@@ -4,21 +4,21 @@ namespace OpenClassrooms\Blog\Model;
 
 use Manager;
 
-require_once "model/Manager.php";
-
 
 
 class PostManager extends Manager
 {
     public function getPosts()
     {
-        $req = $this->dataBase->query('SELECT post.idPost, post.title, post.hat, post.content, post.id, users.username, DATE_FORMAT(updateDate, \'%d/%m/%Y \') AS creation_date_fr FROM post INNER JOIN users ON post.id = users.id');
+        $req = $this->dataBase->query('SELECT post.idPost, post.title, post.hat, post.content, post.id, users.username, 
+        DATE_FORMAT(updateDate, \'%d/%m/%Y \') AS creation_date_fr FROM post INNER JOIN users ON post.id = users.id');
         return $req;
     }
 
     public function getPost($idPost)
     {
-        $req = $this->dataBase->prepare('SELECT post.idPost, post.title, post.hat, post.content, post.id, users.username, DATE_FORMAT(updateDate, \'%d/%m/%Y \') AS creation_date_fr FROM post INNER JOIN users ON post.id = users.id WHERE idPost = ?');
+        $req = $this->dataBase->prepare('SELECT post.idPost, post.title, post.hat, post.content, post.id, users.username, 
+        DATE_FORMAT(updateDate, \'%d/%m/%Y \') AS creation_date_fr FROM post INNER JOIN users ON post.id = users.id WHERE idPost = ?');
         $req->execute(array($idPost));
         $post = $req->fetch();
         return $post;

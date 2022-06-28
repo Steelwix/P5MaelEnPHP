@@ -4,8 +4,6 @@ namespace OpenClassrooms\Blog\Model;
 
 use Manager;
 
-require_once "model/Manager.php";
-
 
 
 class UserManager extends Manager
@@ -27,7 +25,8 @@ class UserManager extends Manager
     public function createUser($username, $email, $password, $datetime)
     {
 
-        $newUser = $this->dataBase->prepare("INSERT INTO users(id,isAdmin, created_at, username, email, password) VALUES(NULL, 0, :datetime,  :username, :email, :password)");
+        $newUser = $this->dataBase->prepare("INSERT INTO users(id,isAdmin, created_at, username, email, password) 
+        VALUES(NULL, 0, :datetime,  :username, :email, :password)");
         $newUser->execute(array(':datetime' => $datetime, ':username' => $username, ':email' => $email, ':password' => $password));
         return $newUser;
     }

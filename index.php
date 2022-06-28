@@ -1,10 +1,9 @@
 <?php
 
 session_start();
-require 'controller/frontend.php';
-require_once 'vendor/autoload.php';
-require_once 'src/Globals/Globals.php';
-require_once 'src/Globals/Session.php';
+require_once 'src/autoload.php';
+
+
 
 use OpenClassrooms\Blog\Globals\Globals;
 use OpenClassrooms\Blog\Session\Session;

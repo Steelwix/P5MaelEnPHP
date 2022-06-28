@@ -7,7 +7,7 @@
 
 
     <?php
-    if ($gSession["loggedin"] == true) {
+    if (isset($gSession["loggedin"]) and $gSession["loggedin"] == true) {
       $currentUser = $gSession['username']; ?>
       <!-- ONLINE NAVBAR -->
 
