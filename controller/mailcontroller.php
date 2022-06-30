@@ -1,6 +1,7 @@
 <?php
 
-
+//controller for every mailing function and functions with a link to the mailing system
+//call superglobals substitutes for functions and classes for the mailing system
 
 
 

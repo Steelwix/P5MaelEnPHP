@@ -1,10 +1,9 @@
 <?php
 
+//Every function about users
 namespace OpenClassrooms\Blog\Model;
 
 use Manager;
-
-
 
 class UserManager extends Manager
 {

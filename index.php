@@ -1,10 +1,11 @@
 <?php
 
 session_start();
+//Require all controllers and models
 require_once 'src/autoload.php';
 
 
-
+//Declare all superglobals substitutes for the router
 use OpenClassrooms\Blog\Globals\Globals;
 use OpenClassrooms\Blog\Session\Session;
 
@@ -95,7 +96,7 @@ try {
                 sendMailContact($gPost['email'], $gPost['message']);
             }
         }
-        //ADMIN----------------------------------------------------
+        //Actions reserved to admins
 
         if ($gGet['action'] == 'admincell') {
             if (isset($gSession['isAdmin']) and $gSession['isAdmin'] == 1) {

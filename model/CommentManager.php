@@ -1,6 +1,6 @@
 <?php
 
-
+//Every function about comments
 namespace OpenClassrooms\Blog\Model;
 
 use Manager;

@@ -1,5 +1,6 @@
 <?php
 
+//Every function about posts
 namespace OpenClassrooms\Blog\Model;
 
 use Manager;

@@ -1,8 +1,8 @@
 <?php
-
+//controller for functions reserved to admins
+//call superglobals substitutes for functions
 use OpenClassrooms\Blog\Globals\Globals;
 use OpenClassrooms\Blog\Session\Session;
-use PHPMailer\PHPMailer\Exception;
 
 function adminSystem()
 {
@@ -199,7 +199,7 @@ function welcome()
     $pagetitle = $gSession["username"];
     require 'View/welcome.php';
     requestTemplate($content, $pagetitle);
-    if (!isset($gSession['loggedin']) || $gSession['loggedin'] !== true) {
+    if (!isset($gSession['loggedin']) or $gSession['loggedin'] != true) {
         $location = "Location: index.php";
         requestMain($location);
     }

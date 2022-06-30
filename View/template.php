@@ -15,6 +15,7 @@
 
 <body>
     <?php navbar(); ?>
+
     <?= $content ?>
 
     <?php footer(); ?>

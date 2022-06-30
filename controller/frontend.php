@@ -1,6 +1,7 @@
 <?php
 
-
+//main controller 
+//call superglobals substitutes for functions
 
 
 use OpenClassrooms\Blog\Globals\Globals;
@@ -196,7 +197,10 @@ function editUserAdmin()
     $username = $user['username'];
     $email = $user['email'];
     $password = $confirm_password = $user['password'];
-    $isAdmin = $user['isAdmin'];
+    if (isset($isAdmin)) {
+    } else {
+        $isAdmin = $user['isAdmin'];
+    }
     $adaptedAction = 'editUserAdmin';
     $buttonValue = 'Vérifier';
     if ($gServer["REQUEST_METHOD"] == "POST") {
@@ -237,6 +241,7 @@ function editUserAdmin()
                     $buttonValue = 'Valider';
                     if (($gSession['isAdmin'] == 1)) {
                         $adaptedAction = 'userUpdateAdmin';
+                        $isAdmin = $gPost['isAdmin'];
                     } else {
                         $adaptedAction = 'userUpdate';
                     }

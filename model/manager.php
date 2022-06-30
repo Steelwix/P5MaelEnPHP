@@ -1,5 +1,5 @@
 <?php
-
+//Main model class, connect the website to database
 class Manager
 {
   protected $dataBase;
