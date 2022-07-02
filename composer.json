@@ -1,0 +1,15 @@
+{
+    "name": "steelwix/mael-en-php",
+    "autoload": {
+        "psr-4": {
+            "Steelwix\\MaelEnPhp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Steelwix",
+            "email": "mhunmael@hotmail.com"
+        }
+    ],
+    "require": {}
+}
