@@ -162,7 +162,6 @@ function inspectUser()
     foreach ($userComs as $userCom) {
         $userCom['comment'] = htmlspecialchars($userCom['comment']);
         $userCom['comDate'] = htmlspecialchars($userCom['comDate']);
-        $userCom['username'] = htmlspecialchars($userCom['username']);
         $userCom['title'] = htmlspecialchars($userCom['title']);
     }
     $pagetitle = htmlspecialchars($user['username']);
