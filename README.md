@@ -2,7 +2,7 @@
 
 Pour installer et naviguer sur le blog, suivez les étapes suivantes :
 
-1- Récuperer le contenu du blog sur le dépot GitHub : https://github.com/Steelwix/P5MaelEnPHP/tree/master
+1- Récuperer le contenu du blog sur le dépot GitHub : https://github.com/Steelwix/P5MaelEnPHP/tree/main
 
 2- Installer le dossier du blog dans le dossier wamp64/www
 
