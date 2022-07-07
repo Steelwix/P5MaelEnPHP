@@ -68,6 +68,7 @@ try {
             } else {
 
                 userUpdate($gPost['username'], $gPost['email'], $gPost['password'], $gGet['id']);
+                logOutSystem();
             }
         }
         if ($gGet['action'] == 'overallSetting') {
