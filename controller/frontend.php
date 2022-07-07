@@ -193,14 +193,23 @@ function editUserAdmin()
     $user = $userManager->getUser($gGet['id']);
     $users = $userManager->getUsers();
     $username_err = $password_err = $login_err = $email_err = $confirm_password_err = "";
-    $username = $user['username'];
+    if (!isset($username)) {
+        $username = $user['username'];
+    } else {
+    }
     $email = $user['email'];
     $password = $confirm_password = $user['password'];
     if (isset($isAdmin)) {
     } else {
         $isAdmin = $user['isAdmin'];
     }
-    $adaptedAction = 'editUserAdmin';
+    $adaptedAction = 0;
+    $validForm = 1;
+    if ($gSession['isAdmin'] == 1 and (($adaptedAction !== 'userUpdateAdmin') or ($adaptedAction !== 'userUpdate'))) {
+        $adaptedAction = 'editUserAdmin';
+    } else {
+        $adaptedAction = 'editUser';
+    }
     $buttonValue = 'Vérifier';
     if ($gServer["REQUEST_METHOD"] == "POST") {
         if (empty(trim($gPost['username'])) or empty(trim($gPost['username']))) {
@@ -223,7 +232,13 @@ function editUserAdmin()
         if (isset($gPost['username']) &&  isset($gPost['email']) && isset($gPost['password'])) {
             while ($donnees = $users->fetch()) {
                 if ($gPost['username'] === $donnees['username'] and $gGet['id'] != $donnees['id']) {
-                    $adaptedAction = 'editUserAdmin';
+                    if (($gSession['isAdmin'] == 1)) {
+                        $adaptedAction = 'editUserAdmin';
+                    } else {
+                        $adaptedAction = 'editUser';
+                    }
+                    $validForm = 0;
+                    $buttonValue = 'Vérifier';
                     $username_err = "Pseudo déjà utilisé";
                     $login_ok = "Veuillez corriger les erreurs";
                 }
@@ -231,13 +246,20 @@ function editUserAdmin()
 
                     $email_err = "email déjà utilisé";
                     $login_ok = "Veuillez corriger les erreurs";
-                    $adaptedAction = 'editUserAdmin';
+                    $validForm = 0;
+                    $buttonValue = 'Vérifier';
+                    if (($gSession['isAdmin'] == 1)) {
+                        $adaptedAction = 'editUserAdmin';
+                    } else {
+                        $adaptedAction = 'editUser';
+                    }
                 }
-                if ($gPost['username'] === $donnees['username'] and $gGet['id'] == $donnees['id'] and $gPost['email'] === $donnees['email'] and $gGet['id'] == $donnees['id']) {
-                    $gPost['username'] = $username;
-                    $gPost['email'] = $email;
-                    $gPost['password'] = $password;
+                if ($validForm == 1) {
+                    $username = $gPost['username'];
+                    $email = $gPost['email'];
+                    $password = $gPost['password'];
                     $buttonValue = 'Valider';
+                    $validUsername = 0;
                     if (($gSession['isAdmin'] == 1)) {
                         $adaptedAction = 'userUpdateAdmin';
                         $isAdmin = $gPost['isAdmin'];
