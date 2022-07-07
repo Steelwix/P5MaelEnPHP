@@ -11,5 +11,7 @@
             "email": "mhunmael@hotmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "phpmailer/phpmailer": "^6.6"
+    }
 }
